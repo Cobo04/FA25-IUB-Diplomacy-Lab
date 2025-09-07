@@ -1,39 +1,184 @@
-/* FONT DEFINITIONS - https://www.18theses.com/The%20Defense%20Reformation.pdf */
+/* GENERAL THEME
+    - Black: #000000
+    - Tan: #F4F5E5
+    - Olive: #758D59
+    - FONT DEFINITIONS - https://www.18theses.com/The%20Defense%20Reformation.pdf 
+*/
 
 @font-face {
-    src: url(../fonts/alliance1.otf) format("otf");
+    src: url(../fonts/alliance1.otf) format("opentype");
     font-family: "Alliance No. 1";
     font-weight: 400;
     font-style: "normal";
 }
 
 @font-face {
-    src: url(../fonts/alliance2.otf) format("otf");
+    src: url(../fonts/alliance2.otf) format("opentype");
     font-family: "Alliance No. 2";
     font-weight: 500;
     font-style: "normal";
 }
 
 @font-face {
-    src: url(../fonts/ApercuMonoProBold.ttf) format("ttf");
+    src: url(../fonts/ApercuMonoProBold.ttf) format("truetype");
     font-family: "ApercuMono Bold";
     font-style: "normal";
 }
 
 @font-face {
-    src: url(../fonts/ApercuMonoProLight.ttf) format("ttf");
+    src: url(../fonts/ApercuMonoProLight.ttf) format("truetype");
     font-family: "ApercuMono Light";
     font-style: "normal";
 }
 
 @font-face {
-    src: url(../fonts/ApercuMonoProMedium.ttf) format("ttf");
+    src: url(../fonts/ApercuMonoProMedium.ttf) format("truetype");
     font-family: "ApercuMono Medium";
     font-style: "normal";
 }
 
 @font-face {
-    src: url(../fonts/ApercuMonoProRegular.ttf) format("ttf");
+    src: url(../fonts/ApercuMonoProRegular.ttf) format("truetype");
     font-family: "ApercuMono Regular";
     font-style: "normal";
+}
+
+:root {
+    --themeBlack: #000000;
+    --themeTan: #F4F5E5;
+    --themeOlive: #758D59;
+    --font-a1: "Alliance No. 1";
+    --font-a2: "Alliance No. 2";
+    --font-apercu: "ApercuMono Medium";
+}
+
+/* TEMPORARY Landing Page */
+
+body {
+    /* Prevent browser-default margins and paddings from creating a scrollbar */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.full-screen {
+    height: 100vh; /* 100% of the viewport height */
+    width: 100vw;  /* 100% of the viewport width */
+
+    background-color: var(--themeBlack);
+}
+
+.landingHeader {
+    color: var(--themeTan);
+    font-family: var(--font-a1);
+    font-weight: 400;
+    font-size: clamp(2rem, 5vw, 5rem); /* Responsive font size */
+    letter-spacing: .01em;
+    margin-bottom: 25px;
+    line-height: 1.2em;
+}
+
+.debug {
+    border: 2px solid red;
+}
+
+.landingContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.landingOuterContainer {
+    height: 15%;
+    padding: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.landingMiddleContainer {
+    height: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 3em;
+}
+
+.landingUpperLine {
+    border: 2px solid var(--themeOlive);
+    width: 100%;
+    height: 0px;
+}
+
+.landingButton {
+    width: 10em;
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    background: none;
+    border: 2px solid var(--themeOlive);
+    margin: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: 0.1em;
+}
+
+.landingButton:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
+}
+
+.upperContainerContainer {
+    width: 100%;
+    display: flex;
+}
+
+.IUB-Splash {
+    font-family: var(--font-a1);
+    color: var(--themeTan);
+    display: flex;
+    align-self: flex-start;
+    margin: 0px;
+}
+
+.landingPersonDescriptionNames {
+    border-top: 1px solid var(--themeOlive);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    width: 70%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.landingPersonDescriptionIU {
+    border-top: 1px solid var(--themeOlive);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    width: 30%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.landingLowerContainer {
+    display: flex;
+    height: 15%;
+    align-items: center;
+    justify-content: center;
+    margin: 3em;
+    flex-direction: row;
+}
+
+.marginRight {
+    margin-right: 3em;
+}
+
+.marginLeft {
+    margin-left: 3em;
+}
+
+.smaller {
+    font-size: 0.7em;
 }
