@@ -1,1 +1,39 @@
-/* FONT DEFINITIONS - https://www.18theses.com/The%20Defense%20Reformation.pdf*/
+/* FONT DEFINITIONS - https://www.18theses.com/The%20Defense%20Reformation.pdf */
+
+@font-face {
+    src: url(../fonts/alliance1.otf) format("otf");
+    font-family: "Alliance No. 1";
+    font-weight: 400;
+    font-style: "normal";
+}
+
+@font-face {
+    src: url(../fonts/alliance2.otf) format("otf");
+    font-family: "Alliance No. 2";
+    font-weight: 500;
+    font-style: "normal";
+}
+
+@font-face {
+    src: url(../fonts/ApercuMonoProBold.ttf) format("ttf");
+    font-family: "ApercuMono Bold";
+    font-style: "normal";
+}
+
+@font-face {
+    src: url(../fonts/ApercuMonoProLight.ttf) format("ttf");
+    font-family: "ApercuMono Light";
+    font-style: "normal";
+}
+
+@font-face {
+    src: url(../fonts/ApercuMonoProMedium.ttf) format("ttf");
+    font-family: "ApercuMono Medium";
+    font-style: "normal";
+}
+
+@font-face {
+    src: url(../fonts/ApercuMonoProRegular.ttf) format("ttf");
+    font-family: "ApercuMono Regular";
+    font-style: "normal";
+}
