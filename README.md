@@ -3,7 +3,7 @@ Quantitative analysis on the Chinese Space Industrial Complex
 
 ## ⚡ Quickstart
 
-### WSL
+### WSL + Mac
 
 Clone the repository:
 
