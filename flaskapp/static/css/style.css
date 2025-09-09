@@ -78,6 +78,15 @@ body {
     line-height: 1.2em;
 }
 
+.landingHeaderSmall {
+    color: var(--themeTan);
+    font-family: var(--font-a1);
+    font-weight: 400;
+    font-size: clamp(2em, 3vw, 3rem);
+    letter-spacing: .01em;
+    line-height: 1.2em;
+}
+
 .debug {
     border: 2px solid red;
 }
@@ -101,7 +110,8 @@ body {
     height: 60%;
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    /* align-items: center; */
+    flex-direction: column;
     padding: 3em;
 }
 
