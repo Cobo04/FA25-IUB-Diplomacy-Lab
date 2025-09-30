@@ -50,6 +50,7 @@
     --font-a1: "Alliance No. 1";
     --font-a2: "Alliance No. 2";
     --font-apercu: "ApercuMono Medium";
+    --control-size: 3.6rem; /* used for square button size */
 }
 
 /* TEMPORARY Landing Page */
@@ -191,4 +192,66 @@ body {
 
 .smaller {
     font-size: 0.7em;
+}
+
+body.with-preloader{
+  overflow: hidden; /* to prevent scrolling */
+}
+
+/* Home page css */
+
+.homeInnerContainer {
+    display: flex;
+    flex-direction: row;
+    height: 60%;
+    justify-content: center;
+    align-items: center;
+}
+
+.passwordForm {
+    display: flex;
+    flex-direction: row;
+    /* stretch children vertically so button can match input height */
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Make each direct child take up one third of the viewport width */
+.passwordForm > * {
+    flex: 0 0 33.333vw; 
+    max-width: 33.333vw;
+    box-sizing: border-box;
+}
+
+.password_input {
+    border: 2px solid var(--themeOlive);
+    background-color: var(--themeBlack);
+    font-family: var(--font-apercu);
+    /* text-align: center; */
+    color: var(--themeTan);
+    width: 100%; /* fill its third-slot */
+    padding: 0.6rem 0.8rem;
+}
+
+.passwordForm button {
+    flex: 0 0 auto; /* keep fixed width but allow height to flow */
+    width: var(--control-size);
+    height: auto; /* allow the button to match the input height */
+    padding: 0.6rem 0.8rem; /* match input vertical padding */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: var(--themeBlack);
+    color: var(--themeTan);
+    border: 2px solid var(--themeOlive);
+}
+
+.passwordForm button:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
 }

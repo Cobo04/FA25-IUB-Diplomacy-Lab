@@ -16,7 +16,7 @@
 
                     <button class="landingButton">PDF <i class="bi bi-download"></i></button>
     
-                    <button  class="landingButton" onclick="location.href='{{ url_for('home') }}';">View <i class="bi bi-arrow-right"></i></button>
+                    <button  class="landingButton" onclick="location.href='{{ url_for('render_index') }}';">Home <i class="bi bi-arrow-left"></i></button>
 
                 </div>
 
@@ -24,10 +24,12 @@
 
             </div>
 
-            <div class="landingMiddleContainer">
+            <div class="homeInnerContainer">
 
-                <h1 class="landingHeader"><strong>Chinese Space Technology:</strong></h1>
-                <h2 class="landingHeaderSmall"><strong>Landscape Analysis, Foreign Ties, and Risks to U.S. Interests</strong></h2>
+                <form class="passwordForm" action="{{ url_for('login') }}" method="post">
+                    <input class="password_input" type="password" name="password" placeholder="Enter Password">
+                    <button><i class="bi bi-send"></i></button>
+                </form>
                 
             </div>
 
