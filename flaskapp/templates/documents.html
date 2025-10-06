@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+    <div class="full-screen preloader">
+
+        <div class="landingContainer">
+
+            <div class="landingOuterContainer">
+
+                <div class="upperContainerContainer">
+
+                    <hr class="landingUpperLine">
+    
+                    <button  class="landingButton" onclick="location.href='{{ url_for('render_index') }}';">Home <i class="bi bi-arrow-left"></i></button>
+
+                </div>
+
+                <p class="IUB-Splash">State Department Diplomacy Lab Project 383</p>
+
+            </div>
+
+            <div class="homeInnerContainer debug">
+
+                <p>Documents will be placed here within their respective cards.</p>
+                
+            </div>
+
+            <div class="landingLowerContainer">
+
+                <div class="landingPersonDescriptionNames marginRight">
+                    <p class="smaller">CREATED BY</p>
+                    <p>Eva Collins, Cohen Schulz, Cameron Coy, Leah English, and Reagan Rosner</p>
+                </div>
+
+                <div class="landingPersonDescriptionIU marginRight">
+                    <p class="smaller">ON BEHALF OF</p>
+                    <p>Indiana University Bloomington</p>
+                </div>
+                
+            </div>
+            
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -19,6 +19,10 @@ def render_index():
     session['logged_in'] = False
     return render_template("index.html")
 
+@app.route("/documents")
+def documents():
+    return render_template("documents.html")
+
 @app.route("/dashboard")
 def dashboard():
     if 'logged_in' in session and session['logged_in']:
