@@ -339,7 +339,7 @@ body.with-preloader{
     width: 85%;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: top;
     justify-content: top;
 }
@@ -426,4 +426,144 @@ body.with-preloader{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.dashboard-grid {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    height: 80%;
+    color: var(--themeTan);
+    font-family: var(--font-apercu);
+}
+
+/* Left section (main grid) */
+.main-grid {
+  display: flex;
+  flex-direction: column;
+  flex: 3;
+  gap: 20px;
+}
+
+/* Welcome box */
+.welcome-box {
+  flex: 1;
+  border: 2px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid var(--themeOlive);
+  color: var(--themeTan);
+}
+
+/* Stats row */
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  height: 40%;
+}
+
+.stat-box {
+    flex: 1;
+    padding: 15px;
+    text-align: center;
+    border: 2px solid var(--themeOlive);
+    color: var(--themeTan);
+    /* layout so title stays at top and number centers in remaining space */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 8rem;
+}
+
+/* keep the title pinned to the top for stat boxes (only targets titles inside stat-box) */
+.stat-box > .side-box-title {
+    margin-bottom: 0.5rem;
+    /* keep visual style but don't let it absorb vertical centering */
+    padding-bottom: 0.25rem;
+}
+
+/* Right section (server stats/logs) */
+.side-box {
+  flex: 1;
+  border: 2px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 2px solid var(--themeOlive);
+  color: var(--themeTan);
+}
+
+.welcome-text {
+    font-family: var(--font-a1);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.welcome-subtext {
+    font-family: var(--font-apercu);
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+.side-box-title {
+    font-family: var(--font-a1);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+    border-bottom: 2px solid var(--themeOlive);
+    padding-bottom: 10px;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    margin: 0;
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    /* center the number in the remaining vertical space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-direction: row;
+}
+
+.refresh-button {
+    border: 2px solid var(--themeOlive);
+    background-color: var(--themeBlack);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    width: 50%;
+    padding: 0.5rem;
+}
+
+.refresh-button:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
+}
+
+.admin-link {
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    text-decoration: none;
+    border: 2px solid var(--themeOlive);
+    text-align: center;
+    padding: 0.5rem;
+    width: 50%;
+}
+
+.admin-link:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
 }

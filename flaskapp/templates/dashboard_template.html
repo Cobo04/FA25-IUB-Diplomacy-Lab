@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboardContainer">
+
+    <div class="sidebar">
+        <div class="sidebarUpperContainer">
+            <div class="sidebarTitle"><strong>S.P.A.C.E</strong></div>
+        </div>
+
+        <div class="sidebarLowerContainer">
+            <div class="sidebarSectionTitle">Visualization</div>
+            <a href="" class="sidebarLink">Dashboard</a>
+            <a href="" class="sidebarLink">Interactive Map</a>
+            <a href="" class="sidebarLink">Link Analysis</a>
+            <a href="" class="sidebarLink">Company Database</a>
+            <a href="" class="sidebarLink">Add Company</a>
+
+            <div class="sidebarSectionTitle">S.P.A.C.E Score</div>
+            <a href="" class="sidebarLink">Score Database</a>
+            <a href="" class="sidebarLink">Add Score</a>
+
+            <div class="sidebarSectionTitle">Resources</div>
+            <a href="https://github.com/Cobo04/FA25-IUB-Diplomacy-Lab" class="sidebarLink">Documentation</a>
+            <a href="{{ url_for('documents') }}" class="sidebarLink">Research Reports</a>
+
+            <div class="sidebarSectionTitle">Miscellanious</div>
+            <a href="" class="sidebarLink">Settings</a>
+            <a href="" class="sidebarLink">Administrator Panel</a>
+            <a href="{{ url_for('render_index') }}" class="sidebarLink">Logout</a>
+        </div>
+    </div>
+
+    <div class="mainContent">
+
+        <div class="mainContentUpperContainer">
+
+            <div class="mainContentTitle">Dashboard</div>
+
+            <div class="mainContentSearchContainer">
+                <input type="text" class="mainContentSearchBar" placeholder="Search...">
+                <!-- <button class="mainContentSearchButton"><i class="bi bi-send"></i></button> -->
+            </div>
+
+            <div class="mainContentButtonContainer">
+                <button class="mainContentButton"><i class="bi bi-bell"></i></button>
+                <button class="mainContentButton"><i class="bi bi-grid-3x3-gap"></i></button>
+                <button class="mainContentButton"><i class="bi bi-info-circle"></i></button>
+            </div>
+
+        </div>
+
+        {%block dashboard_content %}{% endblock %}
+        
+    </div>
+
+</div>
+
+{% endblock %}
