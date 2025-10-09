@@ -29,6 +29,13 @@ def dashboard():
         return render_template("dashboard.html")
     else:
         return redirect(url_for('login'))
+    
+@app.route("/map")
+def map():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("map.html")
+    else:
+        return redirect(url_for('login'))
 
 @app.route("/login", methods=["POST", "GET"])
 def login():

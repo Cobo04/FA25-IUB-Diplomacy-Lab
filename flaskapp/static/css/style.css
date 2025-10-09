@@ -447,14 +447,14 @@ body.with-preloader{
 
 /* Welcome box */
 .welcome-box {
-  flex: 1;
-  border: 2px solid black;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 2px solid var(--themeOlive);
-  color: var(--themeTan);
+    flex: 1;
+    border: 2px solid black;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid var(--themeOlive);
+    color: var(--themeTan);
 }
 
 /* Stats row */
@@ -566,4 +566,31 @@ body.with-preloader{
     background-color: var(--themeOlive);
     color: var(--themeBlack);
     cursor: pointer;
+}
+
+.console-row-log {
+    height: 20%;
+    overflow-y: auto;
+    border: 2px solid var(--themeOlive);
+    padding: 10px;
+    background-color: var(--themeBlack);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    font-size: 0.9rem;
+}
+
+.extra-width {
+  border: 2px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 2px solid var(--themeOlive);
+  color: var(--themeTan);
+  width: 35%;
+}
+
+.chartdiv {
+        width: 100%;
+        height: 100%;
 }

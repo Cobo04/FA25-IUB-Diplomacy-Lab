@@ -1,0 +1,35 @@
+{% extends "dashboard_template.html" %}
+
+{% block dashboard_content %}
+
+<div class="dashboard-grid">
+
+    <div class="main-grid">
+        <div class="welcome-box">
+            <div id="chartdiv" class="chartdiv"></div>
+        </div>
+        
+        <div class="console-row-log">
+            <p>Console output and log of events?</p>
+        </div>
+
+    </div>
+
+    <div class="extra-width">
+        <h1 class="side-box-title">Company Overview</h1>
+        <p>This box will hold the data for the selected company.</p>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+<!-- amCharts v5 core, maps and geodata via CDN -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<!-- local script that initializes the map -->
+<script src="{{ url_for('static', filename='scripts/map-script.js') }}"></script>
+{% endblock %}
