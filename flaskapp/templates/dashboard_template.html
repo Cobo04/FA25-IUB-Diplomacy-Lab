@@ -23,13 +23,18 @@
             <a href="" class="sidebarLink">Score Database</a>
             <a href="" class="sidebarLink">Add Score</a>
 
+            <div class="sidebarSectionTitle">Satellite Visualization</div>
+            <a href="" class="sidebarLink">Orbitting Technology</a>
+            <a href="" class="sidebarLink">Satellite Database</a>
+            <a href="" class="sidebarLink">Add Satellite</a>
+
             <div class="sidebarSectionTitle">Resources</div>
             <a href="https://github.com/Cobo04/FA25-IUB-Diplomacy-Lab" class="sidebarLink">Documentation</a>
             <a href="{{ url_for('documents') }}" class="sidebarLink">Research Reports</a>
 
             <div class="sidebarSectionTitle">Miscellanious</div>
             <a href="" class="sidebarLink">Settings</a>
-            <a href="" class="sidebarLink">Administrator Panel</a>
+            <a href="{{ url_for('admin') }}" class="sidebarLink">Administrator Panel</a>
             <a href="{{ url_for('render_index') }}" class="sidebarLink">Logout</a>
         </div>
     </div>

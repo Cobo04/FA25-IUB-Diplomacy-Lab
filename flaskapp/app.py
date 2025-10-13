@@ -23,6 +23,13 @@ def render_index():
 def documents():
     return render_template("documents.html")
 
+@app.route("/admin")
+def admin():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("admin.html")
+    else:
+        return redirect(url_for('login'))
+
 @app.route("/dashboard")
 def dashboard():
     if 'logged_in' in session and session['logged_in']:

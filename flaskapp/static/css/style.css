@@ -594,3 +594,12 @@ body.with-preloader{
         width: 100%;
         height: 100%;
 }
+
+.admin-description {
+    font-family: var(--font-apercu);
+    color: red;
+    padding: 1rem;
+    margin: 1rem;
+    border: 2px solid var(--themeOlive);
+    text-align: center;
+}
