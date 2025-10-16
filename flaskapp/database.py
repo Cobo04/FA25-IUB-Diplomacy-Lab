@@ -17,7 +17,7 @@ def get_secret_key():
 # =========================
 
 def load_password():
-    path = os.path.join(os.path.expanduser("~"), "i211s25-password.txt")
+    path = os.path.join(os.path.expanduser("~"), "diplomacy-lab-password.txt")
     with open(path) as fh:
         return fh.read().strip()
 
@@ -28,9 +28,9 @@ def get_connection():
     """ Returns a connection to the database. """
     return pymysql.connect(
         host="db.luddy.indiana.edu",
-        user="i211s25_coschul",
+        user="dosdl_coschul",
         password=DB_PASSWORD,
-        database="i211s25_coschul",
+        database="dosdl_coschul",
         cursorclass=pymysql.cursors.DictCursor,
     )
 
