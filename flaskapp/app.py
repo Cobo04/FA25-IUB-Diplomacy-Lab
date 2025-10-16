@@ -23,6 +23,14 @@ def render_index():
 def documents():
     return render_template("documents.html")
 
+@app.route("/companies")
+def companies():
+    if 'logged_in' in session and session['logged_in']:
+        companies = db.get_companies()
+        return render_template("companies.html", companies=companies)
+    else:
+        return redirect(url_for('login'))
+
 @app.route("/admin")
 def admin():
     if 'logged_in' in session and session['logged_in']:

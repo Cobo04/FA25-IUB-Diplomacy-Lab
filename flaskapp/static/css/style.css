@@ -603,3 +603,12 @@ body.with-preloader{
     border: 2px solid var(--themeOlive);
     text-align: center;
 }
+
+.temp {
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    padding: 1rem;
+    margin: 1rem;
+    border: 2px solid var(--themeOlive);
+    text-align: center;
+}
