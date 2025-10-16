@@ -1,6 +1,10 @@
 import os, csv
 import pymysql
 
+# ============================
+# ===== Helper Functions =====
+# ============================
+
 def validate_password(password):
     # get the password hash from the secret.txt file
     with open("flaskapp/secret.txt", "r") as f:
@@ -11,6 +15,8 @@ def get_secret_key():
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
+def get_total_companies():
+    return len(csv_get_companies())
 
 # =========================
 # ===== Intialization =====
@@ -22,7 +28,7 @@ def load_password():
         return fh.read().strip()
 
 
-DB_PASSWORD = load_password()
+# DB_PASSWORD = load_password()
 
 def get_connection():
     """ Returns a connection to the database. """
@@ -89,4 +95,9 @@ def get_companies() -> list[dict]:
         curr.execute("SELECT * FROM companies")
         companies = curr.fetchall()
     conn.close()
+    return companies
+
+def csv_get_companies() -> list[dict]:
+    with open("flaskapp/companies.csv") as csvf:
+        companies = list(csv.DictReader(csvf))
     return companies

@@ -26,7 +26,7 @@ def documents():
 @app.route("/companies")
 def companies():
     if 'logged_in' in session and session['logged_in']:
-        companies = db.get_companies()
+        companies = db.csv_get_companies()
         return render_template("companies.html", companies=companies)
     else:
         return redirect(url_for('login'))
@@ -41,7 +41,8 @@ def admin():
 @app.route("/dashboard")
 def dashboard():
     if 'logged_in' in session and session['logged_in']:
-        return render_template("dashboard.html")
+        total_companies = db.get_total_companies()
+        return render_template("dashboard.html", total_companies=total_companies)
     else:
         return redirect(url_for('login'))
     

@@ -3,5 +3,28 @@
 {% block title %}Companies{% endblock %}
 
 {% block dashboard_content %}
-    <p class="temp">{{ companies }}</p>
+    <div class="company-table-container">
+
+        <table class="company-table">
+            <thead class="company-table-header">
+                <tr>
+                    <th>Company Name</th>
+                    <th>Space Score</th>
+                    <th>Date Added</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in companies %}
+                <tr>
+                    <td><a href="" class="company-table-link">{{ company['name'] }}</a></td>
+                    <td>{{ company['space_score'] }}</td>
+                    <td>{{ company['date_added'] }}</td>
+                    <td>{{ company['last_updated'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
 {% endblock %}
