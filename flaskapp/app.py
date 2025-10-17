@@ -5,6 +5,9 @@ import hashlib
 # database requirements
 from flaskapp import database as db
 
+# Visualization requirements
+from flaskapp import vis as vis
+
 
 
 # ===== Flask Initialization =====
@@ -46,6 +49,13 @@ def dashboard():
     else:
         return redirect(url_for('login'))
     
+@app.route("/server-stats")
+def server_stats():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("server_stats.html")
+    else:
+        return redirect(url_for('login'))
+
 @app.route("/map")
 def map():
     if 'logged_in' in session and session['logged_in']:

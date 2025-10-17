@@ -673,3 +673,7 @@ body.with-preloader{
     height: 85%;
     overflow-y: auto;
 }
+
+.extra-margin {
+    margin: 1rem;
+}
