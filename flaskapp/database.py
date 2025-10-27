@@ -1,5 +1,4 @@
 import os, csv
-import pymysql
 
 # ============================
 # ===== Helper Functions =====
@@ -30,45 +29,6 @@ def load_password():
 
 # DB_PASSWORD = load_password()
 
-def get_connection():
-    """ Returns a connection to the database. """
-    return pymysql.connect(
-        host="db.luddy.indiana.edu",
-        user="dosdl_coschul",
-        password=DB_PASSWORD,
-        database="dosdl_coschul",
-        cursorclass=pymysql.cursors.DictCursor,
-    )
-
-def initialize_db():
-    """ Initializes the database with the required tables. """
-    conn = get_connection()
-
-    _companies = """
-    CREATE TABLE companies (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100),
-        name_slug VARCHAR(100),
-        space_score INT
-    ) ENGINE = InnoDB;
-    """
-
-    with conn.cursor() as curr:
-        # Delete the tables if they already exist
-        curr.execute("DROP TABLE IF EXISTS companies")
-
-        # Add them again
-        curr.execute(_companies)
-
-    conn.commit()
-    conn.close()
-
-    # Add the companies csv data to the database
-    with open("companies.csv") as csvf:
-        companies = list(csv.DictReader(csvf))
-
-        for row in companies:
-            add_company(row)
 
 # ============================
 # ===== Company-Specific =====
