@@ -53,9 +53,35 @@ def server_stats():
     else:
         return redirect(url_for('login'))
 
+@app.route("/add-score", methods=["GET", "POST"])
+def add_score():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("add-score.html")
+    else:
+        return redirect(url_for('login'))
+
 @app.route("/add-company", methods=["GET", "POST"])
 def add_company():
     if 'logged_in' in session and session['logged_in']:
+        
+        if request.method == "POST":
+            # process form data
+            user_name = request.form.get("user_name")
+            org_name = request.form.get("org_name")
+            company_name = request.form.get("company_name")
+            # additional fields would be processed here
+
+            new_company = {
+                "name": company_name,
+                "name_slug": company_name.lower().replace(" ", "-"),
+                "user_name": user_name,
+                "org_name": org_name,
+                "space_score": 0  # default score; would be calculated based on additional fields
+            }
+
+            db.add_company(new_company)
+
+            return redirect(url_for('companies'))
         return render_template("add-company.html")
     else:
         return redirect(url_for('login'))

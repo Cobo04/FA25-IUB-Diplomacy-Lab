@@ -1,4 +1,4 @@
-import os, csv
+import os, pymysql
 
 # ============================
 # ===== Helper Functions =====
@@ -14,21 +14,48 @@ def get_secret_key():
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
-def get_total_companies():
-    return len(csv_get_companies())
 
 # =========================
 # ===== Intialization =====
 # =========================
 
 def load_password():
-    path = os.path.join(os.path.expanduser("~"), "diplomacy-lab-password.txt")
+    path = os.path.join("flaskapp/diplab-password.txt")
     with open(path) as fh:
         return fh.read().strip()
 
+DB_PASSWORD = load_password()
 
-# DB_PASSWORD = load_password()
+def get_connection():
+    return pymysql.connect(
+        host="sasrdsmp01.uits.iu.edu",
+        user="diplab25_root",
+        password=DB_PASSWORD,
+        database="api",
+        cursorclass=pymysql.cursors.DictCursor,
+    )
 
+def initialize_db():
+    conn = get_connection()
+
+    _companies = """
+    CREATE TABLE companies (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        name_slug VARCHAR(255) NOT NULL,
+        user_name VARCHAR(255) NOT NULL,
+        org_name VARCHAR(255) NOT NULL,
+        space_score INT NOT NULL
+    );
+    """
+
+    with conn.cursor() as cursor:
+        #Delete the tables if they exist and recreate them
+        cursor.execute("DROP TABLE IF EXISTS companies;")
+        cursor.execute(_companies)
+
+    conn.commit()
+    conn.close()
 
 # ============================
 # ===== Company-Specific =====
@@ -36,28 +63,17 @@ def load_password():
 
 def add_company(company: dict) -> None:
     conn = get_connection()
-    with conn.cursor() as curr:
-        curr.execute(
-            """
-            INSERT INTO companies
-                (name, name_slug, space_score)
-            VALUES
-                (%s, %s, %s)
-            """,
-            (company["name"], company["name_slug"], company["space_score"])
-        )
+    with conn.cursor() as cursor:
+        sql = """
+        INSERT INTO companies (name, name_slug, user_name, org_name, space_score)
+        VALUES (%s, %s, %s, %s, %s);
+        """
+        cursor.execute(sql, (
+            company["name"],
+            company["name_slug"],
+            company["user_name"],
+            company["org_name"],
+            company["space_score"]
+        ))
     conn.commit()
     conn.close()
-
-def get_companies() -> list[dict]:
-    conn = get_connection()
-    with conn.cursor() as curr:
-        curr.execute("SELECT * FROM companies")
-        companies = curr.fetchall()
-    conn.close()
-    return companies
-
-def csv_get_companies() -> list[dict]:
-    with open("flaskapp/companies.csv") as csvf:
-        companies = list(csv.DictReader(csvf))
-    return companies

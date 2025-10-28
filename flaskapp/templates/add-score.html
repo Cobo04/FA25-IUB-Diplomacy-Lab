@@ -1,0 +1,286 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Add Company{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="add-company-container">
+    <h1 class="add-company-title">Generate Space Score - COMPANY NAME</h1>
+    <hr class="add-company-break">
+    <form action="{{ url_for('add_company') }}" class="" method="post">
+
+        <h2 class="add-company-subtitle">Impact (I) - Consequence Severity <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+    
+        <h3 class="add-company-sub-subtitle">I1 Sectoral Criticality (0.30) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="i1-none" name="i1_sectoral_criticality" value="None" required>
+            <label for="i1-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="i1-low" name="i1_sectoral_criticality" value="Low" required>
+            <label for="i1-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="i1-medium" name="i1_sectoral_criticality" value="Medium" required>
+            <label for="i1-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="i1-high" name="i1_sectoral_criticality" value="High" required>
+            <label for="i1-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="i1-critical" name="i1_sectoral_criticality" value="Critical" required>
+            <label for="i1-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">I2 Systemic Dependancy (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="i2-none" name="i2_systemic_dependancy" value="None" required>
+            <label for="i2-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="i2-low" name="i2_systemic_dependancy" value="Low" required>
+            <label for="i2-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="i2-medium" name="i2_systemic_dependancy" value="Medium" required>
+            <label for="i2-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="i2-high" name="i2_systemic_dependancy" value="High" required>
+            <label for="i2-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="i2-critical" name="i2_systemic_dependancy" value="Critical" required>
+            <label for="i2-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">I3 Replacement Cost and Time (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="i3-none" name="i3_replacement_cost_and_time" value="None" required>
+            <label for="i3-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="i3-low" name="i3_replacement_cost_and_time" value="Low" required>
+            <label for="i3-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="i3-medium" name="i3_replacement_cost_and_time" value="Medium" required>
+            <label for="i3-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="i3-high" name="i3_replacement_cost_and_time" value="High" required>
+            <label for="i3-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="i3-critical" name="i3_replacement_cost_and_time" value="Critical" required>
+            <label for="i3-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">I4 Spillover and Escalation Potential (0.20) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="i4-none" name="i4_spillover_and_escalation_potential" value="None" required>
+            <label for="i4-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="i4-low" name="i4_spillover_and_escalation_potential" value="Low" required>
+            <label for="i4-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="i4-medium" name="i4_spillover_and_escalation_potential" value="Medium" required>
+            <label for="i4-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="i4-high" name="i4_spillover_and_escalation_potential" value="High" required>
+            <label for="i4-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="i4-critical" name="i4_spillover_and_escalation_potential" value="Critical" required>
+            <label for="i4-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Threat (T) - Intent + Capability (Likelihood) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <h3 class="add-company-sub-subtitle">T1 State Alignment and Control (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="t1-none" name="t1_state_alignment_and_control" value="None" required>
+            <label for="t1-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="t1-low" name="t1_state_alignment_and_control" value="Low" required>
+            <label for="t1-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="t1-medium" name="t1_state_alignment_and_control" value="Medium" required>
+            <label for="t1-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="t1-high" name="t1_state_alignment_and_control" value="High" required>
+            <label for="t1-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="t1-critical" name="t1_state_alignment_and_control" value="Critical" required>
+            <label for="t1-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">T2 Strategic Intent and MCF Posture (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="t2-none" name="t2_strategic_intent_and_mcf_posture" value="None" required>
+            <label for="t2-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="t2-low" name="t2_strategic_intent_and_mcf_posture" value="Low" required>
+            <label for="t2-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="t2-medium" name="t2_strategic_intent_and_mcf_posture" value="Medium" required>
+            <label for="t2-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="t2-high" name="t2_strategic_intent_and_mcf_posture" value="High" required>
+            <label for="t2-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="t2-critical" name="t2_strategic_intent_and_mcf_posture" value="Critical" required>
+            <label for="t2-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">T3 Operational Capability and Technical Maturity (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="t3-none" name="t3_operational_capability_and_technical_maturity" value="None" required>
+            <label for="t3-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="t3-low" name="t3_operational_capability_and_technical_maturity" value="Low" required>
+            <label for="t3-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="t3-medium" name="t3_operational_capability_and_technical_maturity" value="Medium" required>
+            <label for="t3-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="t3-high" name="t3_operational_capability_and_technical_maturity" value="High" required>
+            <label for="t3-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="t3-critical" name="t3_operational_capability_and_technical_maturity" value="Critical" required>
+            <label for="t3-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">T4 Behavioral and Historical Indicators (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="t4-none" name="t4_behavioral_and_historical_indicators" value="None" required>
+            <label for="t4-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="t4-low" name="t4_behavioral_and_historical_indicators" value="Low" required>
+            <label for="t4-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="t4-medium" name="t4_behavioral_and_historical_indicators" value="Medium" required>
+            <label for="t4-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="t4-high" name="t4_behavioral_and_historical_indicators" value="High" required>
+            <label for="t4-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="t4-critical" name="t4_behavioral_and_historical_indicators" value="Critical" required>
+            <label for="t4-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Vulnerability (V) - Degree of U.S./allied exposure to exploitation <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <h3 class="add-company-sub-subtitle">V1 Dependency Depth (0.35) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="v1-none" name="v1_dependency_depth" value="None" required>
+            <label for="v1-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="v1-low" name="v1_dependency_depth" value="Low" required>
+            <label for="v1-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="v1-medium" name="v1_dependency_depth" value="Medium" required>
+            <label for="v1-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="v1-high" name="v1_dependency_depth" value="High" required>
+            <label for="v1-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="v1-critical" name="v1_dependency_depth" value="Critical" required>
+            <label for="v1-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">V2 Proximity and Access (0.25) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="v2-none" name="v2_proximity_and_access" value="None" required>
+            <label for="v2-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="v2-low" name="v2_proximity_and_access" value="Low" required>
+            <label for="v2-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="v2-medium" name="v2_proximity_and_access" value="Medium" required>
+            <label for="v2-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="v2-high" name="v2_proximity_and_access" value="High" required>
+            <label for="v2-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="v2-critical" name="v2_proximity_and_access" value="Critical" required>
+            <label for="v2-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">V3 Opacity / Assurance Deficit (0.20) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="v3-none" name="v3_opacity_and_assurance_deficit" value="None" required>
+            <label for="v3-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="v3-low" name="v3_opacity_and_assurance_deficit" value="Low" required>
+            <label for="v3-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="v3-medium" name="v3_opacity_and_assurance_deficit" value="Medium" required>
+            <label for="v3-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="v3-high" name="v3_opacity_and_assurance_deficit" value="High" required>
+            <label for="v3-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="v3-critical" name="v3_opacity_and_assurance_deficit" value="Critical" required>
+            <label for="v3-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h3 class="add-company-sub-subtitle">V4 Interoperability Hooks (0.20) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="v4-none" name="v4_interoperability_hooks" value="None" required>
+            <label for="v4-none" class="add-user-label radio-label">No Data</label>
+
+            <input type="radio" id="v4-low" name="v4_interoperability_hooks" value="Low" required>
+            <label for="v4-low" class="add-user-label radio-label">Low</label>
+
+            <input type="radio" id="v4-medium" name="v4_interoperability_hooks" value="Medium" required>
+            <label for="v4-medium" class="add-user-label radio-label">Medium</label>
+
+            <input type="radio" id="v4-high" name="v4_interoperability_hooks" value="High" required>
+            <label for="v4-high" class="add-user-label radio-label">High</label>
+
+            <input type="radio" id="v4-critical" name="v4_interoperability_hooks" value="Critical" required>
+            <label for="v4-critical" class="add-user-label radio-label">Critical</label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Environmental Modifiers (E) - Mission and mitigation context <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <h3 class="add-company-sub-subtitle">E1 Mission Criticality ([0, 0.1]) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <input type="text" id="e1-mission-criticality-content-type" name="e1_mission_criticality_content_type" class="add-user-input" required>
+            <label for="e1-mission-criticality-content-type" class="add-user-label">Content Type</label>
+
+        </div> 
+
+        <button type="submit" class="submit-button">Add Company</button>
+    </form>
+</div>
+
+
+{% endblock %}
