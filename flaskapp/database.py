@@ -1,4 +1,7 @@
-import os, pymysql
+import os, pymysql, csv
+
+# this is cohen's message written in blood
+# THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
 
 # ============================
 # ===== Helper Functions =====
@@ -14,66 +17,30 @@ def get_secret_key():
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
-
 # =========================
 # ===== Intialization =====
 # =========================
 
-def load_password():
-    path = os.path.join("flaskapp/diplab-password.txt")
-    with open(path) as fh:
-        return fh.read().strip()
-
-DB_PASSWORD = load_password()
-
-def get_connection():
-    return pymysql.connect(
-        host="sasrdsmp01.uits.iu.edu",
-        user="diplab25_root",
-        password=DB_PASSWORD,
-        database="api",
-        cursorclass=pymysql.cursors.DictCursor,
-    )
-
-def initialize_db():
-    conn = get_connection()
-
-    _companies = """
-    CREATE TABLE companies (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        name_slug VARCHAR(255) NOT NULL,
-        user_name VARCHAR(255) NOT NULL,
-        org_name VARCHAR(255) NOT NULL,
-        space_score INT NOT NULL
-    );
-    """
-
-    with conn.cursor() as cursor:
-        #Delete the tables if they exist and recreate them
-        cursor.execute("DROP TABLE IF EXISTS companies;")
-        cursor.execute(_companies)
-
-    conn.commit()
-    conn.close()
+def get_companies_csv():
+    companies = []
+    with open("flaskapp/companies.csv", "r") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            companies.append(row)
+    return companies
 
 # ============================
 # ===== Company-Specific =====
 # ============================
 
-def add_company(company: dict) -> None:
-    conn = get_connection()
-    with conn.cursor() as cursor:
-        sql = """
-        INSERT INTO companies (name, name_slug, user_name, org_name, space_score)
-        VALUES (%s, %s, %s, %s, %s);
-        """
-        cursor.execute(sql, (
-            company["name"],
-            company["name_slug"],
-            company["user_name"],
-            company["org_name"],
-            company["space_score"]
-        ))
-    conn.commit()
-    conn.close()
+def add_company_to_csv(company_data):
+    fieldnames = ["name", "org_name", "company_name", "space_score"]
+    with open("flaskapp/companies.csv", "a", newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writerow(company_data)
+
+def get_total_companies():
+    with open("flaskapp/companies.csv", "r") as f:
+        reader = csv.reader(f)
+        total = sum(1 for row in reader) - 1  # subtract 1 for header
+    return total

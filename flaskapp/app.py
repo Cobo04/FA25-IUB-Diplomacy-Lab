@@ -26,7 +26,8 @@ def documents():
 @app.route("/companies")
 def companies():
     if 'logged_in' in session and session['logged_in']:
-        companies = db.csv_get_companies()
+        companies = db.get_companies_csv()
+        print(companies)
         return render_template("companies.html", companies=companies)
     else:
         return redirect(url_for('login'))

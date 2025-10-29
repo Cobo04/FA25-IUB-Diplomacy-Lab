@@ -17,10 +17,10 @@
             <tbody>
                 {% for company in companies %}
                 <tr>
-                    <td><a href="" class="company-table-link">{{ company['name'] }}</a></td>
+                    <td><a href="" class="company-table-link">{{ company['company_name'] }}</a></td>
                     <td>{{ company['space_score'] }}</td>
                     <td>{{ company['date_added'] }}</td>
-                    <td>{{ company['last_updated'] }}</td>
+                    <td>{{ company['date_updated'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
