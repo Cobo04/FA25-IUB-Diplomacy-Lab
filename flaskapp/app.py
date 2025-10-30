@@ -16,7 +16,6 @@
 
 # flask requirements
 from flask import Flask, render_template, request, redirect, url_for
-import hashlib
 
 # database requirements
 from flaskapp import database as db
@@ -60,24 +59,6 @@ def add_score():
 
 @app.route("/add-company", methods=["GET", "POST"])
 def add_company():
-    if request.method == "POST":
-        # process form data
-        user_name = request.form.get("user_name")
-        org_name = request.form.get("org_name")
-        company_name = request.form.get("company_name")
-        # additional fields would be processed here
-
-        new_company = {
-            "name": company_name,
-            "name_slug": company_name.lower().replace(" ", "-"),
-            "user_name": user_name,
-            "org_name": org_name,
-            "space_score": 0  # default score; would be calculated based on additional fields
-        }
-
-        db.add_company(new_company)
-
-        return redirect(url_for('companies'))
     return render_template("add-company.html")
 
 @app.route("/map")

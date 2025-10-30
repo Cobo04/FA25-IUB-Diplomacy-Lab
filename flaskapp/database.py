@@ -23,7 +23,7 @@ def get_secret_key():
 
 def get_companies_csv():
     companies = []
-    with open("flaskapp/companies.csv", "r") as f:
+    with open("companies.csv", "r") as f:
         reader = csv.DictReader(f)
         for row in reader:
             companies.append(row)
@@ -33,14 +33,14 @@ def get_companies_csv():
 # ===== Company-Specific =====
 # ============================
 
-def add_company_to_csv(company_data):
-    fieldnames = ["name", "org_name", "company_name", "space_score"]
-    with open("flaskapp/companies.csv", "a", newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writerow(company_data)
+# def add_company_to_csv(company_data):
+#     fieldnames = ["name", "org_name", "company_name", "space_score"]
+#     with open("companies.csv", "a", newline='') as f:
+#         writer = csv.DictWriter(f, fieldnames=fieldnames)
+#         writer.writerow(company_data)
 
 def get_total_companies():
-    with open("flaskapp/companies.csv", "r") as f:
+    with open("companies.csv", "r") as f:
         reader = csv.reader(f)
         total = sum(1 for row in reader) - 1  # subtract 1 for header
     return total
