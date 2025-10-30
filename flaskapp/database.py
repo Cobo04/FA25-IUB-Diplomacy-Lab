@@ -1,4 +1,4 @@
-import os, pymysql, csv
+import csv
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
