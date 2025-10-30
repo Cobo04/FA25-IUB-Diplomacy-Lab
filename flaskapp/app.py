@@ -18,7 +18,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 # database requirements
-from flaskapp import database as db
+# from flaskapp import database as db
 
 # ===== Flask Initialization =====
 
@@ -36,9 +36,9 @@ def documents():
 
 @app.route("/companies")
 def companies():
-    companies = db.get_companies_csv()
-    return render_template("companies.html", companies=companies)
-
+    # companies = db.get_companies_csv()
+    return render_template("companies.html")
+    # return render_template("companies.html", companies=companies)
 
 @app.route("/admin")
 def admin():
@@ -46,8 +46,9 @@ def admin():
 
 @app.route("/dashboard")
 def dashboard():
-    total_companies = db.get_total_companies()
-    return render_template("dashboard.html", total_companies=total_companies)
+    # total_companies = db.get_total_companies()
+    return render_template("dashboard.html")
+    # return render_template("dashboard.html", total_companies=total_companies)
 
 @app.route("/server-stats")
 def server_stats():
