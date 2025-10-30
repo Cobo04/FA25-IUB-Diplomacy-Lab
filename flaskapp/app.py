@@ -107,3 +107,12 @@ def login():
             return redirect(url_for('dashboard'))
         else:
             return render_template("login.html")
+
+# ===== Don't worry about it =====
+
+@app.route("/jupiter")
+def jupiter():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("jupiter.html")
+    else:
+        return redirect(url_for("login"))

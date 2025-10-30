@@ -1,0 +1,30 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Add Company{% endblock %}
+
+{% block dashboard_content %}
+
+<script>
+    // Select a random picture from static/images and display it here
+    document.addEventListener("DOMContentLoaded", function() {
+        const images = [
+            "{{ url_for('static', filename='images/jupiter1.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter2.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter3.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter4.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter5.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter6.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter7.jpg') }}",
+            "{{ url_for('static', filename='images/jupiter8.jpg') }}"
+        ];
+        const randomIndex = Math.floor(Math.random() * images.length);
+        const selectedImage = images[randomIndex];
+        document.getElementById("jupiter-image").src = selectedImage;
+    });
+</script>
+
+<div class="jupiter-container">
+    <img id="jupiter-image" class="jupiter-image" src="" alt="Random Jupiter Image">
+</div>
+
+{% endblock %}
