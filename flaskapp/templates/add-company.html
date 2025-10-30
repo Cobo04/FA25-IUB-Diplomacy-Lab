@@ -22,13 +22,242 @@
 
         </div>
 
+        <h2 class="add-company-subtitle">Scope and Seed List <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <h3 class="add-company-sub-subtitle">Institution Names and Locations: <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
         <div class="add-company-row">
 
             <label for="company-name" class="add-user-label">Company Name:
                 <input type="text" id="company-name" name="company_name" class="add-user-input" required>
             </label>
 
+            <label for="location" class="add-user-label">Location:
+                <input type="text" id="location" name="location" class="add-user-input" required>
+            </label>
+
         </div>
+
+        <button class="submit-button">Add Another Institution</button>
+
+        <h2 class="add-company-subtitle">Chinese-Language Company Name Discovery <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="chinese-name" class="add-user-label">Chinese Company Name:
+                <input type="text" id="chinese-name" name="chinese_name" class="add-user-input" required>
+            </label>
+
+            <label for="english-translation" class="add-user-label">English Translation:
+                <input type="text" id="english-translation" name="english_translation" class="add-user-input" required>
+            </label>
+
+        </div>
+
+        <button class="submit-button">Add Another Name</button>
+
+        <h2 class="add-company-subtitle">Corporate Identity and Hierarchy <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <h3 class="add-company-sub-subtitle">Unofficial Company Registries (Aggregators) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <label for="unofficial-registry-shareholders" class="add-user-label">Shareholder(s):
+                <textarea id="unofficial-registry-shareholders" name="unofficial_registry_shareholders" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="unofficial-registry-ubo" class="add-user-label">Ultimate Beneficial Owner(s) (UBO):
+                <textarea id="unofficial-registry-ubo" name="unofficial_registry_ubo" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="affiliates" class="add-user-label">Affiliates (if any):
+                <textarea id="affiliates" name="affiliates" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="licenses" class="add-user-label">Licenses (if any):
+                <textarea id="licenses" name="licenses" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="admin-penalties" class="add-user-label">Administrative Penalties (if any):
+                <textarea id="admin-penalties" name="admin_penalties" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="icp-registration" class="add-user-label">Internet Connection Provider (ICP) Records (if any):
+                <textarea type="text" id="icp-registration" name="icp_registration" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+            <label for="branches" class="add-user-label">Branches (if any):
+                <textarea id="branches" name="branches" class="add-user-input" required></textarea>
+            </label>
+        </div>
+
+        <h3 class="add-company-sub-subtitle">Official Company Registration <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <label for="official-scope" class="add-user-label">Authoritative Business Scope:
+                <textarea id="official-scope" name="official_scope" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="official-legal" class="add-user-label">Legal Representative:
+                <textarea id="official-legal" name="official_legal" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="official-penalties" class="add-user-label">Administrative Penalties (if any):
+                <textarea id="official-penalties" name="official_penalties" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="official-licenses" class="add-user-label">Licenses (if any):
+                <textarea id="official-licenses" name="official_licenses" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <label for="unified-social-credit-code" class="add-user-label">Unified Social Credit Code:
+            <input type="text" id="unified-social-credit-code" name="unified_social_credit_code" class="add-user-input" required>
+        </label>
+
+        <h2 class="add-company-subtitle">Company Website, Domains, and Provenance <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="company-website" class="add-user-label">Company Website:
+                <input type="text" id="company-website" name="company_website" class="add-user-input" required>
+            </label>
+
+            <label for="domain-info" class="add-user-label">Domain Information:
+                <textarea id="domain-info" name="domain_info" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Official Exchange Disclosures (if listed/bonded) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="exchange-disclosures" class="add-user-label">Stock Exchange Disclosures:
+                <textarea id="exchange-disclosures" name="exchange_disclosures" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Export-Controls Screening / Sanctions (Mandatory) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+            
+            <label for="export-controls" class="add-user-label">Export Controls Screening
+                <textarea id="export-controls" name="export_controls" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="sanctions" class="add-user-label">Sanctions
+                <textarea id="sanctions" name="sanctions" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">PRC Military Connection <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="military-connection-yes" name="military_connection" value="Yes" required>
+            <label for="military-connection-yes" class="add-user-label radio-label">Yes</label>
+
+            <input type="radio" id="military-connection-no" name="military_connection" value="No" required>
+            <label for="military-connection-no" class="add-user-label radio-label">No</label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Patents and Standards Search (Technological Fingerprinting) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="patents-standards" class="add-user-label">Patents:
+            <textarea id="patents-standards" name="patents_standards" class="add-user-input" required></textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Government Procurement and Tenders, People & Hiring (OSINT) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="government-procurement" class="add-user-label">Any Information Found:
+            <textarea id="government-procurement" name="government_procurement" class="add-user-input" required></textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Geospatial Confirmation (Finding the Dishes) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="dish_name" class="add-user-label">Dish Name:
+                <input type="text" id="dish_name" name="dish_name" class="add-user-input" required>
+            </label>
+
+            <label for="dish_coordinates" class="add-user-label">Dish Coordinates:
+                <input type="text" id="dish_coordinates" name="dish_coordinates" class="add-user-input" required>
+            </label>
+        </div>
+
+        <button class="submit-button">Add Another Dish</button>
+
+        <h2 class="add-company-subtitle">Spectrum Registration and Launch Filings <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+            <label for="ITU Spectrum Registration Information:" class="add-user-label">ITU Spectrum Registration Information:
+                <textarea id="spectrum-registration" name="spectrum_registration" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="unoosa-filings" class="add-user-label">UNOOSA Filings:
+                <textarea id="unoosa-filings" name="unoosa_filings" class="add-user-input" required></textarea>
+            </label>
+        </div>
+
+        <h2 class="add-company-subtitle">Sector Reports and Institutes <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="etc-reports" class="add-user-label">ETC 54th Institute Brochures / Pitch Decks:
+                <textarea id="etc-reports" name="etc_reports" class="add-user-input" required></textarea>
+            </label>
+
+            <label for="uscc-reports" class="add-user-label">USCC Sector Reports:
+                <textarea id="uscc-reports" name="uscc_reports" class="add-user-input" required></textarea>
+            </label>
+
+        </div>
+
+        <label for="casc-reports" class="add-user-label">CASC Sector Reports:
+            <textarea id="casc-reports" name="casc_reports" class="add-user-input" required></textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Social Network Pivots (Chinese Platforms) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="social-network-platform" class="add-user-label">Social Network Platform:
+                <input type="text" id="social-network-platform" name="social_network_platform" class="add-user-input" required></input>
+            </label>
+
+            <label for="social-network-link" class="add-user-label">Social Network Link:
+                <input type="text" id="social-network-link" name="social_network_link" class="add-user-input" required></input>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Analyst Notes <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="analyst-notes" class="add-user-label">Analyst Notes:
+            <textarea id="analyst-notes" name="analyst_notes" class="add-user-input" required></textarea>
+        </label>
 
         <button type="submit" class="submit-button">Add Company</button>
     </form>
