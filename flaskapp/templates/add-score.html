@@ -5,10 +5,11 @@
 {% block dashboard_content %}
 
 <div class="add-company-container">
-    <h1 class="add-company-title">Generate Space Score - COMPANY NAME</h1>
+    <h1 class="add-company-title">Generate Space Score - {{ company['company_name'] }}</h1>
     <hr class="add-company-break">
     <form action="{{ url_for('add_company') }}" class="" method="post">
 
+        <!-- Make an accordian-style section with information appear below the h2 tag once the button is clicked -->
         <h2 class="add-company-subtitle">Impact (I) - Consequence Severity <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
     
         <h3 class="add-company-sub-subtitle">I1 Sectoral Criticality (0.30) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>

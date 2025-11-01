@@ -1,0 +1,29 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Select Company{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- Make a dropdown for company selection with a searchable input -->
+
+<div class="select-company-container">
+    <h1 class="select-company-title">Select a Company to Generate or Edit the SPACE Score</h1>
+    <form action="{{ url_for('add_score') }}" method="post" class="select-company-form">
+        <select name="company_name" id="company" class="select-company-dropdown" required>
+            <option value="" disabled selected>Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company['company_name'] }}">{{ company['company_name'] }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- <select name="generate-edit" id="generate-edit" class="select-company-dropdown" required>
+            <option value="" disabled selected>Select Action</option>
+            <option value="generate">Generate New Score</option>
+            <option value="edit">Edit Existing Score</option>
+        </select> -->
+
+        <button type="submit" class="submit-button">Generate Score</button>
+    </form>
+</div>
+
+{% endblock %}
