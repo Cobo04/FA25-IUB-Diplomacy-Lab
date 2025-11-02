@@ -1,4 +1,4 @@
-import csv, json, math
+import csv, json, math, os
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
@@ -48,48 +48,24 @@ def get_company_by_name(name):
     return None
 
 def add_company_to_csv(company):
+    # Use a fixed fieldnames list matching your CSV header
+    fieldnames = [
+        'user_name', 'org_name', 'company_name', 'location', 'chinese_name', 'english_translation',
+        'unofficial_registry_shareholders', 'unofficial_registry_ubo', 'affiliates', 'licenses',
+        'admin_penalties', 'icp_registration', 'branches', 'official_scope', 'official_legal',
+        'official_penalties', 'official_licenses', 'unified_social_credit_code', 'company_website',
+        'domain_info', 'exchange_disclosures', 'export_controls', 'sanctions', 'military_connection',
+        'patents_standards', 'government_procurement', 'dish_name', 'dish_coordinates',
+        'spectrum_registration', 'unoosa_filings', 'etc_reports', 'uscc_reports', 'casc_reports',
+        'social_network_platform', 'social_network_link', 'analyst_notes', 'current_date', 'date_last_edited'
+    ]
+    file_exists = os.path.isfile("companies.csv")
+    write_header = not file_exists or os.path.getsize("companies.csv") == 0
     with open("companies.csv", "a", newline='', encoding='utf-8') as f:
-        fieldnames = ['user_name', 
-                      'org_name', 
-                      'company_name',
-                      'location',
-                      'chinese_name',
-                      'english_translation',
-                      'unofficial_registry_shareholders',
-                      'unofficial_registry_ubo',
-                      'affiliates',
-                      'licenses',
-                      'admin_penalties',
-                      'icp_registration',
-                      'branches',
-                      'official_scope',
-                      'official_legal',
-                      'official_penalties',
-                      'official_licenses',
-                      'unified_social_credit_code',
-                      'company_website',
-                      'domain_info',
-                      'exchange_disclosures',
-                      'export_controls',
-                      'sanctions',
-                      'military_connection',
-                      'patents_standards',
-                      'government_procurement',
-                      'dish_name',
-                      'dish_coordinates',
-                      'spectrum_registration',
-                      'unoosa_filings',
-                      'etc_reports',
-                      'uscc_reports',
-                      'casc_reports',
-                      'social_network_platform',
-                      'social_network_link',
-                      'analyst_notes',
-                      'current_date',
-                      'date_last_edited'
-                      ]
-        
         writer = csv.DictWriter(f, fieldnames=fieldnames)
+        if write_header:
+            writer.writeheader()
+        writer.writerow(company)
 
 # ================================
 # ===== Space Score-Specific =====
@@ -102,10 +78,9 @@ def add_space_score_to_company(company_name, space_score_data):
         if company['company_name'] == company_name:
             for key, value in space_score_data.items():
                 company[key] = value
-            updated = True
-
-            # Now we call our generate_space_score function and add it to the company's data
+            # Generate and update space_score and classification BEFORE writing to CSV
             company['space_score'], company['space_classification'] = generate_space_score(company_name)
+            updated = True
             break
     if updated:
         # Overwrite the CSV with the updated companies list
@@ -181,8 +156,8 @@ def generate_space_score(company_name):
         I = (i1 * i1_weight) + (i2 * i2_weight) + (i3 * i3_weight) + (i4 * i4_weight)
         T = (t1 * t1_weight) + (t2 * t2_weight) + (t3 * t3_weight) + (t4 * t4_weight)
         V = (v1 * v1_weight) + (v2 * v2_weight) + (v3 * v3_weight) + (v4 * v4_weight)
-        E = e1 + e2
-        S = s1
+        E = float(e1) + float(e2)
+        S = float(s1)
 
         SPACE = 10 * (1 - (math.e ** -(k * I * T * V * E * S)))
         SPACE = round(SPACE, 1)
@@ -199,6 +174,7 @@ def generate_space_score(company_name):
             classification = "Critical Risk"
 
         # Finally, we can return the SPACE score and classification
+        print(SPACE, classification)
         return SPACE, classification
 
 
