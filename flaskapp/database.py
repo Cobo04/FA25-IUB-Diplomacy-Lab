@@ -1,4 +1,4 @@
-import csv
+import csv, json, math
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
@@ -103,6 +103,9 @@ def add_space_score_to_company(company_name, space_score_data):
             for key, value in space_score_data.items():
                 company[key] = value
             updated = True
+
+            # Now we call our generate_space_score function and add it to the company's data
+            company['space_score'], company['space_classification'] = generate_space_score(company_name)
             break
     if updated:
         # Overwrite the CSV with the updated companies list
@@ -117,11 +120,87 @@ def generate_space_score(company_name):
     """
     This function follows '2.3 SPACE Scoring Rubric' from the research strategy documentation.\n
     PARAMATER: company_name (str): The name of the company for which to generate the space score.\n
-    RETURNS: space_score (int): An int [0, 100] representing the SPACE score.
+    RETURNS: (SPACE, classification)\n
+    WHERE: SPACE (int): An int [0, 10] representing the SPACE score.\n
+    WHERE: classification (str): A string representing the risk classification based on the SPACE score.
     """
 
+    # Grab the company from the csv file
+    company = get_company_by_name(company_name)
+
     # First, we need to access the json file with the values for each criterion
-    pass
+    with open("space-criterion.json", "r", encoding="utf-8") as f:
+        criteria_values = json.load(f)
+        
+        # Now we just grab the specific values for each criterion
+        # Impact
+        i1 = criteria_values["impact_I"]["i1_weights"][company['i1_sectoral_criticality']]
+        i2 = criteria_values["impact_I"]["i2_weights"][company['i2_systemic_dependancy']]
+        i3 = criteria_values["impact_I"]["i3_weights"][company['i3_replacement_cost_and_time']]
+        i4 = criteria_values["impact_I"]["i4_weights"][company['i4_spillover_and_escalation_potential']]
+
+        # Threat
+        t1 = criteria_values["threat_T"]["t1_weights"][company['t1_state_alignment_and_control']]
+        t2 = criteria_values["threat_T"]["t2_weights"][company['t2_strategic_intent_and_mcf_posture']]
+        t3 = criteria_values["threat_T"]["t3_weights"][company['t3_operational_capability_and_technical_maturity']]
+        t4 = criteria_values["threat_T"]["t4_weights"][company['t4_behavioral_and_historical_indicators']]
+
+        # Vulnerability
+        v1 = criteria_values["vulnerability_V"]["v1_weights"][company['v1_dependency_depth']]
+        v2 = criteria_values["vulnerability_V"]["v2_weights"][company['v2_proximity_and_access']]
+        v3 = criteria_values["vulnerability_V"]["v3_weights"][company['v3_opacity_and_assurance_deficit']]
+        v4 = criteria_values["vulnerability_V"]["v4_weights"][company['v4_interoperability_hooks']]
+
+        # Environmental Modifiers
+        e1 = company['e1_mission_criticality_content_type']
+        e2 = company['e2_existing_countermeasures']
+
+        # Supplemental Context
+        s1 = criteria_values["supplemental_context_S"]["s_weights"][company['supplemental_disputed_data']]
+
+        # Now we grab the I, T, and V weights
+        i1_weight = criteria_values['weights_bounds_constants']['i1_weight']
+        i2_weight = criteria_values['weights_bounds_constants']['i2_weight']
+        i3_weight = criteria_values['weights_bounds_constants']['i3_weight']
+        i4_weight = criteria_values['weights_bounds_constants']['i4_weight']
+
+        t1_weight = criteria_values['weights_bounds_constants']['t1_weight']
+        t2_weight = criteria_values['weights_bounds_constants']['t2_weight']
+        t3_weight = criteria_values['weights_bounds_constants']['t3_weight']
+        t4_weight = criteria_values['weights_bounds_constants']['t4_weight']
+
+        v1_weight = criteria_values['weights_bounds_constants']['v1_weight']
+        v2_weight = criteria_values['weights_bounds_constants']['v2_weight']
+        v3_weight = criteria_values['weights_bounds_constants']['v3_weight']
+        v4_weight = criteria_values['weights_bounds_constants']['v4_weight']
+
+        # Now we can actually calculate the SPACE sore
+
+        k = criteria_values['weights_bounds_constants']['k']
+
+        I = (i1 * i1_weight) + (i2 * i2_weight) + (i3 * i3_weight) + (i4 * i4_weight)
+        T = (t1 * t1_weight) + (t2 * t2_weight) + (t3 * t3_weight) + (t4 * t4_weight)
+        V = (v1 * v1_weight) + (v2 * v2_weight) + (v3 * v3_weight) + (v4 * v4_weight)
+        E = e1 + e2
+        S = s1
+
+        SPACE = 10 * (1 - (math.e ** -(k * I * T * V * E * S)))
+        SPACE = round(SPACE, 1)
+
+        # Now we need to classify the SPACE score into its risk assesment range
+
+        if SPACE >= 0.0 and SPACE <= 3.9:
+            classification = "Low Risk"
+        elif SPACE >= 4.0 and SPACE <= 6.9:
+            classification = "Moderate Risk"
+        elif SPACE >= 7.0 and SPACE <= 8.9:
+            classification = "High Risk"
+        else:
+            classification = "Critical Risk"
+
+        # Finally, we can return the SPACE score and classification
+        return SPACE, classification
+
 
 def generate_vector_string(company_name):
     """

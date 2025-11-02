@@ -278,3 +278,8 @@ def jupiter():
         return render_template("jupiter.html")
     else:
         return redirect(url_for("login"))
+    
+@app.route("/debug")
+def debug():
+    db.generate_space_score("xyz")
+    return redirect(url_for("dashboard"))

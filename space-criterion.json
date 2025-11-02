@@ -1,7 +1,23 @@
 {
     "weights_bounds_constants": {
-        "k": 2.3
+        "k": 2.3,
+
+        "i1_weight": 0.30,
+        "i2_weight": 0.25,
+        "i3_weight": 0.25,
+        "i4_weight": 0.20,
+
+        "t1_weight": 0.25,
+        "t2_weight": 0.25,
+        "t3_weight": 0.25,
+        "t4_weight": 0.25,
+
+        "v1_weight": 0.35,
+        "v2_weight": 0.25,
+        "v3_weight": 0.20,
+        "v4_weight": 0.20
     },
+    
     "impact_I": {
         "i1_weights": {
             "Critical": 1,
