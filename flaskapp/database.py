@@ -79,7 +79,7 @@ def add_space_score_to_company(company_name, space_score_data):
             for key, value in space_score_data.items():
                 company[key] = value
             # Generate and update space_score and classification BEFORE writing to CSV
-            company['space_score'], company['space_classification'] = generate_space_score(company_name)
+            company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company_name)
             updated = True
             break
     if updated:
@@ -95,9 +95,10 @@ def generate_space_score(company_name):
     """
     This function follows '2.3 SPACE Scoring Rubric' from the research strategy documentation.\n
     PARAMATER: company_name (str): The name of the company for which to generate the space score.\n
-    RETURNS: (SPACE, classification)\n
+    RETURNS: (SPACE, classification, ITVES_data)\n
     WHERE: SPACE (int): An int [0, 10] representing the SPACE score.\n
-    WHERE: classification (str): A string representing the risk classification based on the SPACE score.
+    WHERE: classification (str): A string representing the risk classification based on the SPACE score.\n
+    WHERE: ITVES_data (dict): A dictionary containing the individual I, T, V, E, S values.
     """
 
     # Grab the company from the csv file
@@ -173,18 +174,25 @@ def generate_space_score(company_name):
         else:
             classification = "Critical Risk"
 
+        # For housekeeping purposes, let's add the ITVES values to the csv here
+        ITVES_data = {
+            'I_value': round(I, 2),
+            'T_value': round(T, 2),
+            'V_value': round(V, 2),
+            'E_value': round(E, 2),
+            'S_value': round(S, 2)
+        }
+
+        # Now let's make the vector string
+        vector_string = generate_vector_string(ITVES_data, SPACE)
+
         # Finally, we can return the SPACE score and classification
         print(SPACE, classification)
-        return SPACE, classification
+        return SPACE, classification, vector_string
 
 
-def generate_vector_string(company_name):
-    """
-    This function generates the SPACE vector string for a given company based on its scores.\n
-    PARAMATER: company_name (str): The name of the company for which to generate the vector string.\n
-    RETURNS: vector_string (str): A string representing the SPACE score vector.
-    """
-    pass
+def generate_vector_string(ITVES_data, space_score):
+    return f"SPACE:{space_score}/I:C({ITVES_data['I_value']})/T:H({ITVES_data['T_value']})/V:H({ITVES_data['V_value']})/E:Up({ITVES_data['E_value']})/S:LoConf({ITVES_data['S_value']})"
 
 def set_space_score(company_name, space_score):
     companies = get_companies_csv()
