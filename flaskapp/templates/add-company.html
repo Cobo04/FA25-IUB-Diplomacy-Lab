@@ -8,7 +8,7 @@
     <h1 class="add-company-title">Add a New Company</h1>
     <hr class="add-company-break">
     <h2 class="add-company-subtitle">Basic Information <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
-    <form action="{{ url_for('add_company') }}" class="" method="post">
+    <form action="{{ url_for('add_company') }}" class="" method="post" accept-charset="UTF-8">
 
         <div class="add-company-row">
 
@@ -28,7 +28,7 @@
 
         <div class="add-company-row">
 
-            <label for="company-name" class="add-user-label">Company Name:
+            <label for="company-name" class="add-user-label">Institution Name:
                 <input type="text" id="company-name" name="company_name" class="add-user-input" required>
             </label>
 

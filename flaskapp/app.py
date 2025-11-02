@@ -30,6 +30,10 @@ app.secret_key = db.get_secret_key()
 
 # ===== Routes =====
 
+# =========================
+# ===== Static Routes =====
+# =========================
+
 @app.route("/")
 def render_index():
     session['logged_in'] = False
@@ -41,30 +45,7 @@ def documents():
         return render_template("documents.html")
     else:
         return redirect(url_for("login"))
-
-@app.route("/companies")
-def companies():
-    if 'logged_in' in session and session['logged_in']:
-        companies = db.get_companies_csv()
-        return render_template("companies.html", companies=companies)
-    else:
-        return redirect(url_for("login"))
-
-@app.route("/select-company", methods=["GET", "POST"])
-def select_company():
-    if 'logged_in' in session and session['logged_in']:
-        companies = db.get_companies_csv()
-        return render_template("select_company.html", companies=companies)
-    else:
-        return redirect(url_for("login"))
-
-@app.route("/admin")
-def admin():
-    if 'logged_in' in session and session['logged_in']:
-        return render_template("admin.html")
-    else:
-        return redirect(url_for("login"))
-
+    
 @app.route("/dashboard")
 def dashboard():
     if 'logged_in' in session and session['logged_in']:
@@ -80,6 +61,17 @@ def server_stats():
     else:
         return redirect(url_for("login"))
 
+@app.route("/map")
+def map():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("map.html")
+    else:
+        return redirect(url_for("login"))
+
+# ================================
+# ===== Space Scoring Routes =====
+# ================================
+
 @app.route("/add-score", methods=["GET", "POST"])
 def add_score():
     if 'logged_in' in session and session['logged_in']:
@@ -88,6 +80,72 @@ def add_score():
             company = db.get_company_by_name(company_name)
             return render_template("add-score.html", company=company)
         return render_template("select_company.html")
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/handle-space-addition", methods=["POST"])
+def handle_space_addition():
+    if 'logged_in' in session and session['logged_in']:
+        if request.method == "POST":
+            company_name = request.form['dummy_company_name']
+
+            i1_sectoral_criticality = request.form['i1_sectoral_criticality']
+            i2_systemic_dependancy = request.form['i2_systemic_dependancy']
+            i3_replacement_cost_and_time = request.form['i3_replacement_cost_and_time']
+            i4_spillover_and_escalation_potential = request.form['i4_spillover_and_escalation_potential']
+            t1_state_alignment_and_control = request.form['t1_state_alignment_and_control']
+            t2_strategic_intent_and_mcf_posture = request.form['t2_strategic_intent_and_mcf_posture']
+            t3_operational_capability_and_technical_maturity = request.form['t3_operational_capability_and_technical_maturity']
+            t4_behavioral_and_historical_indicators = request.form['t4_behavioral_and_historical_indicators']
+            v1_dependency_depth = request.form['v1_dependency_depth']
+            v2_proximity_and_access = request.form['v2_proximity_and_access']
+            v3_opacity_and_assurance_deficit = request.form['v3_opacity_and_assurance_deficit']
+            v4_interoperability_hooks = request.form['v4_interoperability_hooks']
+            e1_mission_criticality_content_type = request.form['e1_mission_criticality_content_type']
+            e2_existing_countermeasures = request.form['e2_existing_countermeasures']
+            supplemental_disputed_data = request.form['supplemental_disputed_data']
+
+            space_score_data = {
+                "i1_sectoral_criticality": i1_sectoral_criticality,
+                "i2_systemic_dependancy": i2_systemic_dependancy,
+                "i3_replacement_cost_and_time": i3_replacement_cost_and_time,
+                "i4_spillover_and_escalation_potential": i4_spillover_and_escalation_potential,
+                "t1_state_alignment_and_control": t1_state_alignment_and_control,
+                "t2_strategic_intent_and_mcf_posture": t2_strategic_intent_and_mcf_posture,
+                "t3_operational_capability_and_technical_maturity": t3_operational_capability_and_technical_maturity,
+                "t4_behavioral_and_historical_indicators": t4_behavioral_and_historical_indicators,
+                "v1_dependency_depth": v1_dependency_depth,
+                "v2_proximity_and_access": v2_proximity_and_access,
+                "v3_opacity_and_assurance_deficit": v3_opacity_and_assurance_deficit,
+                "v4_interoperability_hooks": v4_interoperability_hooks,
+                "e1_mission_criticality_content_type": e1_mission_criticality_content_type,
+                "e2_existing_countermeasures": e2_existing_countermeasures,
+                "supplemental_disputed_data": supplemental_disputed_data
+            }
+
+            db.add_space_score_to_company(company_name, space_score_data)
+        return redirect(url_for("companies"))
+    else:
+        return redirect(url_for("login"))
+
+
+# ===================================
+# ===== Company Addition Routes =====
+# ===================================
+
+@app.route("/companies")
+def companies():
+    if 'logged_in' in session and session['logged_in']:
+        companies = db.get_companies_csv()
+        return render_template("companies.html", companies=companies)
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/select-company", methods=["GET", "POST"])
+def select_company():
+    if 'logged_in' in session and session['logged_in']:
+        companies = db.get_companies_csv()
+        return render_template("select_company.html", companies=companies)
     else:
         return redirect(url_for("login"))
 
@@ -133,6 +191,9 @@ def add_company():
             social_network_link = request.form['social_network_link']
             analyst_notes = request.form['analyst_notes']
 
+            current_date = "12/04/2004"
+            date_last_edited = "12/04/2004"
+
             company = {
                 "user_name": user_name,
                 "org_name": org_name,
@@ -170,17 +231,26 @@ def add_company():
                 "social_network_platform": social_network_platform,
                 "social_network_link": social_network_link,
                 "analyst_notes": analyst_notes,
+                "current_date": current_date,
+                "date_last_edited": date_last_edited
             }
+
+            # Append to CSV
+            db.add_company_to_csv(company)
 
             return redirect(url_for("companies"))
         return render_template("add-company.html")
     else:
         return redirect(url_for("login"))
 
-@app.route("/map")
-def map():
+# =============================================
+# ===== Administrator / Validation Routes =====
+# =============================================
+
+@app.route("/admin")
+def admin():
     if 'logged_in' in session and session['logged_in']:
-        return render_template("map.html")
+        return render_template("admin.html")
     else:
         return redirect(url_for("login"))
 
@@ -198,7 +268,9 @@ def login():
         else:
             return render_template("login.html")
 
+# ================================
 # ===== Don't worry about it =====
+# ================================
 
 @app.route("/jupiter")
 def jupiter():

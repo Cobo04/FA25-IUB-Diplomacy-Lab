@@ -5,9 +5,12 @@
 {% block dashboard_content %}
 
 <div class="add-company-container">
-    <h1 class="add-company-title">Generate Space Score - {{ company['company_name'] }}</h1>
+    <h1 class="add-company-title">Generate Space Score - {{ company['company_name'] }} ({{ company['english_translation'] }})</h1>
     <hr class="add-company-break">
-    <form action="{{ url_for('add_company') }}" class="" method="post">
+    <form action="{{ url_for('handle_space_addition') }}" class="" method="post">
+
+        <!-- We need to make a dummy input to handle passing the company name through to the other route -->
+        <input type="hidden" id="dummy-company-name" name="dummy_company_name" value="{{ company['company_name'] }}">
 
         <!-- Make an accordian-style section with information appear below the h2 tag once the button is clicked -->
         <h2 class="add-company-subtitle">Impact (I) - Consequence Severity <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
@@ -290,17 +293,17 @@
 
         <div class="add-company-row">
 
+            <input type="radio" id="supplemental-disputed-data" name="supplemental_disputed_data" class="add-user-input" value="Disputed Data" required>
             <label for="supplemental-disputed-data" class="add-user-label radio-label">Disputed Data</label>
-            <input type="radio" id="supplemental-disputed-data" name="supplemental_disputed_data" class="add-user-input" required>
 
+            <input type="radio" id="supplemental-low" name="supplemental_disputed_data" class="add-user-input" value="Low Confidence" required>
             <label for="supplemental-low" class="add-user-label radio-label">Low Confidence</label>
-            <input type="radio" id="supplemental-low" name="supplemental_low_confidence" class="add-user-input" required>
 
+            <input type="radio" id="supplemental-moderate" name="supplemental_disputed_data" class="add-user-input" value="Moderate Confidence" required>
             <label for="supplemental-moderate" class="add-user-label radio-label">Moderate Confidence</label>
-            <input type="radio" id="supplemental-moderate" name="supplemental_moderate_confidence" class="add-user-input" required>
 
+            <input type="radio" id="supplemental-high" name="supplemental_disputed_data" class="add-user-input" value="High Confidence" required>
             <label for="supplemental-high" class="add-user-label radio-label">High Confidence</label>
-            <input type="radio" id="supplemental-high" name="supplemental_high_confidence" class="add-user-input" required>
 
         </div>
 
