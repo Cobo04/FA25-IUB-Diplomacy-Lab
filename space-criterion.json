@@ -1,0 +1,218 @@
+{
+    "weights_bounds_constants": {
+        "k": 2.3
+    },
+    "impact_I": {
+        "i1_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "i1_descriptions": {
+            "Critical": "Loss undermines national defense or space resilience.",
+            "High": "Disruption causes major program delays or data loss.",
+            "Medium": "Moderate, sector-specific disruption.",
+            "Low": "Minimal or localized consequence.",
+            "None": "No data present."
+        },
+
+        "i2_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "i2_descriptions": {
+            "Critical": "Multiple allied programs single-sourced.",
+            "High": "Several dependencies across supply chains.",
+            "Medium": "Limited dependency; alternatives available.",
+            "Low": "No observable reliance.",
+            "None": "No data present."
+        },
+
+        "i3_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+
+        "i3_descriptions": {
+            "Critical": ">24 mo to replace / very High cost.",
+            "High": "12-24 mo replacement.",
+            "Medium": "6-12 mo replacement.",
+            "Low": "≤ 6 mo or Low cost.",
+            "None": "No data present."
+        },
+
+        "i4_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+
+        "i4_descriptions": {
+            "Critical": "Cascading failure or regional instability.",
+            "High": "Cross-sector degradation (e.g., ISR / satcom loss).",
+            "Medium": "Sector-limited impact.",
+            "Low": "Isolated or recoverable impact.",
+            "None": "No data present."
+        }
+    },
+
+    "threat_T": {
+        "t1_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "t1_descriptions": {
+            "Critical": " Direct SASAC/PLA control.",
+            "High": "Majority SOE or Party committee embedded",
+            "Medium": "Partial state influence.",
+            "Low": "Private / no evidence.",
+            "None": "No data present."
+        },
+
+        "t2_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "t2_descriptions": {
+            "Critical": "Core MCF institute / PLA contractor.",
+            "High": "Formal MCF partner / recurring defense tenders.",
+            "Medium": "Opportunistic threats from less capable actors.",
+            "Low": "Intermittent collaborations.",
+            "None": "Civilian only."
+        },
+
+        "t3_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "t3_descriptions": {
+            "Critical": "Proven ISR / TT&C / secure-comms delivery.",
+            "High": "Fielded dual-use technology.",
+            "Medium": "Prototype stage.",
+            "Low": "Unproven civilian tech.",
+            "None": "No data present."
+        },
+
+        "t4_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+
+        "t4_descriptions": {
+            "Critical": "Sustained cooperation with sanctioned actors.",
+            "High": "Recent activity in sensitive zones.",
+            "Medium": "Minor indirect involvement.",
+            "Low": "No such activity.",
+            "None": "No data present."
+        }
+    },
+
+    "vulnerability_V": {
+        "v1_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "v1_descriptions": {
+            "Critical": "Single-source dependency in critical mission.",
+            "High": "Known direct dependency in limited mission areas.",
+            "Medium": "Minor indirect dependency.",
+            "Low": "No known dependency.",
+            "None": "No data present."
+        },
+
+        "v2_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "v2_descriptions": {
+            "Critical": "Ground stations, labs, or data centers adjacent to critical U.S./ally facilities.",
+            "High": "Subsidiary or partner near sensitive sites.",
+            "Medium": "Remote presence, no sensitive proximity.",
+            "Low": "No presence in allied nations.",
+            "None": "No data present."
+        },
+
+        "v3_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "v3_descriptions": {
+            "Critical": "Shell structures, falsified data, or sanctions evasion.",
+            "High": "Complex or unclear ownership structure.",
+            "Medium": "Partial financial or ownership opacity.",
+            "Low": "Audited, transparent disclosures.",
+            "None": "No data present."
+        },
+
+        "v4_weights": {
+            "Critical": 1,
+            "High": 0.75,
+            "Medium": 0.5,
+            "Low": 0.25,
+            "None": 0
+        },
+        "v4_descriptions": {
+            "Critical": "Full interoperability or shared data-layer with allied systems.",
+            "High": "Shared frequency/spectrum or standards participation.",
+            "Medium": "Minimal standards overlap.",
+            "Low": "No interoperability.",
+            "None": "No data present."
+        }
+    },
+
+    "supplemental_context_S": {
+        "s_weights": {
+            "High Confidence": 1.05,
+            "Moderate Confidence": 1.0,
+            "Low Confidence": 0.95,
+            "Disputed Data": 0.90
+        },
+
+        "s_descriptions": {
+            "High Confidence": "Multiple independent and reliable sources confirm data.",
+            "Moderate Confidence": " Limited but consistent corroboration.",
+            "Low Confidence": "Single-source or unverified report.",
+            "Disputed Data": "Contradictory or unreliable sources."
+        }
+    },
+
+    "space_score_risk_assesment": {
+        "classification": {
+            "0.0-3.9": "Low Risk",
+            "4.0-6.9": "Moderate Risk",
+            "7.0-8.9": "High Risk",
+            "9.0-10.0": "Critical Risk"
+        }
+    }
+}

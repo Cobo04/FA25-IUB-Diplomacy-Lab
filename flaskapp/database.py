@@ -113,6 +113,24 @@ def add_space_score_to_company(company_name, space_score_data):
                 writer.writeheader()
                 writer.writerows(companies)
 
+def generate_space_score(company_name):
+    """
+    This function follows '2.3 SPACE Scoring Rubric' from the research strategy documentation.\n
+    PARAMATER: company_name (str): The name of the company for which to generate the space score.\n
+    RETURNS: space_score (int): An int [0, 100] representing the SPACE score.
+    """
+
+    # First, we need to access the json file with the values for each criterion
+    pass
+
+def generate_vector_string(company_name):
+    """
+    This function generates the SPACE vector string for a given company based on its scores.\n
+    PARAMATER: company_name (str): The name of the company for which to generate the vector string.\n
+    RETURNS: vector_string (str): A string representing the SPACE score vector.
+    """
+    pass
+
 def set_space_score(company_name, space_score):
     companies = get_companies_csv()
 
