@@ -1,5 +1,5 @@
 # exclude the companies.csv file which contains the database of companies
-# companies.csv
+companies.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
