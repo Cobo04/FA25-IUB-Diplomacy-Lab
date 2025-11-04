@@ -141,7 +141,6 @@ def company(company_name):
         # Pass in the json file of criteria as a dictionary so we can use the descriptions
         with open("space-criterion.json", "r", encoding="utf-8") as f:
             criteria = json.load(f)
-        print(criteria)
         return render_template("company.html", company=company, criteria=criteria)
     else:
         return redirect(url_for("login"))

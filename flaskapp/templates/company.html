@@ -9,8 +9,8 @@
     <h2 class="add-company-subtitle"><strong>{{ company['space_classification'] }}</strong> - {{ company['vector_string'] }}</h2>
     <hr class="add-company-break">
     <div class="button-container">
-        <button type="submit" class="submit-button">Generate Report</button>
-        <button type="submit" class="submit-button">Generate Printable Report</button>
+        <button class="submit-button">Generate Report</button>
+        <button class="submit-button">Generate Printable Report</button>
     </div>
     <h2 class="add-company-subtitle">3.4.0 - Basic Information</h2>
 
@@ -229,6 +229,111 @@
 
     <h1 class="add-company-title"><strong>The SPACE Score</strong></h1>
     <hr class="add-company-break">
+
+    <h2 class="add-company-subtitle">Impact (I) - Consequence Severity</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">I1 Sectoral Criticality:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['i1_sectoral_criticality'] }}</strong> - {{ criteria['impact_I']['i1_descriptions'][company['i1_sectoral_criticality']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">I2 Systemic Dependancy:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['i2_systemic_dependancy'] }}</strong> - {{ criteria['impact_I']['i2_descriptions'][company['i2_systemic_dependancy']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">I3 Replacement Cost and Time:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['i3_replacement_cost_and_time'] }}</strong> - {{ criteria['impact_I']['i3_descriptions'][company['i3_replacement_cost_and_time']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">I4 Spillover and Escalation Potential:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['i4_spillover_and_escalation_potential'] }}</strong> - {{ criteria['impact_I']['i4_descriptions'][company['i4_spillover_and_escalation_potential']] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">Threat (T) - Intent + Capability (Likelihood)</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">T1 State Alignment and Control:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['t1_state_alignment_and_control'] }}</strong> - {{ criteria['threat_T']['t1_descriptions'][company['t1_state_alignment_and_control']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">T2 Strategic Intent and MCF Posture:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['t2_strategic_intent_and_mcf_posture'] }}</strong> - {{ criteria['threat_T']['t2_descriptions'][company['t2_strategic_intent_and_mcf_posture']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">T3 Operational Capability and Technical Maturity:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['t3_operational_capability_and_technical_maturity'] }}</strong> - {{ criteria['threat_T']['t3_descriptions'][company['t3_operational_capability_and_technical_maturity']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">T4 Behavioral and Historical Indicators:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['t4_behavioral_and_historical_indicators'] }}</strong> - {{ criteria['threat_T']['t4_descriptions'][company['t4_behavioral_and_historical_indicators']] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">Vulnerability (V) - Degree of U.S./allied exposure to exploitation</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">V1 Dependency Depth:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['v1_dependency_depth'] }}</strong> - {{ criteria['vulnerability_V']['v1_descriptions'][company['v1_dependency_depth']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">V2 Proximity and Access:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['v2_proximity_and_access'] }}</strong> - {{ criteria['vulnerability_V']['v2_descriptions'][company['v2_proximity_and_access']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">V3 Opacity / Assurance Deficit:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['v3_opacity_and_assurance_deficit'] }}</strong> - {{ criteria['vulnerability_V']['v3_descriptions'][company['v3_opacity_and_assurance_deficit']] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">V4 Interoperability Hooks:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['v4_interoperability_hooks'] }}</strong> - {{ criteria['vulnerability_V']['v4_descriptions'][company['v4_interoperability_hooks']] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">Environmental Modifiers (E) - Mission and mitigation context</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">E1 Mission Criticality:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['e1_mission_criticality_content_type'] }}</strong></p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">E2 Existing Countermeasures:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['e2_existing_countermeasures'] }}</strong></p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">Supplemental Context (S) - Confidence, Data Quality, and Analytic Integrity</h2>
+
+        <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Supplemental Context:
+            <p id="chinese-name" class="company-info-content"><strong>{{ company['supplemental_disputed_data'] }}</strong> - {{ criteria['supplemental_context_S']['s_descriptions'][company['supplemental_disputed_data']] }}</p>
+        </label>
+    </div>
+
+    <div class="button-container">
+        <button class="submit-button">Edit Company</button>
+        <button class="submit-button">Delete Company</button>
+    </div>
 
 </div>
 
