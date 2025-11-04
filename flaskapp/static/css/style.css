@@ -881,3 +881,33 @@ input[type="radio"]:checked + .radio-label {
     margin-bottom: 0.5rem;
     display: block;
 }
+
+.company-container {
+    display: flex;
+    padding: 20px;
+    margin: 20px;
+    height: 78%;
+    color: var(--themeTan);
+    font-family: var(--font-apercu);
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-info-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.company-info-content {
+    color: var(--themeTan);
+    padding: 10px;
+    border: solid 2px var(--themeOlive);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

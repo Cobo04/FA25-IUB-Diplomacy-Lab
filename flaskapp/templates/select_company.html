@@ -12,7 +12,7 @@
         <select name="company_name" id="company" class="select-company-dropdown" required>
             <option value="" disabled selected>Select a company</option>
             {% for company in companies %}
-                <option value="{{ company['company_name'] }}">{{ company['company_name'] }} ({{ company['english_translation']}})</option>
+                <option value="{{ company['company_name'] }}">{{ company['chinese_name'] }} ({{ company['english_translation']}})</option>
             {% endfor %}
         </select>
 

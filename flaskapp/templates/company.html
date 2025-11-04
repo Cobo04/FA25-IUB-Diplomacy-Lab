@@ -1,0 +1,235 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="company-container">
+    <h1 class="add-company-title"><strong>{{ company['chinese_name'] }} - {{ company['english_translation'] }}</strong></h1>
+    <h2 class="add-company-subtitle"><strong>{{ company['space_classification'] }}</strong> - {{ company['vector_string'] }}</h2>
+    <hr class="add-company-break">
+    <div class="button-container">
+        <button type="submit" class="submit-button">Generate Report</button>
+        <button type="submit" class="submit-button">Generate Printable Report</button>
+    </div>
+    <h2 class="add-company-subtitle">3.4.0 - Basic Information</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Analyst Name:
+            <p id="chinese-name" class="company-info-content">{{ company['user_name'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Analyst Organization:
+            <p id="english-translation" class="company-info-content">{{ company['org_name'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Date Added:
+            <p id="chinese-name" class="company-info-content">{{ company['current_date'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Last Edited:
+            <p id="english-translation" class="company-info-content">{{ company['date_last_edited'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.1 - Scope and Seed List</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Institution Name:
+            <p id="chinese-name" class="company-info-content">{{ company['company_name'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Location:
+            <p id="english-translation" class="company-info-content">{{ company['location'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.2 - Chinese Language Company Name Discovery</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Chinese Company Name:
+            <p id="chinese-name" class="company-info-content">{{ company['chinese_name'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">English Company Name Translation:
+            <p id="english-translation" class="company-info-content">{{ company['english_translation'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.3 - Corporate Identity and Heirarchy</h2>
+
+    <h3 class="add-company-sub-subtitle">3.4.3.1 - Unofficial Company Registries</h3>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Shareholder(s):
+            <p id="chinese-name" class="company-info-content">{{ company['unofficial_registry_shareholders'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Ultimate Beneficial Owner(s) (UBO):
+            <p id="english-translation" class="company-info-content">{{ company['unofficial_registry_ubo'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Affiliates:
+            <p id="chinese-name" class="company-info-content">{{ company['affiliates'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Licenses:
+            <p id="english-translation" class="company-info-content">{{ company['licenses'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Administrative Penalties:
+            <p id="chinese-name" class="company-info-content">{{ company['admin_penalties'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Internet Connection Provider (ICP) Records:
+            <p id="english-translation" class="company-info-content">{{ company['icp_registration'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Branches:
+            <p id="chinese-name" class="company-info-content">{{ company['branches'] }}</p>
+        </label>
+    </div>
+
+    <h3 class="add-company-sub-subtitle">3.4.3.2 - Official Company Registration</h3>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Authoritative Business Scope:
+            <p id="chinese-name" class="company-info-content">{{ company['official_scope'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Legal Representative:
+            <p id="english-translation" class="company-info-content">{{ company['official_legal'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Administrative Penalties:
+            <p id="chinese-name" class="company-info-content">{{ company['official_penalties'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Licenses:
+            <p id="english-translation" class="company-info-content">{{ company['official_licenses'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Unified Social Credit Code:
+            <p id="chinese-name" class="company-info-content">{{ company['unified_social_credit_code'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.4 - Company Website, Domains, and Provenance</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Company Website:
+            <p id="chinese-name" class="company-info-content">{{ company['company_website'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Domain Information:
+            <p id="english-translation" class="company-info-content">{{ company['domain_info'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.5 - Official Exchange Disclosures</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Stock Exchange Disclosures:
+            <p id="chinese-name" class="company-info-content">{{ company['exchange_disclosures'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.6 - Sanctions & Export-Controls Screening</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Export Controls Screening:
+            <p id="chinese-name" class="company-info-content">{{ company['export_controls'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Sanctions:
+            <p id="english-translation" class="company-info-content">{{ company['sanctions'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">PRC Military Connection:
+            <p id="chinese-name" class="company-info-content">{{ company['military_connection'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.7 - Patents, Standards Search, & Technological Fingerprinting</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Patents & Standards:
+            <p id="chinese-name" class="company-info-content">{{ company['patents_standards'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.8 - OSINT Acquired Government Procurement and Tenders, People, & Hiring</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Information Discovered:
+            <p id="chinese-name" class="company-info-content">{{ company['government_procurement'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.9 - Geospatial Confirmation</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Dish Name:
+            <p id="chinese-name" class="company-info-content">{{ company['dish_name'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Dish Coordinates:
+            <p id="english-translation" class="company-info-content">{{ company['dish_coordinates'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.10 - Spectrum Registration and Launch Filings</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">ITU Spectrum Registration Information:
+            <p id="chinese-name" class="company-info-content">{{ company['spectrum_registration'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">UNOOSA Filings:
+            <p id="english-translation" class="company-info-content">{{ company['unoosa_filings'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.11 - Sector Reports & Institutes</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">ETC 54th Institute Brochures / Pitch Decks:
+            <p id="chinese-name" class="company-info-content">{{ company['etc_reports'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">USCC Sector Reports:
+            <p id="english-translation" class="company-info-content">{{ company['uscc_reports'] }}</p>
+        </label>
+    </div>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">CASC Sector Reports:
+            <p id="chinese-name" class="company-info-content">{{ company['casc_reports'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">3.4.12 - Chinese Social Network Platform Pivots</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Social Network Platform:
+            <p id="chinese-name" class="company-info-content">{{ company['social_network_platform'] }}</p>
+        </label>
+        <label for="english-translation" class="add-user-label">Social Network Link:
+            <p id="english-translation" class="company-info-content">{{ company['social_network_link'] }}</p>
+        </label>
+    </div>
+
+    <h2 class="add-company-subtitle">Miscellaneous Information</h2>
+
+    <div class="add-company-row">
+        <label for="chinese-name" class="add-user-label">Analyst Notes:
+            <p id="chinese-name" class="company-info-content">{{ company['analyst_notes'] }}</p>
+        </label>
+    </div>
+
+    <h1 class="add-company-title"><strong>The SPACE Score</strong></h1>
+    <hr class="add-company-break">
+
+</div>
+
+{% endblock %}

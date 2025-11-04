@@ -17,7 +17,7 @@
 # flask requirements
 from flask import Flask, render_template, request, redirect, url_for, session
 
-import hashlib
+import hashlib, json
 
 # database requirements
 from flaskapp import database as db
@@ -50,7 +50,8 @@ def documents():
 def dashboard():
     if 'logged_in' in session and session['logged_in']:
         total_companies = db.get_total_companies()
-        return render_template("dashboard.html", total_companies=total_companies)
+        total_space_scores = db.get_total_space_scores()
+        return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores)
     else:
         return redirect(url_for("login"))
 
@@ -132,6 +133,18 @@ def handle_space_addition():
 # ===================================
 # ===== Company Addition Routes =====
 # ===================================
+
+@app.route("/company/<company_name>")
+def company(company_name):
+    if 'logged_in' in session and session['logged_in']:
+        company = db.get_company_by_name(company_name)
+        # Pass in the json file of criteria as a dictionary so we can use the descriptions
+        with open("space-criterion.json", "r", encoding="utf-8") as f:
+            criteria = json.load(f)
+        print(criteria)
+        return render_template("company.html", company=company, criteria=criteria)
+    else:
+        return redirect(url_for("login"))
 
 @app.route("/companies")
 def companies():

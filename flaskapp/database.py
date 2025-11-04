@@ -29,6 +29,12 @@ def get_companies_csv():
             companies.append(row)
     return companies
 
+def get_total_space_scores():
+    with open("companies.csv", "r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        total = sum([1 for row in reader if row["space_score"]])
+    return total
+
 # ============================
 # ===== Company-Specific =====
 # ============================
@@ -79,7 +85,7 @@ def add_space_score_to_company(company_name, space_score_data):
             for key, value in space_score_data.items():
                 company[key] = value
             # Generate and update space_score and classification BEFORE writing to CSV
-            company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company_name)
+            company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company)
             updated = True
             break
     if updated:
@@ -91,18 +97,15 @@ def add_space_score_to_company(company_name, space_score_data):
                 writer.writeheader()
                 writer.writerows(companies)
 
-def generate_space_score(company_name):
+def generate_space_score(company):
     """
     This function follows '2.3 SPACE Scoring Rubric' from the research strategy documentation.\n
     PARAMATER: company_name (str): The name of the company for which to generate the space score.\n
-    RETURNS: (SPACE, classification, ITVES_data)\n
+    RETURNS: (SPACE, classification, vector_string)\n
     WHERE: SPACE (int): An int [0, 10] representing the SPACE score.\n
     WHERE: classification (str): A string representing the risk classification based on the SPACE score.\n
-    WHERE: ITVES_data (dict): A dictionary containing the individual I, T, V, E, S values.
+    WHERE: vector_string (str): A string representing the vectorized form of the company's risk profile.
     """
-
-    # Grab the company from the csv file
-    company = get_company_by_name(company_name)
 
     # First, we need to access the json file with the values for each criterion
     with open("space-criterion.json", "r", encoding="utf-8") as f:
