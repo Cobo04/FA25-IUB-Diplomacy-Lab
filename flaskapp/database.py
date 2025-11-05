@@ -130,9 +130,26 @@ def generate_space_score(company):
         v3 = criteria_values["vulnerability_V"]["v3_weights"][company['v3_opacity_and_assurance_deficit']]
         v4 = criteria_values["vulnerability_V"]["v4_weights"][company['v4_interoperability_hooks']]
 
-        # Environmental Modifiers
-        e1 = company['e1_mission_criticality_content_type']
-        e2 = company['e2_existing_countermeasures']
+        # Environmental Modifiers (E) normalization
+        E1_map = {
+            "High Mission Criticality": 1.1,
+            "Moderate": 1.0,
+            "Low Criticality / Strong Mitigations": 0.9,
+            "None": 1.0
+        }
+
+        # IMPORTANT:
+        # Convert company['e1_mission_criticality_content_type'] and company['e2_existing_countermeasures']
+        # to their mapped values (they must match keys exactly)
+        e1_value = E1_map.get(company['e1_mission_criticality_content_type'], 1.0)
+        e2_value = E1_map.get(company['e2_existing_countermeasures'], 1.0)
+
+        # Multiply, don't add, and cap to [0.8, 1.2] (check whitepaper)
+        E = max(0.8, min(1.2, e1_value * e2_value))
+
+        # Supplemental (S) normalization
+        S_map = criteria_values["supplemental_context_S"]["s_weights"]
+        S = float(S_map.get(company['supplemental_disputed_data'], 1.0))
 
         # Supplemental Context
         s1 = criteria_values["supplemental_context_S"]["s_weights"][company['supplemental_disputed_data']]
@@ -160,9 +177,11 @@ def generate_space_score(company):
         I = (i1 * i1_weight) + (i2 * i2_weight) + (i3 * i3_weight) + (i4 * i4_weight)
         T = (t1 * t1_weight) + (t2 * t2_weight) + (t3 * t3_weight) + (t4 * t4_weight)
         V = (v1 * v1_weight) + (v2 * v2_weight) + (v3 * v3_weight) + (v4 * v4_weight)
-        E = float(e1) + float(e2)
-        S = float(s1)
 
+        ###E = float(e1) + float(e2)
+        ###S = float(s1)
+
+        # NOTE: I still tweaked this a bit for clarity, but the ** notation worked fine
         SPACE = 10 * (1 - math.exp(-k * I * T * V * E * S))
         SPACE = round(SPACE, 1)
 
