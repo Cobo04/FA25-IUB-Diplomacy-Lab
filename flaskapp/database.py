@@ -163,7 +163,10 @@ def generate_space_score(company):
         E = float(e1) + float(e2)
         S = float(s1)
 
-        SPACE = 10 * (1 - (math.e ** -(k * I * T * V * E * S)))
+        
+        SPACE = 10 * (1 - (math.e ** (-k * I * T * V * E * S)))
+        # NOTE: SPACE = 10 * 1 - e ^ ((-k) * I * T * V * E * S)
+        ###SPACE = 10 * (1 - (math.e ** -(k * I * T * V * E * S)))
         SPACE = round(SPACE, 1)
 
         # Now we need to classify the SPACE score into its risk assesment range
