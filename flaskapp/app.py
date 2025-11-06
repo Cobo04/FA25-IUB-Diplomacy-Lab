@@ -51,7 +51,10 @@ def dashboard():
     if 'logged_in' in session and session['logged_in']:
         total_companies = db.get_total_companies()
         total_space_scores = db.get_total_space_scores()
-        return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores)
+        blame = db.get_company_blame()
+        highest_contributor = max(blame, key=blame.get)
+        lowest_contributor = min(blame, key=blame.get)
+        return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores, blame=blame, highest_contributor=highest_contributor, lowest_contributor=lowest_contributor)
     else:
         return redirect(url_for("login"))
 

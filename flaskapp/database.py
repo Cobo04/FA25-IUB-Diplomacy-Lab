@@ -17,6 +17,22 @@ def get_secret_key():
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
+def get_company_blame():
+    """Returns the number of companies analyzed by each member of the group"""
+    blame = {
+        "Cameron": 0,
+        "Cohen": 0,
+        "Eva": 0,
+        "Leah": 0,
+        "Reagan": 0
+    }
+    with open("companies.csv", "r", encoding="utf-8") as fhead:
+        reader = csv.DictReader(fhead)
+        for row in reader:
+            blame[row['user_name']] += 1
+
+    return blame
+
 # =========================
 # ===== Intialization =====
 # =========================

@@ -807,6 +807,10 @@ input[type="radio"]:checked + .radio-label {
     color: red;
 }
 
+.blame-awesome {
+    color: turquoise;
+}
+
 .jupiter-image {
     width: 50%;
     height: auto;

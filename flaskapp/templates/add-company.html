@@ -12,13 +12,20 @@
 
         <div class="add-company-row">
 
-            <label for="user-name" class="add-user-label">Your Name:
-                <input type="text" id="user-name" name="user_name" class="add-user-input" required>
-            </label>
+            <select name="user_name" id="user-name" class="select-company-dropdown" required>
+                <option value="" disabled selected>Analyst Name</option>
+                <option value="Cameron">Cameron</option>
+                <option value="Cohen">Cohen</option>
+                <option value="Eva">Eva</option>
+                <option value="Leah">Leah</option>
+                <option value="Reagan">Reagan</option>
+            </select>
 
-            <label for="org-name" class="add-user-label">Your Organization Name:
-                <input type="text" id="org-name" name="org_name" class="add-user-input" required>
-            </label>
+            <select name="org_name" id="org-name" class="select-company-dropdown" required>
+                <option value="" disabled selected>Organization Name</option>
+                <option value="Indiana University Bloomington">Indiana University Bloomington</option>
+                <option value="US Department of State">US Department of State</option>
+            </select>
 
         </div>
 
