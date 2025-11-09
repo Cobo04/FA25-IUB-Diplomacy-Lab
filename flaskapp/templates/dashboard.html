@@ -8,13 +8,13 @@
     <div class="main-grid">
         <div class="welcome-box">
             <h1 class="welcome-text">Welcome to the SPACE Dashboard!</h1>
-            <!-- <p class="welcome-subtext">Here you can find an overview of various research statistics and insights.<br>Select a visualization technique from the sidebar to get started.</p> -->
-            <p class="welcome-subtext"><strong>Companies analyzed by person:</strong><br>
+            <p class="welcome-subtext">Here you can find an overview of various research statistics and insights.<br>Select a visualization technique from the sidebar to get started.</p>
+            <!-- <p class="welcome-subtext"><strong>Companies analyzed by person:</strong><br>
                 Cameron: {{ blame['Cameron'] }}; Cohen: {{ blame['Cohen'] }}; Eva: {{ blame['Eva'] }}; Reagan: {{ blame['Reagan'] }}; Leah: {{ blame['Leah'] }}<br><br>
                 <span class="welcome-warning">LOWEST CONTRIBUTOR 😠: {{ lowest_contributor }}</span><br>
                 <span class="blame-awesome">HIGHEST CONTRIBUTOR 😎🗿: {{ highest_contributor }}</span>
-            </p>
-            <!-- <p class="welcome-warning">V1.2 of this software is suitable for production use, but requires further database developments to ensure full functionality.</p> -->
+            </p> -->
+            <p class="blame-awesome">V1.3 of the SPACE Dashboard is now live! Seamlessly add companies and generate respective space scores.</p>
         </div>
         <div class="stats-row">
             <div class="stat-box">
@@ -42,8 +42,16 @@
             <li class="stats-item">Maltego Connection: <span class="{{ maltego_connection[1] }}">{{ maltego_connection[0] }}</span></li>
             <li class="stats-item">Total API Calls: N/A</li>
             <li class="stats-item">Server Time: {{ server_time }}</li>
-            <li class="stats-item">Disk Space: N/A</li>
+            <br>
+            <li class="stats-item blame-awesome">HIGHEST CONTRIBUTOR 😎🗿: {{ highest_contributor }}</li>
+            <li class="stats-item welcome-warning">LOWEST CONTRIBUTOR 😠: {{ lowest_contributor }}</li>
+            <li class="stats-item">Cameron: {{ blame['Cameron'] }}</li>
+            <li class="stats-item">Cohen: {{ blame['Cohen'] }}</li>
+            <li class="stats-item">Eva: {{ blame['Eva'] }}</li>
+            <li class="stats-item">Reagan: {{ blame['Reagan'] }}</li>
+            <li class="stats-item">Leah: {{ blame['Leah'] }}</li>
         </ul>
+
         <div class="buttonGroup">
             <button class="refresh-button" onclick="location.reload();">Refresh Statistics</button>
             <a class="admin-link" href="{{ url_for('admin') }}">Administrator Panel</a>

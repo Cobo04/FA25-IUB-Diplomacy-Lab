@@ -19,8 +19,6 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, json
 
-import plutoprint
-
 # database requirements
 from flaskapp import database as db
 
@@ -294,6 +292,36 @@ def login():
         else:
             return render_template("login.html")
 
+# ================================
+# ===== Link Analysis Routes =====
+# ================================
+
+@app.route("/link-analysis")
+def link_analysis():
+    if 'logged_in' in session and session['logged_in']:
+        return render_template("link-analysis.html")
+    else:
+        return redirect(url_for("login"))
+
+# =======================================
+# ===== Comparative Analysis Routes =====
+# =======================================
+
+@app.route("/comparative-analysis", methods=["GET", "POST"])
+def comparative_analysis():
+    if 'logged_in' in session and session['logged_in']:
+        if request.method == "POST":
+            company1_name = request.form['company1']
+            company2_name = request.form['company2']
+            company1 = db.get_company_by_name(company1_name)
+            company2 = db.get_company_by_name(company2_name)
+            companies = [company1, company2]
+            return render_template("comparative-analysis.html", companies=companies)
+        companies = db.get_companies_csv()
+        return render_template("select_two_company.html", companies=companies)
+    else:
+        return redirect(url_for("login"))
+
 # ====================================
 # ===== Report Generation Routes =====
 # ====================================
@@ -304,9 +332,10 @@ def generate_report(company_name):
         company = db.get_company_by_name(company_name)
         html_content = render_template("auto_report_template.html", company=company)
 
-        book = plutoprint.Book(plutoprint.PAGE_SIZE_A4)
-        book.load_url("flaskapp/templates/auto_report_template.html")
-        book.write_to_pdf("test.pdf")
+        # book = plutoprint.Book(plutoprint.PAGE_SIZE_A4)
+        # book.load_url("flaskapp/templates/auto_report_template.html")
+        # book.write_to_pdf("test.pdf")
+        return html_content
     else:
         return redirect(url_for("login"))
 

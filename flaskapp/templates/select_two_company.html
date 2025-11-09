@@ -1,0 +1,30 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Select Company{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- Make a dropdown for company selection with a searchable input -->
+
+<div class="select-company-container">
+    <h1 class="select-company-title">Select Companies to Compare Analyses</h1>
+    <form action="{{ url_for('comparative_analysis') }}" method="post" class="select-company-form">
+        <select name="company1" id="company1" class="select-company-dropdown" required>
+            <option value="" disabled selected>Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company['english_translation'] }}">{{ company['chinese_name'] }} ({{ company['english_translation']}})</option>
+            {% endfor %}
+        </select>
+
+        <select name="company2" id="company2" class="select-company-dropdown" required>
+            <option value="" disabled selected>Select a company</option>
+            {% for company in companies %}
+                <option value="{{ company['english_translation'] }}">{{ company['chinese_name'] }} ({{ company['english_translation']}})</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="submit-button">Analyze</button>
+    </form>
+</div>
+
+{% endblock %}

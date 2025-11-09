@@ -1,0 +1,23 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Select Company{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="comparative-analysis-container">
+
+    {% for company in companies %}
+
+        <div class="comparative-analysis-company-container">
+
+            <h1 class="add-company-title"><strong>{{ company['chinese_name'] }} - {{ company['english_translation'] }}</strong></h1>
+            <h2 class="add-company-subtitle"><strong>{{ company['space_classification'] }}</strong> - {{ company['vector_string'] }}</h2>
+            <hr class="add-company-break">
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

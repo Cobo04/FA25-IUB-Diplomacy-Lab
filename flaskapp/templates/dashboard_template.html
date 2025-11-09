@@ -15,8 +15,8 @@
             <div class="sidebarSectionTitle">Visualization</div>
             <a href="{{ url_for('dashboard') }}" class="sidebarLink">Dashboard</a>
             <a href="{{ url_for('map') }}" class="sidebarLink">Interactive Map</a>
-            <a href="" class="sidebarLink">Link Analysis</a>
-            <a href="" class="sidebarLink">Comparative Analysis</a>
+            <a href="{{ url_for('link_analysis') }}" class="sidebarLink">Link Analysis</a>
+            <!-- <a href="{{ url_for('comparative_analysis') }}" class="sidebarLink">Comparative Analysis</a> -->
 
             <div class="sidebarSectionTitle">SPACE Score</div>
             <a href="{{ url_for('companies') }}" class="sidebarLink">Company Database</a>
@@ -37,7 +37,7 @@
             <div class="sidebarSectionTitle">Miscellanious</div>
             <a href="" class="sidebarLink">Settings</a>
             <a href="{{ url_for('admin') }}" class="sidebarLink">Administrator Panel</a>
-            <a href="{{ url_for('server_stats') }}" class="sidebarLink">cohen's nerd stats</a>
+            <!-- <a href="{{ url_for('server_stats') }}" class="sidebarLink">cohen's nerd stats</a> -->
             <a href="{{ url_for('render_index') }}" class="sidebarLink">Logout</a>
         </div>
     </div>
