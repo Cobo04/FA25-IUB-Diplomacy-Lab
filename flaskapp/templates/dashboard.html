@@ -36,14 +36,12 @@
     <div class="side-box">
         <h1 class="side-box-title">Server Statistics</h1>
         <ul class="stats-list">
-            <li class="stats-item">Server Status: INACTIVE</li>
-            <li class="stats-item">Database Connection: LOST</li>
-            <li class="stats-item">Map Connection: LOST</li>
-            <li class="stats-item">Maltego Connection: LOST</li>
+            <li class="stats-item">Server Status: <span class="{{ server_connection[1] }}">{{ server_connection[0] }}</span></li>
+            <li class="stats-item">Database Connection: <span class="{{ db_connection[1] }}">{{ db_connection[0] }}</span></li>
+            <li class="stats-item">Map Connection: <span class="{{ map_connection[1] }}">{{ map_connection[0] }}</span></li>
+            <li class="stats-item">Maltego Connection: <span class="{{ maltego_connection[1] }}">{{ maltego_connection[0] }}</span></li>
             <li class="stats-item">Total API Calls: N/A</li>
-            <li class="stats-item">Server Time: N/A</li>
-            <li class="stats-item">Client: N/A</li>
-            <li class="stats-item">Uptime: N/A</li>
+            <li class="stats-item">Server Time: {{ server_time }}</li>
             <li class="stats-item">Disk Space: N/A</li>
         </ul>
         <div class="buttonGroup">

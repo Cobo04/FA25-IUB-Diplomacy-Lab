@@ -17,7 +17,7 @@
             <tbody>
                 {% for company in companies %}
                 <tr>
-                    <td><a href="{{ url_for('company', company_name=company['company_name']) }}" class="company-table-link">{{ company['chinese_name'] }} ({{ company['english_translation'] }})</a></td>
+                    <td><a href="{{ url_for('company', company_name=company['english_translation']) }}" class="company-table-link">{{ company['chinese_name'] }} ({{ company['english_translation'] }})</a></td>
                     <td>{{ company['space_score'] }}</td>
                     <td>{{ company['current_date'] }}</td>
                     <td>{{ company['date_last_edited'] }}</td>

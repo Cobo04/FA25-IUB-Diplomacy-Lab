@@ -915,3 +915,21 @@ input[type="radio"]:checked + .radio-label {
     flex-direction: row;
     gap: 20px;
 }
+
+.generate-report-link {
+    border: 2px solid var(--themeOlive);
+    background-color: var(--themeBlack);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    padding: 0.6rem 0.8rem;
+    width: 20%;
+    margin-top: 1rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.generate-report-link:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
+}

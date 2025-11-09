@@ -1,4 +1,5 @@
 import csv, json, math, os
+from datetime import datetime
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
@@ -17,6 +18,10 @@ def get_secret_key():
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
+# =============================
+# ===== Server Statistics =====
+# =============================
+
 def get_company_blame():
     """Returns the number of companies analyzed by each member of the group"""
     blame = {
@@ -32,6 +37,27 @@ def get_company_blame():
             blame[row['user_name']] += 1
 
     return blame
+
+def get_server_connection():
+    return "ACTIVE", "blame-awesome"
+
+def get_map_connection():
+    return "ACTIVE", "blame-awesome"
+
+def get_maltego_connection():
+    return "LOST", "welcome-warning"
+
+def get_server_time():
+    return datetime.now().strftime("%H:%M:%S")
+
+def get_db_connection():
+    connection = True
+    with open("companies.csv", "r", encoding="utf-8") as fhead:
+        if fhead:
+            connection = False
+    if connection:
+        return "LOST", "welcome-warning"
+    return "ACTIVE", "blame-awesome"
 
 # =========================
 # ===== Intialization =====
@@ -65,7 +91,7 @@ def get_company_by_name(name):
     with open("companies.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row['company_name'] == name:
+            if row['english_translation'] == name:
                 return row
     return None
 

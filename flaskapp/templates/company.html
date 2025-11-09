@@ -9,8 +9,8 @@
     <h2 class="add-company-subtitle"><strong>{{ company['space_classification'] }}</strong> - {{ company['vector_string'] }}</h2>
     <hr class="add-company-break">
     <div class="button-container">
-        <button class="submit-button">Generate Report</button>
-        <button class="submit-button">Generate Printable Report</button>
+        <p>{{ company }}</p>
+        <a class="generate-report-link" href="{{ url_for('generate_report', company_name=company['english_translation']) }}">Generate Report</a>
     </div>
     <h2 class="add-company-subtitle">3.4.0 - Basic Information</h2>
 

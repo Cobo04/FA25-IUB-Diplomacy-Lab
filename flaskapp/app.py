@@ -19,6 +19,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, json
 
+import plutoprint
+
 # database requirements
 from flaskapp import database as db
 
@@ -54,7 +56,16 @@ def dashboard():
         blame = db.get_company_blame()
         highest_contributor = max(blame, key=blame.get)
         lowest_contributor = min(blame, key=blame.get)
-        return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores, blame=blame, highest_contributor=highest_contributor, lowest_contributor=lowest_contributor)
+
+        server_connection = db.get_server_connection()
+        db_connection = db.get_db_connection()
+        map_connection = db.get_map_connection()
+        maltego_connection = db.get_maltego_connection()
+        server_time = db.get_server_time()
+        return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores, 
+                               blame=blame, highest_contributor=highest_contributor, lowest_contributor=lowest_contributor, 
+                               db_connection=db_connection, server_connection=server_connection, map_connection=map_connection,
+                               maltego_connection=maltego_connection, server_time=server_time)
     else:
         return redirect(url_for("login"))
 
@@ -283,6 +294,22 @@ def login():
         else:
             return render_template("login.html")
 
+# ====================================
+# ===== Report Generation Routes =====
+# ====================================
+
+@app.route("/report/<company_name>")
+def generate_report(company_name):
+    if 'logged_in' in session and session['logged_in']:
+        company = db.get_company_by_name(company_name)
+        html_content = render_template("auto_report_template.html", company=company)
+
+        book = plutoprint.Book(plutoprint.PAGE_SIZE_A4)
+        book.load_url("flaskapp/templates/auto_report_template.html")
+        book.write_to_pdf("test.pdf")
+    else:
+        return redirect(url_for("login"))
+
 # ================================
 # ===== Don't worry about it =====
 # ================================
@@ -293,8 +320,3 @@ def jupiter():
         return render_template("jupiter.html")
     else:
         return redirect(url_for("login"))
-    
-@app.route("/debug")
-def debug():
-    db.generate_space_score("xyz")
-    return redirect(url_for("dashboard"))
