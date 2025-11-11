@@ -17,7 +17,7 @@
 # flask requirements
 from flask import Flask, render_template, request, redirect, url_for, session
 
-import hashlib, json
+import hashlib, json, datetime, ast
 
 # database requirements
 from flaskapp import database as db
@@ -136,6 +136,11 @@ def handle_space_addition():
                 "supplemental_disputed_data": supplemental_disputed_data
             }
 
+            # set the time for the last edit
+            last_edited = datetime.datetime.now().strftime("%m/%d/%Y")
+            company = db.get_company_by_name(company_name)
+            company['date_last_edited'] = last_edited
+
             db.add_space_score_to_company(company_name, space_score_data)
         return redirect(url_for("companies"))
     else:
@@ -153,7 +158,17 @@ def company(company_name):
         # Pass in the json file of criteria as a dictionary so we can use the descriptions
         with open("space-criterion.json", "r", encoding="utf-8") as f:
             criteria = json.load(f)
-        return render_template("company.html", company=company, criteria=criteria)
+
+        institution_data = {}
+        for i in range(len(company['company_name'].split(";"))):
+            institution_data[company['company_name'].split(";")[i]] = company['location'].split(";")[i]
+
+        dish_data = {}
+        for i in range(len(company['dish_name'].split(";"))):
+            dish_data[company['dish_name'].split(";")[i]] = company['dish_coordinates'].split(";")[i]
+
+        print(institution_data)
+        return render_template("company.html", company=company, criteria=criteria, institutions=institution_data, dishes=dish_data)
     else:
         return redirect(url_for("login"))
 
@@ -180,8 +195,11 @@ def add_company():
             # process form data here
             user_name = request.form['user_name']
             org_name = request.form['org_name']
-            company_name = request.form['company_name']
-            location = request.form['location']
+
+            # This is counterintuitive, but the company name is actually the institution names
+            company_name = request.form.getlist('company_name[]')
+            location = request.form.getlist('location[]')
+
             chinese_name = request.form['chinese_name']
             english_translation = request.form['english_translation']
             unofficial_registry_shareholders = request.form['unofficial_registry_shareholders']
@@ -204,8 +222,11 @@ def add_company():
             military_connection = request.form['military_connection']
             patents_standards = request.form['patents_standards']
             government_procurement = request.form['government_procurement']
-            dish_name = request.form['dish_name']
-            dish_coordinates = request.form['dish_coordinates']
+
+            # Grab the dishes
+            dish_name = request.form.getlist('dish_name[]')
+            dish_coordinates = request.form.getlist('dish_coordinates[]')
+
             spectrum_registration = request.form['spectrum_registration']
             unoosa_filings = request.form['unoosa_filings']
             etc_reports = request.form['etc_reports']
@@ -215,8 +236,15 @@ def add_company():
             social_network_link = request.form['social_network_link']
             analyst_notes = request.form['analyst_notes']
 
-            current_date = "12/04/2004"
-            date_last_edited = "12/04/2004"
+            current_date = datetime.datetime.now().strftime("%m/%d/%Y")
+            date_last_edited = current_date
+
+            # now make the company name and location into parsable strings
+            company_name = ";".join(company_name)
+            location = ";".join(location)
+
+            dish_name = ";".join(dish_name)
+            dish_coordinates = ";".join(dish_coordinates)
 
             company = {
                 "user_name": user_name,

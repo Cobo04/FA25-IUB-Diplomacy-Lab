@@ -995,3 +995,21 @@ input[type="radio"]:checked + .radio-label {
     letter-spacing: .01em;
     margin-bottom: 1rem;
 }
+
+.add-company-info-box {
+    display:none;
+    margin-bottom:1em;
+    font-family: var(--font-apercu);
+    background-color: var(--themeTan);
+    color: var(--themeBlack);
+    border: 2px solid var(--themeOlive);
+    padding: 1em;
+}
+
+.add-company-warning {
+    border: 2px solid var(--themeOlive);
+    background-color: var(--themeBlack);
+    font-family: var(--font-apercu);
+    padding: 20px;
+    margin: 1rem;
+}

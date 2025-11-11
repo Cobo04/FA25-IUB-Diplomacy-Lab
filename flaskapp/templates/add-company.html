@@ -4,10 +4,63 @@
 
 {% block dashboard_content %}
 
-<div class="add-company-container">
+<!-- Refactored script for multiple info/help boxes -->
+<script>
+
+    function removeWarningMessage() {
+        var warningMessage = document.getElementById('warning-message');
+        var container = document.getElementById('add-company-container');
+        if (warningMessage) {
+            warningMessage.style.display = 'none';
+            container.style.display = 'block';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add-company-container').style.display = 'none';
+        document.querySelectorAll('.add-company-info-button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = btn.getAttribute('data-target');
+                if (!targetId) return;
+                var box = document.getElementById(targetId);
+                if (!box) return;
+                if (box.style.display === 'none' || box.style.display === '') {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<div class="add-company-warning" id="warning-message">
+
+    <p class="welcome-warning">A VPN is NOT required to access this website, but a VPN IS required to gather the data itself! Please exercise caution when clicking links by following these steps:</p>
+    <ol class="blame-awesome">
+        <li>Login to the Guacamole system.</li>
+        <li>Gather all data from WITHIN the machine.</li>
+        <li>Do not access any links outside the machine.</li>
+        <li>ARCHIVE, ARCHIVE, ARCHIVE! Use the group webarchive account.</li>
+        <li>Once the data has been collected, it is fine to export to the onedrive, just make sure to redact any links. Reference the webarchive instead.</li>
+        <li>Analyze data and fill in the form below to add a new company.</li>
+    </ol>
+    <p class="welcome-warning">Failure to do so can and will result in the data becoming unaccessable.</p>
+
+    <button class="submit-button" onclick="removeWarningMessage()">I Understand</button>
+
+</div>
+
+<div class="add-company-container" id="add-company-container">
+
     <h1 class="add-company-title">Add a New Company</h1>
     <hr class="add-company-break">
-    <h2 class="add-company-subtitle">Basic Information <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+    <h2 class="add-company-subtitle">Basic Information <a class="add-company-info-button" data-target="info-basic"><i class="bi bi-question-square"></i></a></h2>
+    <div class="add-company-info-box" id="info-basic">
+        <strong>SPACE Visualization Schema 1.1:</strong><br>
+        Enter the analyst's name and organization. This information will be used to track who added the company and for reporting purposes.
+    </div>
     <form action="{{ url_for('add_company') }}" class="" method="post" accept-charset="UTF-8">
 
         <div class="add-company-row">
@@ -29,7 +82,26 @@
 
         </div>
 
-        <h2 class="add-company-subtitle">Chinese-Language Company Name Discovery <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+        <h2 class="add-company-subtitle">3.4.2 Chinese-Language Company Name Discovery <a class="add-company-info-button" data-target="info-chinese-name"><i class="bi bi-question-square"></i></a></h2>
+        <div class="add-company-info-box" id="info-chinese-name">
+            <strong>Research Strategy 3.4.2:</strong><br>
+            We'll use Chinese-language search engines and capture official Chinese names for later queries.<br>
+            We've identified a list of “Core Terms” already that may prove fruitful during this step as search terms:<br>
+            <ul>
+                <li>卫星地面站 - Satellite ground station</li>
+                <li>测控站 - T&C station</li>
+                <li>测控网 - T&C network</li>
+                <li>地面控制站 - Ground control station</li>
+                <li>遥测遥控 TT&C - Telemetry and Telecontrol (TT&C)</li>
+                <li>远望号 测控 - Yuanwang T&C</li>
+                <li>地面接收站 - Ground receiving station</li>
+                <li>测运控 - T&C</li>
+            </ul>
+            <strong>Entity Examples (Chinese):</strong> “天眼查/企查查 + ‘中国电子科技集团 第 54研究所’ ‘地面站’”, etc.<br>
+            <strong>Entity Examples (English Translation):</strong> "Tianyancha/Qichacha + ’China Electronics Technology Group Corporation 54th Research Institute’ ’Ground Station’", etc.
+
+
+        </div>
 
         <div class="add-company-row">
 
@@ -43,25 +115,53 @@
 
         </div>
 
-        <button class="submit-button">Add Another Name</button>
-
-                <h2 class="add-company-subtitle">Scope and Seed List <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
-
-        <h3 class="add-company-sub-subtitle">Institution Names and Locations: <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
-
-        <div class="add-company-row">
-
-            <label for="company-name" class="add-user-label">Institution Name:
-                <input type="text" id="company-name" name="company_name" class="add-user-input" required>
-            </label>
-
-            <label for="location" class="add-user-label">Location:
-                <input type="text" id="location" name="location" class="add-user-input" required>
-            </label>
-
+        <h2 class="add-company-subtitle">3.4.1 Scope and Seed List <a class="add-company-info-button" data-target="info-scope"><i class="bi bi-question-square"></i></a></h2>
+        <div class="add-company-info-box" id="info-scope">
+            <strong>Research Strategy 3.4.1:</strong><br>
+            We’ll build a seed list of likely owners/operators of the Chinese space sector’s 
+            Satellite Ground Control stations using the China Aerospace Studies Institute’s (CASI), 
+            a US Department of the Air Force think tank established in 2017, “China’s Ground Segment” study to collect 
+            32 institute names and locations (as well as useful terms within our project’s scope)<br><br>
+            We’ll confirm whether each entity is a central State-Owned Enterprise (SOE), through various sources, 
+            including China’s own SASAC (State-Owned Assets Supervision and Administration Commission) database, 
+            and also CASC/CASIC’s official websites’ lines of business.
         </div>
 
-        <button class="submit-button">Add Another Institution</button>
+        <h3 class="add-company-sub-subtitle">Institution Names and Locations: <a class="add-company-info-button" data-target="info-institution"><i class="bi bi-question-square"></i></a></h3>
+        <div class="add-company-info-box" id="info-institution">
+            <strong>Institution Names and Locations:</strong><br>
+            Provide the official names and locations of institutions associated with the company.
+        </div>
+
+
+        <div id="institutions-container">
+            <div class="add-company-row institution-row">
+                <label class="add-user-label">Institution Name:
+                    <input type="text" name="company_name[]" class="add-user-input" required>
+                </label>
+                <label class="add-user-label">Location:
+                    <input type="text" name="location[]" class="add-user-input" required>
+                </label>
+            </div>
+        </div>
+        <button type="button" class="submit-button" id="add-institution-btn">Add Another Institution</button>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.getElementById('institutions-container');
+            var addBtn = document.getElementById('add-institution-btn');
+            addBtn.addEventListener('click', function() {
+                var rows = container.getElementsByClassName('institution-row');
+                var lastRow = rows[rows.length - 1];
+                var newRow = lastRow.cloneNode(true);
+                // Clear the values in the cloned inputs
+                newRow.querySelectorAll('input').forEach(function(input) {
+                    input.value = '';
+                });
+                container.appendChild(newRow);
+            });
+        });
+        </script>
 
         <h2 class="add-company-subtitle">Corporate Identity and Hierarchy <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
 
@@ -203,18 +303,36 @@
 
         <h2 class="add-company-subtitle">Geospatial Confirmation (Finding the Dishes) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
 
-        <div class="add-company-row">
 
-            <label for="dish_name" class="add-user-label">Dish Name:
-                <input type="text" id="dish_name" name="dish_name" class="add-user-input" required>
-            </label>
-
-            <label for="dish_coordinates" class="add-user-label">Dish Coordinates:
-                <input type="text" id="dish_coordinates" name="dish_coordinates" class="add-user-input" required>
-            </label>
+        <div id="dishes-container">
+            <div class="add-company-row dish-row">
+                <label class="add-user-label">Dish Name:
+                    <input type="text" name="dish_name[]" class="add-user-input" required>
+                </label>
+                <label class="add-user-label">Dish Coordinates:
+                    <input type="text" name="dish_coordinates[]" class="add-user-input" required>
+                </label>
+            </div>
         </div>
+        <button type="button" class="submit-button" id="add-dish-btn">Add Another Dish</button>
 
-        <button class="submit-button">Add Another Dish</button>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dishContainer = document.getElementById('dishes-container');
+            var addDishBtn = document.getElementById('add-dish-btn');
+            if (addDishBtn) {
+                addDishBtn.addEventListener('click', function() {
+                    var rows = dishContainer.getElementsByClassName('dish-row');
+                    var lastRow = rows[rows.length - 1];
+                    var newRow = lastRow.cloneNode(true);
+                    newRow.querySelectorAll('input').forEach(function(input) {
+                        input.value = '';
+                    });
+                    dishContainer.appendChild(newRow);
+                });
+            }
+        });
+        </script>
 
         <h2 class="add-company-subtitle">Spectrum Registration and Launch Filings <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
 

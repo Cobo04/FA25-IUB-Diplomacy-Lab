@@ -33,14 +33,18 @@
 
     <h2 class="add-company-subtitle">3.4.1 - Scope and Seed List</h2>
 
-    <div class="add-company-row">
-        <label for="chinese-name" class="add-user-label">Institution Name:
-            <p id="chinese-name" class="company-info-content">{{ company['company_name'] }}</p>
-        </label>
-        <label for="english-translation" class="add-user-label">Location:
-            <p id="english-translation" class="company-info-content">{{ company['location'] }}</p>
-        </label>
-    </div>
+    {% for institution, location in institutions.items() %}
+
+        <div class="add-company-row">
+            <label for="chinese-name" class="add-user-label">Institution Name:
+                <p id="chinese-name" class="company-info-content">{{ institution }}</p>
+            </label>
+            <label for="english-translation" class="add-user-label">Location:
+                <p id="english-translation" class="company-info-content">{{ location }}</p>
+            </label>
+        </div>
+
+    {% endfor %}
 
     <h2 class="add-company-subtitle">3.4.2 - Chinese Language Company Name Discovery</h2>
 
@@ -170,14 +174,18 @@
 
     <h2 class="add-company-subtitle">3.4.9 - Geospatial Confirmation</h2>
 
-    <div class="add-company-row">
-        <label for="chinese-name" class="add-user-label">Dish Name:
-            <p id="chinese-name" class="company-info-content">{{ company['dish_name'] }}</p>
-        </label>
-        <label for="english-translation" class="add-user-label">Dish Coordinates:
-            <p id="english-translation" class="company-info-content">{{ company['dish_coordinates'] }}</p>
-        </label>
-    </div>
+    {% for dish_name, dish_coordinates in dishes.items() %}
+
+        <div class="add-company-row">
+            <label for="chinese-name" class="add-user-label">Dish Name:
+                <p id="chinese-name" class="company-info-content">{{ dish_name }}</p>
+            </label>
+            <label for="english-translation" class="add-user-label">Dish Coordinates:
+                <p id="english-translation" class="company-info-content">{{ dish_coordinates }}</p>
+            </label>
+        </div>
+
+    {% endfor %}
 
     <h2 class="add-company-subtitle">3.4.10 - Spectrum Registration and Launch Filings</h2>
 
