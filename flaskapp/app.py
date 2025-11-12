@@ -136,11 +136,9 @@ def handle_space_addition():
                 "supplemental_disputed_data": supplemental_disputed_data
             }
 
-            # set the time for the last edit
-            last_edited = datetime.datetime.now().strftime("%m/%d/%Y")
-            company = db.get_company_by_name(company_name)
-            company['date_last_edited'] = last_edited
+            print(space_score_data)
 
+            # the company name here is actually the english translation
             db.add_space_score_to_company(company_name, space_score_data)
         return redirect(url_for("companies"))
     else:
@@ -160,8 +158,8 @@ def company(company_name):
             criteria = json.load(f)
 
         institution_data = {}
-        for i in range(len(company['company_name'].split(";"))):
-            institution_data[company['company_name'].split(";")[i]] = company['location'].split(";")[i]
+        for i in range(len(company['institution_name'].split(";"))):
+            institution_data[company['institution_name'].split(";")[i]] = company['location'].split(";")[i]
 
         dish_data = {}
         for i in range(len(company['dish_name'].split(";"))):
@@ -197,7 +195,7 @@ def add_company():
             org_name = request.form['org_name']
 
             # This is counterintuitive, but the company name is actually the institution names
-            company_name = request.form.getlist('company_name[]')
+            institution_name = request.form.getlist('institution_name[]')
             location = request.form.getlist('location[]')
 
             chinese_name = request.form['chinese_name']
@@ -240,7 +238,7 @@ def add_company():
             date_last_edited = current_date
 
             # now make the company name and location into parsable strings
-            company_name = ";".join(company_name)
+            institution_name = ";".join(institution_name)
             location = ";".join(location)
 
             dish_name = ";".join(dish_name)
@@ -249,7 +247,7 @@ def add_company():
             company = {
                 "user_name": user_name,
                 "org_name": org_name,
-                "company_name": company_name,
+                "institution_name": institution_name,
                 "location": location,
                 "chinese_name": chinese_name,
                 "english_translation": english_translation,

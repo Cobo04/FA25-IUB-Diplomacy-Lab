@@ -10,6 +10,8 @@
     <hr class="add-company-break">
     <div class="button-container">
         <a class="generate-report-link" href="{{ url_for('generate_report', company_name=company['english_translation']) }}">Generate Report</a>
+        <a class="generate-report-link">Edit Company</a>
+        <a class="generate-report-link">Delete Company</a>
     </div>
     <h2 class="add-company-subtitle">3.4.0 - Basic Information</h2>
 
@@ -335,11 +337,6 @@
         <label for="chinese-name" class="add-user-label">Supplemental Context:
             <p id="chinese-name" class="company-info-content"><strong>{{ company['supplemental_disputed_data'] }}</strong> - {{ criteria['supplemental_context_S']['s_descriptions'][company['supplemental_disputed_data']] }}</p>
         </label>
-    </div>
-
-    <div class="button-container">
-        <button class="submit-button">Edit Company</button>
-        <button class="submit-button">Delete Company</button>
     </div>
 
 </div>

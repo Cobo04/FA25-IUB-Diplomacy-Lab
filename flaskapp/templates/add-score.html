@@ -10,7 +10,7 @@
     <form action="{{ url_for('handle_space_addition') }}" class="" method="post">
 
         <!-- We need to make a dummy input to handle passing the company name through to the other route -->
-        <input type="hidden" id="dummy-company-name" name="dummy_company_name" value="{{ company['company_name'] }}">
+        <input type="hidden" id="dummy-company-name" name="dummy_company_name" value="{{ company['english_translation'] }}">
 
         <!-- Make an accordian-style section with information appear below the h2 tag once the button is clicked -->
         <h2 class="add-company-subtitle">Impact (I) - Consequence Severity <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>

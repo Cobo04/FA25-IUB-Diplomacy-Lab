@@ -98,7 +98,7 @@ def get_company_by_name(name):
 def add_company_to_csv(company):
     # Use a fixed fieldnames list matching your CSV header
     fieldnames = [
-        'user_name', 'org_name', 'company_name', 'location', 'chinese_name', 'english_translation',
+        'user_name', 'org_name', 'institution_name', 'location', 'chinese_name', 'english_translation',
         'unofficial_registry_shareholders', 'unofficial_registry_ubo', 'affiliates', 'licenses',
         'admin_penalties', 'icp_registration', 'branches', 'official_scope', 'official_legal',
         'official_penalties', 'official_licenses', 'unified_social_credit_code', 'company_website',
@@ -123,11 +123,14 @@ def add_space_score_to_company(company_name, space_score_data):
     companies = get_companies_csv()
     updated = False
     for company in companies:
-        if company['company_name'] == company_name:
+        if company['english_translation'] == company_name:
             for key, value in space_score_data.items():
                 company[key] = value
             # Generate and update space_score and classification BEFORE writing to CSV
             company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company)
+            # set the time for the last edit
+            last_edited = str(datetime.now().strftime("%m/%d/%Y"))
+            company['date_last_edited'] = last_edited
             updated = True
             break
     if updated:
