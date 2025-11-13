@@ -191,7 +191,7 @@ polygonSeries.events.on("datavalidated", function () {
     }
 
     // target country ISO codes — 7 countries in addition to Germany (DE already handled earlier if present)
-    var targets = ['US','GB','AU','BR','ZA','IN','JP'];
+    var targets = ['US','GB','AU','BR','ZA','IN','JP','FR','RU','CA','KR','IT'];
 
     targets.forEach(function(tid) {
       try {

@@ -9,12 +9,14 @@ from datetime import datetime
 # ============================
 
 def validate_password(password):
+    increment_server_api_calls()
     # get the password hash from the secret.txt file
     with open("flaskapp/secret.txt", "r") as f:
         stored_password_hash = f.read().strip()
     return password == stored_password_hash
 
 def get_secret_key():
+    increment_server_api_calls()
     with open("flaskapp/secret_key.txt", "r") as f:
         return f.read().strip()
 
@@ -23,6 +25,7 @@ def get_secret_key():
 # =============================
 
 def get_company_blame():
+    increment_server_api_calls()
     """Returns the number of companies analyzed by each member of the group"""
     blame = {
         "Cameron": 0,
@@ -39,18 +42,23 @@ def get_company_blame():
     return blame
 
 def get_server_connection():
+    increment_server_api_calls()
     return "ACTIVE", "blame-awesome"
 
 def get_map_connection():
+    increment_server_api_calls()
     return "ACTIVE", "blame-awesome"
 
 def get_maltego_connection():
+    increment_server_api_calls()
     return "LOST", "welcome-warning"
 
 def get_server_time():
+    increment_server_api_calls()
     return datetime.now().strftime("%H:%M:%S")
 
 def get_db_connection():
+    increment_server_api_calls()
     connection = True
     with open("companies.csv", "r", encoding="utf-8") as fhead:
         if fhead:
@@ -59,11 +67,29 @@ def get_db_connection():
         return "LOST", "welcome-warning"
     return "ACTIVE", "blame-awesome"
 
+def get_total_api_calls():
+    # open the json server file and read the total_api_calls value
+    with open("server_data.json", "r") as f:
+        data = json.load(f)
+        return data.get("total_api_calls", 0)
+
+def increment_server_api_calls():
+    # open the json server file and read the total_api_calls value
+    with open("server_data.json", "r") as f:
+        data = json.load(f)
+    total_api_calls = data.get("total_api_calls", 0)
+    total_api_calls += 1
+    data["total_api_calls"] = total_api_calls
+    # write the updated value back to the json file
+    with open("server_data.json", "w") as f:
+        json.dump(data, f)
+
 # =========================
 # ===== Intialization =====
 # =========================
 
 def get_companies_csv():
+    increment_server_api_calls()
     companies = []
     with open("companies.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
@@ -72,6 +98,7 @@ def get_companies_csv():
     return companies
 
 def get_total_space_scores():
+    increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         total = sum([1 for row in reader if row["space_score"]])
@@ -82,12 +109,14 @@ def get_total_space_scores():
 # ============================
 
 def get_total_companies():
+    increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         total = sum(1 for row in reader) - 1  # subtract 1 for header
     return total
 
 def get_company_by_name(name):
+    increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
@@ -96,6 +125,7 @@ def get_company_by_name(name):
     return None
 
 def add_company_to_csv(company):
+    increment_server_api_calls()
     # Use a fixed fieldnames list matching your CSV header
     fieldnames = [
         'user_name', 'org_name', 'institution_name', 'location', 'chinese_name', 'english_translation',
@@ -120,6 +150,7 @@ def add_company_to_csv(company):
 # ================================
 
 def add_space_score_to_company(company_name, space_score_data):
+    increment_server_api_calls()
     companies = get_companies_csv()
     updated = False
     for company in companies:
@@ -143,6 +174,7 @@ def add_space_score_to_company(company_name, space_score_data):
                 writer.writerows(companies)
 
 def generate_space_score(company):
+    increment_server_api_calls()
     """
     This function follows '2.3 SPACE Scoring Rubric' from the research strategy documentation.\n
     PARAMATER: company_name (str): The name of the company for which to generate the space score.\n
@@ -259,6 +291,7 @@ def generate_space_score(company):
 
 
 def generate_vector_string(ITVES_data, space_score):
+    increment_server_api_calls()
     return f"SPACE:{space_score}/I:C({ITVES_data['I_value']})/T:H({ITVES_data['T_value']})/V:H({ITVES_data['V_value']})/E:Up({ITVES_data['E_value']})/S:LoConf({ITVES_data['S_value']})"
 # FIXME: Also the "LoConf" thing for S should be a reflection of the supplemental as should E: if its 'Up' (> 1.0) or 'Down' (< 1.0)
 # FIXME: with S: it could be HighConf, ModConf, LowConf, DispData
@@ -266,6 +299,7 @@ def generate_vector_string(ITVES_data, space_score):
 # NOTE: does that make sense? Look up a CVSS vector string or play with a calculator (or look at the python code for mine to see how to generate a vector string)
 
 def set_space_score(company_name, space_score):
+    increment_server_api_calls()
     companies = get_companies_csv()
 
     for company in companies:

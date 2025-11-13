@@ -60,10 +60,12 @@ def dashboard():
         map_connection = db.get_map_connection()
         maltego_connection = db.get_maltego_connection()
         server_time = db.get_server_time()
+        total_api_calls = db.get_total_api_calls()
+
         return render_template("dashboard.html", total_companies=total_companies, total_space_scores=total_space_scores, 
                                blame=blame, highest_contributor=highest_contributor, lowest_contributor=lowest_contributor, 
                                db_connection=db_connection, server_connection=server_connection, map_connection=map_connection,
-                               maltego_connection=maltego_connection, server_time=server_time)
+                               maltego_connection=maltego_connection, server_time=server_time, total_api_calls=total_api_calls)
     else:
         return redirect(url_for("login"))
 
