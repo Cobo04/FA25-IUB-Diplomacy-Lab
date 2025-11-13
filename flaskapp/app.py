@@ -36,11 +36,13 @@ app.secret_key = db.get_secret_key()
 
 @app.route("/")
 def render_index():
+    db.increment_server_api_calls()
     session['logged_in'] = False
     return render_template("index.html")
 
 @app.route("/documents")
 def documents():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("documents.html")
     else:
@@ -48,6 +50,7 @@ def documents():
     
 @app.route("/dashboard")
 def dashboard():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         total_companies = db.get_total_companies()
         total_space_scores = db.get_total_space_scores()
@@ -71,6 +74,7 @@ def dashboard():
 
 @app.route("/server-stats")
 def server_stats():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("server_stats.html")
     else:
@@ -78,6 +82,7 @@ def server_stats():
 
 @app.route("/map")
 def map():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("map.html")
     else:
@@ -89,6 +94,7 @@ def map():
 
 @app.route("/add-score", methods=["GET", "POST"])
 def add_score():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         if request.method == "POST":
             company_name = request.form['company_name']
@@ -100,6 +106,7 @@ def add_score():
 
 @app.route("/handle-space-addition", methods=["POST"])
 def handle_space_addition():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         if request.method == "POST":
             company_name = request.form['dummy_company_name']
@@ -153,6 +160,7 @@ def handle_space_addition():
 
 @app.route("/company/<company_name>")
 def company(company_name):
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         company = db.get_company_by_name(company_name)
         # Pass in the json file of criteria as a dictionary so we can use the descriptions
@@ -174,6 +182,7 @@ def company(company_name):
 
 @app.route("/companies")
 def companies():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         companies = db.get_companies_csv()
         return render_template("companies.html", companies=companies)
@@ -182,6 +191,7 @@ def companies():
 
 @app.route("/select-company", methods=["GET", "POST"])
 def select_company():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         companies = db.get_companies_csv()
         return render_template("select_company.html", companies=companies)
@@ -190,6 +200,7 @@ def select_company():
 
 @app.route("/add-company", methods=["GET", "POST"])
 def add_company():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         if request.method == "POST":
             # process form data here
@@ -301,6 +312,7 @@ def add_company():
 
 @app.route("/admin")
 def admin():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("admin.html")
     else:
@@ -308,6 +320,7 @@ def admin():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
+    db.increment_server_api_calls()
     if request.method == "GET":
         return render_template("login.html")
     else:
@@ -326,6 +339,7 @@ def login():
 
 @app.route("/link-analysis")
 def link_analysis():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("link-analysis.html")
     else:
@@ -337,6 +351,7 @@ def link_analysis():
 
 @app.route("/comparative-analysis", methods=["GET", "POST"])
 def comparative_analysis():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         if request.method == "POST":
             company1_name = request.form['company1']
@@ -356,6 +371,7 @@ def comparative_analysis():
 
 @app.route("/report/<company_name>")
 def generate_report(company_name):
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         company = db.get_company_by_name(company_name)
         html_content = render_template("auto_report_template.html", company=company)
@@ -373,6 +389,7 @@ def generate_report(company_name):
 
 @app.route("/jupiter")
 def jupiter():
+    db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         return render_template("jupiter.html")
     else:

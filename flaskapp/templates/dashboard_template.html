@@ -48,10 +48,64 @@
 
             <div class="mainContentTitle">Dashboard</div>
 
-            <div class="mainContentSearchContainer">
-                <input type="text" class="mainContentSearchBar" placeholder="Search...">
-                <!-- <button class="mainContentSearchButton"><i class="bi bi-send"></i></button> -->
+
+            <div class="mainContentSearchContainer" style="position: relative;">
+                <!-- Dashboard search bar with live dropdown results -->
+                <input type="text" class="mainContentSearchBar" id="dashboard-search" placeholder="Search..." autocomplete="off">
+                <div id="search-results" class="searchContentContainer"></div>
             </div>
+
+            <script>
+
+            // Search data with links
+            const searchData = [
+                { label: 'Add Company', url: "{{ url_for('add_company') }}" },
+                { label: 'Company Database', url: "{{ url_for('companies') }}" },
+                { label: 'Generate Report', url: "{{ url_for('select_company') }}" },
+                { label: 'Logout', url: "{{ url_for('render_index') }}" },
+                { label: 'Dashboard', url: "{{ url_for('dashboard') }}" },
+                { label: 'Comparative Analysis', url: "#" },
+                { label: 'Link Analysis', url: "{{ url_for('link_analysis') }}" },
+                { label: 'Documentation', url: "{{ url_for('documents') }}" },
+                { label: 'Interactive Map', url: "{{ url_for('map') }}" },
+                { label: 'Admin Panel', url: "{{ url_for('admin') }}" }
+            ];
+
+            const searchInput = document.getElementById('dashboard-search');
+            const resultsDiv = document.getElementById('search-results');
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                if (!query) {
+                    resultsDiv.style.display = 'none';
+                    resultsDiv.innerHTML = '';
+                    return;
+                }
+                const matches = searchData.filter(item => item.label.toLowerCase().includes(query));
+                if (matches.length === 0) {
+                    resultsDiv.style.display = 'none';
+                    resultsDiv.innerHTML = '';
+                    return;
+                }
+                resultsDiv.innerHTML = matches.map(item => `<a href='${item.url}' class='search-result-item' style='padding: 0.5em; cursor: pointer; display: block; color: inherit; text-decoration: none;'>${item.label}</a>`).join('');
+                resultsDiv.style.display = 'block';
+            });
+
+            // Hide results when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !resultsDiv.contains(e.target)) {
+                    resultsDiv.style.display = 'none';
+                }
+            });
+
+            // Optionally: handle click on result (for now, just fill input)
+            resultsDiv.addEventListener('click', function(e) {
+                if (e.target.classList.contains('search-result-item')) {
+                    // Let the anchor tag handle navigation
+                    resultsDiv.style.display = 'none';
+                }
+            });
+            </script>
 
             <div class="mainContentButtonContainer">
                 <button class="mainContentButton"><i class="bi bi-bell"></i></button>

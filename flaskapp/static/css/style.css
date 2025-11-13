@@ -1013,3 +1013,18 @@ input[type="radio"]:checked + .radio-label {
     padding: 20px;
     margin: 1rem;
 }
+
+.searchContentContainer {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    font-family: var(--font-apercu);
+    color: var(--themeBlack);
+    background: var(--themeTan);
+    border: 2px solid var(--themeOlive);
+    z-index: 10;
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
