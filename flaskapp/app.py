@@ -145,8 +145,6 @@ def handle_space_addition():
                 "supplemental_disputed_data": supplemental_disputed_data
             }
 
-            print(space_score_data)
-
             # the company name here is actually the english translation
             db.add_space_score_to_company(company_name, space_score_data)
         return redirect(url_for("companies"))
@@ -175,7 +173,6 @@ def company(company_name):
         for i in range(len(company['dish_name'].split(";"))):
             dish_data[company['dish_name'].split(";")[i]] = company['dish_coordinates'].split(";")[i]
 
-        print(institution_data)
         return render_template("company.html", company=company, criteria=criteria, institutions=institution_data, dishes=dish_data)
     else:
         return redirect(url_for("login"))
@@ -186,6 +183,15 @@ def companies():
     if 'logged_in' in session and session['logged_in']:
         companies = db.get_companies_csv()
         return render_template("companies.html", companies=companies)
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/delete-company/<company_name>", methods=["POST", "GET"])
+def delete_company(company_name):
+    db.increment_server_api_calls()
+    if 'logged_in' in session and session['logged_in']:
+        db.delete_company_by_name(company_name)
+        return redirect(url_for("companies"))
     else:
         return redirect(url_for("login"))
 

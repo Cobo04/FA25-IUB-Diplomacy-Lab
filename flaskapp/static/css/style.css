@@ -1028,3 +1028,63 @@ input[type="radio"]:checked + .radio-label {
     max-height: 200px;
     overflow-y: auto;
 }
+
+/* Delete Confirmation Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background: var(--themeBlack);
+    margin: 10% auto;
+    padding: 20px;
+    border: 2px solid var(--themeOlive);
+    width: 350px;
+    text-align: center;
+}
+
+.close-modal {
+    /* hide close button for now */
+    display: none;
+    color: var(--themeTan);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.delete-form {
+    margin-top: 20px;
+}
+
+.modal-btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    flex: 1 1 0;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    padding: 0.7em 0;
+    border: 2px solid var(--themeOlive);
+    font-family: var(--font-apercu);
+    color: var(--themeTan);
+    background-color: var(--themeBlack);
+}
+
+.modal-btn:hover {
+    background-color: var(--themeOlive);
+    color: var(--themeBlack);
+    cursor: pointer;
+}

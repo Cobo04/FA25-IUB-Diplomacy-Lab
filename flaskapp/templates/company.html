@@ -10,8 +10,45 @@
     <hr class="add-company-break">
     <div class="button-container">
         <a class="generate-report-link" href="{{ url_for('generate_report', company_name=company['english_translation']) }}">Generate Report</a>
-        <a class="generate-report-link">Edit Company</a>
-        <a class="generate-report-link">Delete Company</a>
+                <a class="generate-report-link">Edit Company</a>
+                <!-- Delete Company button triggers modal -->
+                <a class="generate-report-link" id="delete-company-btn" href="#">Delete Company</a>
+
+                <!-- Confirmation Modal -->
+                <div id="delete-confirm-modal" class="modal">
+                    <div class="modal-content">
+                        <span id="close-modal" class="close-modal">&times;</span>
+                        <h2>Delete Company</h2>
+                        <p>Are you sure you want to delete this company? This action cannot be undone.</p>
+                        <form method="POST" action="{{ url_for('delete_company', company_name=company['english_translation']) }}" class="delete-form modal-btn-row">
+                            <button type="submit" class="modal-btn">Yes, Delete</button>
+                            <button type="button" id="cancel-delete" class="modal-btn">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var modal = document.getElementById('delete-confirm-modal');
+                    var btn = document.getElementById('delete-company-btn');
+                    var span = document.getElementById('close-modal');
+                    var cancel = document.getElementById('cancel-delete');
+                    btn.onclick = function(e) {
+                        e.preventDefault();
+                        modal.style.display = 'block';
+                    }
+                    span.onclick = function() {
+                        modal.style.display = 'none';
+                    }
+                    cancel.onclick = function() {
+                        modal.style.display = 'none';
+                    }
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = 'none';
+                        }
+                    }
+                });
+                </script>
     </div>
     <h2 class="add-company-subtitle">3.4.0 - Basic Information</h2>
 

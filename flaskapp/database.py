@@ -35,7 +35,7 @@ def get_company_blame():
         "Reagan": 0
     }
     with open("companies.csv", "r", encoding="utf-8") as fhead:
-        reader = csv.DictReader(fhead)
+        reader = csv.DictReader(fhead, delimiter='~')
         for row in reader:
             blame[row['user_name']] += 1
 
@@ -92,7 +92,7 @@ def get_companies_csv():
     increment_server_api_calls()
     companies = []
     with open("companies.csv", "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+        reader = csv.DictReader(f, delimiter='~')
         for row in reader:
             companies.append(row)
     return companies
@@ -100,7 +100,7 @@ def get_companies_csv():
 def get_total_space_scores():
     increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+        reader = csv.DictReader(f, delimiter='~')
         total = sum([1 for row in reader if row["space_score"]])
     return total
 
@@ -108,17 +108,43 @@ def get_total_space_scores():
 # ===== Company-Specific =====
 # ============================
 
+def delete_company_by_name(name):
+    increment_server_api_calls()
+    companies = get_companies_csv()
+    companies = [company for company in companies if company['english_translation'] != name]
+    # Always overwrite the CSV, even if empty (write just the header if empty)
+    fieldnames = [
+        'user_name', 'org_name', 'institution_name', 'location', 'chinese_name', 'english_translation',
+        'unofficial_registry_shareholders', 'unofficial_registry_ubo', 'affiliates', 'licenses',
+        'admin_penalties', 'icp_registration', 'branches', 'official_scope', 'official_legal',
+        'official_penalties', 'official_licenses', 'unified_social_credit_code', 'company_website',
+        'domain_info', 'exchange_disclosures', 'export_controls', 'sanctions', 'military_connection',
+        'patents_standards', 'government_procurement', 'dish_name', 'dish_coordinates',
+        'spectrum_registration', 'unoosa_filings', 'etc_reports', 'uscc_reports', 'casc_reports',
+        'social_network_platform', 'social_network_link', 'analyst_notes', 'current_date', 'date_last_edited',
+        'i1_sectoral_criticality', 'i2_systemic_dependancy', 'i3_replacement_cost_and_time', 'i4_spillover_and_escalation_potential',
+        't1_state_alignment_and_control', 't2_strategic_intent_and_mcf_posture', 't3_operational_capability_and_technical_maturity', 't4_behavioral_and_historical_indicators',
+        'v1_dependency_depth', 'v2_proximity_and_access', 'v3_opacity_and_assurance_deficit', 'v4_interoperability_hooks',
+        'e1_mission_criticality_content_type', 'e2_existing_countermeasures', 'supplemental_disputed_data',
+        'space_score', 'space_classification', 'vector_string'
+    ]
+    with open("companies.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
+        writer.writeheader()
+        if companies:
+            writer.writerows(companies)
+
 def get_total_companies():
     increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
-        reader = csv.reader(f)
+        reader = csv.reader(f, delimiter='~')
         total = sum(1 for row in reader) - 1  # subtract 1 for header
     return total
 
 def get_company_by_name(name):
     increment_server_api_calls()
     with open("companies.csv", "r", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
+        reader = csv.DictReader(f, delimiter='~')
         for row in reader:
             if row['english_translation'] == name:
                 return row
@@ -140,7 +166,7 @@ def add_company_to_csv(company):
     file_exists = os.path.isfile("companies.csv")
     write_header = not file_exists or os.path.getsize("companies.csv") == 0
     with open("companies.csv", "a", newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
         if write_header:
             writer.writeheader()
         writer.writerow(company)
@@ -169,7 +195,7 @@ def add_space_score_to_company(company_name, space_score_data):
         if companies:
             fieldnames = companies[0].keys()
             with open("companies.csv", "w", newline='', encoding='utf-8') as f:
-                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
                 writer.writeheader()
                 writer.writerows(companies)
 
