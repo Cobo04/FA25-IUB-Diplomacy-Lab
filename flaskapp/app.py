@@ -96,10 +96,16 @@ def map():
 def add_score():
     db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
+        space_exists = False
         if request.method == "POST":
             company_name = request.form['company_name']
             company = db.get_company_by_name(company_name)
-            return render_template("add-score.html", company=company)
+
+            # now we check to see if the space score already exists
+            if company and 'space_score' in company and company['space_score']:
+                space_exists = True
+
+            return render_template("add-score.html", company=company, space_exists=space_exists)
         return render_template("select_company.html")
     else:
         return redirect(url_for("login"))
@@ -185,6 +191,11 @@ def companies():
         return render_template("companies.html", companies=companies)
     else:
         return redirect(url_for("login"))
+
+# TODO: Implement edit company functionality
+@app.route("/edit-company/<company_name>", methods=["GET", "POST"])
+def edit_company(company_name):
+    pass
 
 @app.route("/delete-company/<company_name>", methods=["POST", "GET"])
 def delete_company(company_name):

@@ -19,19 +19,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="i1-none" name="i1_sectoral_criticality" value="None" required>
+
+            <input type="radio" id="i1-none" name="i1_sectoral_criticality" value="None" required {% if company['i1_sectoral_criticality']=='None' %}checked{% endif %}>
             <label for="i1-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="i1-low" name="i1_sectoral_criticality" value="Low" required>
+            <input type="radio" id="i1-low" name="i1_sectoral_criticality" value="Low" required {% if company['i1_sectoral_criticality']=='Low' %}checked{% endif %}>
             <label for="i1-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="i1-medium" name="i1_sectoral_criticality" value="Medium" required>
+            <input type="radio" id="i1-medium" name="i1_sectoral_criticality" value="Medium" required {% if company['i1_sectoral_criticality']=='Medium' %}checked{% endif %}>
             <label for="i1-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="i1-high" name="i1_sectoral_criticality" value="High" required>
+            <input type="radio" id="i1-high" name="i1_sectoral_criticality" value="High" required {% if company['i1_sectoral_criticality']=='High' %}checked{% endif %}>
             <label for="i1-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="i1-critical" name="i1_sectoral_criticality" value="Critical" required>
+            <input type="radio" id="i1-critical" name="i1_sectoral_criticality" value="Critical" required {% if company['i1_sectoral_criticality']=='Critical' %}checked{% endif %}>
             <label for="i1-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -40,19 +41,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="i2-none" name="i2_systemic_dependancy" value="None" required>
+
+            <input type="radio" id="i2-none" name="i2_systemic_dependancy" value="None" required {% if company['i2_systemic_dependancy']=='None' %}checked{% endif %}>
             <label for="i2-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="i2-low" name="i2_systemic_dependancy" value="Low" required>
+            <input type="radio" id="i2-low" name="i2_systemic_dependancy" value="Low" required {% if company['i2_systemic_dependancy']=='Low' %}checked{% endif %}>
             <label for="i2-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="i2-medium" name="i2_systemic_dependancy" value="Medium" required>
+            <input type="radio" id="i2-medium" name="i2_systemic_dependancy" value="Medium" required {% if company['i2_systemic_dependancy']=='Medium' %}checked{% endif %}>
             <label for="i2-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="i2-high" name="i2_systemic_dependancy" value="High" required>
+            <input type="radio" id="i2-high" name="i2_systemic_dependancy" value="High" required {% if company['i2_systemic_dependancy']=='High' %}checked{% endif %}>
             <label for="i2-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="i2-critical" name="i2_systemic_dependancy" value="Critical" required>
+            <input type="radio" id="i2-critical" name="i2_systemic_dependancy" value="Critical" required {% if company['i2_systemic_dependancy']=='Critical' %}checked{% endif %}>
             <label for="i2-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -61,19 +63,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="i3-none" name="i3_replacement_cost_and_time" value="None" required>
+
+            <input type="radio" id="i3-none" name="i3_replacement_cost_and_time" value="None" required {% if company['i3_replacement_cost_and_time']=='None' %}checked{% endif %}>
             <label for="i3-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="i3-low" name="i3_replacement_cost_and_time" value="Low" required>
+            <input type="radio" id="i3-low" name="i3_replacement_cost_and_time" value="Low" required {% if company['i3_replacement_cost_and_time']=='Low' %}checked{% endif %}>
             <label for="i3-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="i3-medium" name="i3_replacement_cost_and_time" value="Medium" required>
+            <input type="radio" id="i3-medium" name="i3_replacement_cost_and_time" value="Medium" required {% if company['i3_replacement_cost_and_time']=='Medium' %}checked{% endif %}>
             <label for="i3-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="i3-high" name="i3_replacement_cost_and_time" value="High" required>
+            <input type="radio" id="i3-high" name="i3_replacement_cost_and_time" value="High" required {% if company['i3_replacement_cost_and_time']=='High' %}checked{% endif %}>
             <label for="i3-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="i3-critical" name="i3_replacement_cost_and_time" value="Critical" required>
+            <input type="radio" id="i3-critical" name="i3_replacement_cost_and_time" value="Critical" required {% if company['i3_replacement_cost_and_time']=='Critical' %}checked{% endif %}>
             <label for="i3-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -82,19 +85,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="i4-none" name="i4_spillover_and_escalation_potential" value="None" required>
+
+            <input type="radio" id="i4-none" name="i4_spillover_and_escalation_potential" value="None" required {% if company['i4_spillover_and_escalation_potential']=='None' %}checked{% endif %}>
             <label for="i4-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="i4-low" name="i4_spillover_and_escalation_potential" value="Low" required>
+            <input type="radio" id="i4-low" name="i4_spillover_and_escalation_potential" value="Low" required {% if company['i4_spillover_and_escalation_potential']=='Low' %}checked{% endif %}>
             <label for="i4-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="i4-medium" name="i4_spillover_and_escalation_potential" value="Medium" required>
+            <input type="radio" id="i4-medium" name="i4_spillover_and_escalation_potential" value="Medium" required {% if company['i4_spillover_and_escalation_potential']=='Medium' %}checked{% endif %}>
             <label for="i4-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="i4-high" name="i4_spillover_and_escalation_potential" value="High" required>
+            <input type="radio" id="i4-high" name="i4_spillover_and_escalation_potential" value="High" required {% if company['i4_spillover_and_escalation_potential']=='High' %}checked{% endif %}>
             <label for="i4-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="i4-critical" name="i4_spillover_and_escalation_potential" value="Critical" required>
+            <input type="radio" id="i4-critical" name="i4_spillover_and_escalation_potential" value="Critical" required {% if company['i4_spillover_and_escalation_potential']=='Critical' %}checked{% endif %}>
             <label for="i4-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -105,19 +109,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="t1-none" name="t1_state_alignment_and_control" value="None" required>
+
+            <input type="radio" id="t1-none" name="t1_state_alignment_and_control" value="None" required {% if company['t1_state_alignment_and_control']=='None' %}checked{% endif %}>
             <label for="t1-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="t1-low" name="t1_state_alignment_and_control" value="Low" required>
+            <input type="radio" id="t1-low" name="t1_state_alignment_and_control" value="Low" required {% if company['t1_state_alignment_and_control']=='Low' %}checked{% endif %}>
             <label for="t1-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="t1-medium" name="t1_state_alignment_and_control" value="Medium" required>
+            <input type="radio" id="t1-medium" name="t1_state_alignment_and_control" value="Medium" required {% if company['t1_state_alignment_and_control']=='Medium' %}checked{% endif %}>
             <label for="t1-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="t1-high" name="t1_state_alignment_and_control" value="High" required>
+            <input type="radio" id="t1-high" name="t1_state_alignment_and_control" value="High" required {% if company['t1_state_alignment_and_control']=='High' %}checked{% endif %}>
             <label for="t1-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="t1-critical" name="t1_state_alignment_and_control" value="Critical" required>
+            <input type="radio" id="t1-critical" name="t1_state_alignment_and_control" value="Critical" required {% if company['t1_state_alignment_and_control']=='Critical' %}checked{% endif %}>
             <label for="t1-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -126,19 +131,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="t2-none" name="t2_strategic_intent_and_mcf_posture" value="None" required>
+
+            <input type="radio" id="t2-none" name="t2_strategic_intent_and_mcf_posture" value="None" required {% if company['t2_strategic_intent_and_mcf_posture']=='None' %}checked{% endif %}>
             <label for="t2-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="t2-low" name="t2_strategic_intent_and_mcf_posture" value="Low" required>
+            <input type="radio" id="t2-low" name="t2_strategic_intent_and_mcf_posture" value="Low" required {% if company['t2_strategic_intent_and_mcf_posture']=='Low' %}checked{% endif %}>
             <label for="t2-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="t2-medium" name="t2_strategic_intent_and_mcf_posture" value="Medium" required>
+            <input type="radio" id="t2-medium" name="t2_strategic_intent_and_mcf_posture" value="Medium" required {% if company['t2_strategic_intent_and_mcf_posture']=='Medium' %}checked{% endif %}>
             <label for="t2-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="t2-high" name="t2_strategic_intent_and_mcf_posture" value="High" required>
+            <input type="radio" id="t2-high" name="t2_strategic_intent_and_mcf_posture" value="High" required {% if company['t2_strategic_intent_and_mcf_posture']=='High' %}checked{% endif %}>
             <label for="t2-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="t2-critical" name="t2_strategic_intent_and_mcf_posture" value="Critical" required>
+            <input type="radio" id="t2-critical" name="t2_strategic_intent_and_mcf_posture" value="Critical" required {% if company['t2_strategic_intent_and_mcf_posture']=='Critical' %}checked{% endif %}>
             <label for="t2-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -147,19 +153,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="t3-none" name="t3_operational_capability_and_technical_maturity" value="None" required>
+
+            <input type="radio" id="t3-none" name="t3_operational_capability_and_technical_maturity" value="None" required {% if company['t3_operational_capability_and_technical_maturity']=='None' %}checked{% endif %}>
             <label for="t3-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="t3-low" name="t3_operational_capability_and_technical_maturity" value="Low" required>
+            <input type="radio" id="t3-low" name="t3_operational_capability_and_technical_maturity" value="Low" required {% if company['t3_operational_capability_and_technical_maturity']=='Low' %}checked{% endif %}>
             <label for="t3-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="t3-medium" name="t3_operational_capability_and_technical_maturity" value="Medium" required>
+            <input type="radio" id="t3-medium" name="t3_operational_capability_and_technical_maturity" value="Medium" required {% if company['t3_operational_capability_and_technical_maturity']=='Medium' %}checked{% endif %}>
             <label for="t3-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="t3-high" name="t3_operational_capability_and_technical_maturity" value="High" required>
+            <input type="radio" id="t3-high" name="t3_operational_capability_and_technical_maturity" value="High" required {% if company['t3_operational_capability_and_technical_maturity']=='High' %}checked{% endif %}>
             <label for="t3-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="t3-critical" name="t3_operational_capability_and_technical_maturity" value="Critical" required>
+            <input type="radio" id="t3-critical" name="t3_operational_capability_and_technical_maturity" value="Critical" required {% if company['t3_operational_capability_and_technical_maturity']=='Critical' %}checked{% endif %}>
             <label for="t3-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -168,19 +175,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="t4-none" name="t4_behavioral_and_historical_indicators" value="None" required>
+
+            <input type="radio" id="t4-none" name="t4_behavioral_and_historical_indicators" value="None" required {% if company['t4_behavioral_and_historical_indicators']=='None' %}checked{% endif %}>
             <label for="t4-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="t4-low" name="t4_behavioral_and_historical_indicators" value="Low" required>
+            <input type="radio" id="t4-low" name="t4_behavioral_and_historical_indicators" value="Low" required {% if company['t4_behavioral_and_historical_indicators']=='Low' %}checked{% endif %}>
             <label for="t4-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="t4-medium" name="t4_behavioral_and_historical_indicators" value="Medium" required>
+            <input type="radio" id="t4-medium" name="t4_behavioral_and_historical_indicators" value="Medium" required {% if company['t4_behavioral_and_historical_indicators']=='Medium' %}checked{% endif %}>
             <label for="t4-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="t4-high" name="t4_behavioral_and_historical_indicators" value="High" required>
+            <input type="radio" id="t4-high" name="t4_behavioral_and_historical_indicators" value="High" required {% if company['t4_behavioral_and_historical_indicators']=='High' %}checked{% endif %}>
             <label for="t4-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="t4-critical" name="t4_behavioral_and_historical_indicators" value="Critical" required>
+            <input type="radio" id="t4-critical" name="t4_behavioral_and_historical_indicators" value="Critical" required {% if company['t4_behavioral_and_historical_indicators']=='Critical' %}checked{% endif %}>
             <label for="t4-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -191,19 +199,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="v1-none" name="v1_dependency_depth" value="None" required>
+
+            <input type="radio" id="v1-none" name="v1_dependency_depth" value="None" required {% if company['v1_dependency_depth']=='None' %}checked{% endif %}>
             <label for="v1-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="v1-low" name="v1_dependency_depth" value="Low" required>
+            <input type="radio" id="v1-low" name="v1_dependency_depth" value="Low" required {% if company['v1_dependency_depth']=='Low' %}checked{% endif %}>
             <label for="v1-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="v1-medium" name="v1_dependency_depth" value="Medium" required>
+            <input type="radio" id="v1-medium" name="v1_dependency_depth" value="Medium" required {% if company['v1_dependency_depth']=='Medium' %}checked{% endif %}>
             <label for="v1-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="v1-high" name="v1_dependency_depth" value="High" required>
+            <input type="radio" id="v1-high" name="v1_dependency_depth" value="High" required {% if company['v1_dependency_depth']=='High' %}checked{% endif %}>
             <label for="v1-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="v1-critical" name="v1_dependency_depth" value="Critical" required>
+            <input type="radio" id="v1-critical" name="v1_dependency_depth" value="Critical" required {% if company['v1_dependency_depth']=='Critical' %}checked{% endif %}>
             <label for="v1-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -212,19 +221,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="v2-none" name="v2_proximity_and_access" value="None" required>
+
+            <input type="radio" id="v2-none" name="v2_proximity_and_access" value="None" required {% if company['v2_proximity_and_access']=='None' %}checked{% endif %}>
             <label for="v2-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="v2-low" name="v2_proximity_and_access" value="Low" required>
+            <input type="radio" id="v2-low" name="v2_proximity_and_access" value="Low" required {% if company['v2_proximity_and_access']=='Low' %}checked{% endif %}>
             <label for="v2-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="v2-medium" name="v2_proximity_and_access" value="Medium" required>
+            <input type="radio" id="v2-medium" name="v2_proximity_and_access" value="Medium" required {% if company['v2_proximity_and_access']=='Medium' %}checked{% endif %}>
             <label for="v2-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="v2-high" name="v2_proximity_and_access" value="High" required>
+            <input type="radio" id="v2-high" name="v2_proximity_and_access" value="High" required {% if company['v2_proximity_and_access']=='High' %}checked{% endif %}>
             <label for="v2-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="v2-critical" name="v2_proximity_and_access" value="Critical" required>
+            <input type="radio" id="v2-critical" name="v2_proximity_and_access" value="Critical" required {% if company['v2_proximity_and_access']=='Critical' %}checked{% endif %}>
             <label for="v2-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -233,19 +243,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="v3-none" name="v3_opacity_and_assurance_deficit" value="None" required>
+
+            <input type="radio" id="v3-none" name="v3_opacity_and_assurance_deficit" value="None" required {% if company['v3_opacity_and_assurance_deficit']=='None' %}checked{% endif %}>
             <label for="v3-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="v3-low" name="v3_opacity_and_assurance_deficit" value="Low" required>
+            <input type="radio" id="v3-low" name="v3_opacity_and_assurance_deficit" value="Low" required {% if company['v3_opacity_and_assurance_deficit']=='Low' %}checked{% endif %}>
             <label for="v3-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="v3-medium" name="v3_opacity_and_assurance_deficit" value="Medium" required>
+            <input type="radio" id="v3-medium" name="v3_opacity_and_assurance_deficit" value="Medium" required {% if company['v3_opacity_and_assurance_deficit']=='Medium' %}checked{% endif %}>
             <label for="v3-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="v3-high" name="v3_opacity_and_assurance_deficit" value="High" required>
+            <input type="radio" id="v3-high" name="v3_opacity_and_assurance_deficit" value="High" required {% if company['v3_opacity_and_assurance_deficit']=='High' %}checked{% endif %}>
             <label for="v3-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="v3-critical" name="v3_opacity_and_assurance_deficit" value="Critical" required>
+            <input type="radio" id="v3-critical" name="v3_opacity_and_assurance_deficit" value="Critical" required {% if company['v3_opacity_and_assurance_deficit']=='Critical' %}checked{% endif %}>
             <label for="v3-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -254,19 +265,20 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="v4-none" name="v4_interoperability_hooks" value="None" required>
+
+            <input type="radio" id="v4-none" name="v4_interoperability_hooks" value="None" required {% if company['v4_interoperability_hooks']=='None' %}checked{% endif %}>
             <label for="v4-none" class="add-user-label radio-label">No Data</label>
 
-            <input type="radio" id="v4-low" name="v4_interoperability_hooks" value="Low" required>
+            <input type="radio" id="v4-low" name="v4_interoperability_hooks" value="Low" required {% if company['v4_interoperability_hooks']=='Low' %}checked{% endif %}>
             <label for="v4-low" class="add-user-label radio-label">Low</label>
 
-            <input type="radio" id="v4-medium" name="v4_interoperability_hooks" value="Medium" required>
+            <input type="radio" id="v4-medium" name="v4_interoperability_hooks" value="Medium" required {% if company['v4_interoperability_hooks']=='Medium' %}checked{% endif %}>
             <label for="v4-medium" class="add-user-label radio-label">Medium</label>
 
-            <input type="radio" id="v4-high" name="v4_interoperability_hooks" value="High" required>
+            <input type="radio" id="v4-high" name="v4_interoperability_hooks" value="High" required {% if company['v4_interoperability_hooks']=='High' %}checked{% endif %}>
             <label for="v4-high" class="add-user-label radio-label">High</label>
 
-            <input type="radio" id="v4-critical" name="v4_interoperability_hooks" value="Critical" required>
+            <input type="radio" id="v4-critical" name="v4_interoperability_hooks" value="Critical" required {% if company['v4_interoperability_hooks']=='Critical' %}checked{% endif %}>
             <label for="v4-critical" class="add-user-label radio-label">Critical</label>
 
         </div>
@@ -277,7 +289,7 @@
 
         <div class="add-company-row">
 
-            <input type="text" id="e1-mission-criticality-content-type" name="e1_mission_criticality_content_type" class="add-user-input" required>
+            <input type="text" id="e1-mission-criticality-content-type" name="e1_mission_criticality_content_type" class="add-user-input" required value="{{ company['e1_mission_criticality_content_type'] }}">
 
         </div> 
 
@@ -285,7 +297,7 @@
 
         <div class="add-company-row">
 
-            <input type="text" id="e2-existing-countermeasures" name="e2_existing_countermeasures" class="add-user-input" required>
+            <input type="text" id="e2-existing-countermeasures" name="e2_existing_countermeasures" class="add-user-input" required value="{{ company['e2_existing_countermeasures'] }}">
 
         </div>
 
@@ -293,16 +305,17 @@
 
         <div class="add-company-row">
 
-            <input type="radio" id="supplemental-disputed-data" name="supplemental_disputed_data" class="add-user-input" value="Disputed Data" required>
+
+            <input type="radio" id="supplemental-disputed-data" name="supplemental_disputed_data" class="add-user-input" value="Disputed Data" required {% if company['supplemental_disputed_data']=='Disputed Data' %}checked{% endif %}>
             <label for="supplemental-disputed-data" class="add-user-label radio-label">Disputed Data</label>
 
-            <input type="radio" id="supplemental-low" name="supplemental_disputed_data" class="add-user-input" value="Low Confidence" required>
+            <input type="radio" id="supplemental-low" name="supplemental_disputed_data" class="add-user-input" value="Low Confidence" required {% if company['supplemental_disputed_data']=='Low Confidence' %}checked{% endif %}>
             <label for="supplemental-low" class="add-user-label radio-label">Low Confidence</label>
 
-            <input type="radio" id="supplemental-moderate" name="supplemental_disputed_data" class="add-user-input" value="Moderate Confidence" required>
+            <input type="radio" id="supplemental-moderate" name="supplemental_disputed_data" class="add-user-input" value="Moderate Confidence" required {% if company['supplemental_disputed_data']=='Moderate Confidence' %}checked{% endif %}>
             <label for="supplemental-moderate" class="add-user-label radio-label">Moderate Confidence</label>
 
-            <input type="radio" id="supplemental-high" name="supplemental_disputed_data" class="add-user-input" value="High Confidence" required>
+            <input type="radio" id="supplemental-high" name="supplemental_disputed_data" class="add-user-input" value="High Confidence" required {% if company['supplemental_disputed_data']=='High Confidence' %}checked{% endif %}>
             <label for="supplemental-high" class="add-user-label radio-label">High Confidence</label>
 
         </div>
@@ -310,6 +323,5 @@
         <button type="submit" class="submit-button">Generate Space Score</button>
     </form>
 </div>
-
 
 {% endblock %}
