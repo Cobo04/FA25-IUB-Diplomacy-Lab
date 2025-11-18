@@ -138,7 +138,6 @@ def edit_company_by_name(name, updated_company):
             companies[i] = company
             found = True
             break
-    if not found:
     with open("companies.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
         writer.writeheader()
