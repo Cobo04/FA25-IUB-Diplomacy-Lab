@@ -96,16 +96,10 @@ def map():
 def add_score():
     db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
-        space_exists = False
         if request.method == "POST":
             company_name = request.form['company_name']
             company = db.get_company_by_name(company_name)
-
-            # now we check to see if the space score already exists
-            if company and 'space_score' in company and company['space_score']:
-                space_exists = True
-
-            return render_template("add-score.html", company=company, space_exists=space_exists)
+            return render_template("add-score.html", company=company)
         return render_template("select_company.html")
     else:
         return redirect(url_for("login"))
@@ -195,7 +189,115 @@ def companies():
 # TODO: Implement edit company functionality
 @app.route("/edit-company/<company_name>", methods=["GET", "POST"])
 def edit_company(company_name):
-    pass
+    if 'logged_in' in session and session['logged_in']:
+        db.increment_server_api_calls()
+        name_copy = company_name
+        if request.method == "POST":
+            # process form data here
+            user_name = request.form['user_name']
+            org_name = request.form['org_name']
+
+            # This is counterintuitive, but the company name is actually the institution names
+            institution_name = request.form.getlist('institution_name[]')
+            location = request.form.getlist('location[]')
+
+            chinese_name = request.form['chinese_name']
+            english_translation = request.form['english_translation']
+            unofficial_registry_shareholders = request.form['unofficial_registry_shareholders']
+            unofficial_registry_ubo = request.form['unofficial_registry_ubo']
+            affiliates = request.form['affiliates']
+            licenses = request.form['licenses']
+            admin_penalties = request.form['admin_penalties']
+            icp_registration = request.form['icp_registration']
+            branches = request.form['branches']
+            official_scope = request.form['official_scope']
+            official_legal = request.form['official_legal']
+            official_penalties = request.form['official_penalties']
+            official_licenses = request.form['official_licenses']
+            unified_social_credit_code = request.form['unified_social_credit_code']
+            company_website = request.form['company_website']
+            domain_info = request.form['domain_info']
+            exchange_disclosures = request.form['exchange_disclosures']
+            export_controls = request.form['export_controls']
+            sanctions = request.form['sanctions']
+            military_connection = request.form['military_connection']
+            patents_standards = request.form['patents_standards']
+            government_procurement = request.form['government_procurement']
+
+            # Grab the dishes
+            dish_name = request.form.getlist('dish_name[]')
+            dish_coordinates = request.form.getlist('dish_coordinates[]')
+
+            spectrum_registration = request.form['spectrum_registration']
+            unoosa_filings = request.form['unoosa_filings']
+            etc_reports = request.form['etc_reports']
+            uscc_reports = request.form['uscc_reports']
+            casc_reports = request.form['casc_reports']
+            social_network_platform = request.form['social_network_platform']
+            social_network_link = request.form['social_network_link']
+            analyst_notes = request.form['analyst_notes']
+
+            current_date = datetime.datetime.now().strftime("%m/%d/%Y")
+            date_last_edited = current_date
+
+            # now make the company name and location into parsable strings
+            institution_name = ";".join(institution_name)
+            location = ";".join(location)
+
+            dish_name = ";".join(dish_name)
+            dish_coordinates = ";".join(dish_coordinates)
+
+            company = {
+                "user_name": user_name,
+                "org_name": org_name,
+                "institution_name": institution_name,
+                "location": location,
+                "chinese_name": chinese_name,
+                "english_translation": english_translation,
+                "unofficial_registry_shareholders": unofficial_registry_shareholders,
+                "unofficial_registry_ubo": unofficial_registry_ubo,
+                "affiliates": affiliates,
+                "licenses": licenses,
+                "admin_penalties": admin_penalties,
+                "icp_registration": icp_registration,
+                "branches": branches,
+                "official_scope": official_scope,
+                "official_legal": official_legal,
+                "official_penalties": official_penalties,
+                "official_licenses": official_licenses,
+                "unified_social_credit_code": unified_social_credit_code,
+                "company_website": company_website,
+                "domain_info": domain_info,
+                "exchange_disclosures": exchange_disclosures,
+                "export_controls": export_controls,
+                "sanctions": sanctions,
+                "military_connection": military_connection,
+                "patents_standards": patents_standards,
+                "government_procurement": government_procurement,
+                "dish_name": dish_name,
+                "dish_coordinates": dish_coordinates,
+                "spectrum_registration": spectrum_registration,
+                "unoosa_filings": unoosa_filings,
+                "etc_reports": etc_reports,
+                "uscc_reports": uscc_reports,
+                "casc_reports": casc_reports,
+                "social_network_platform": social_network_platform,
+                "social_network_link": social_network_link,
+                "analyst_notes": analyst_notes,
+                "current_date": current_date,
+                "date_last_edited": date_last_edited
+            }
+
+            db.edit_company_by_name(name_copy, company)
+            return redirect(url_for("companies"))
+        else:
+            company = db.get_company_by_name(company_name)
+            institution_names = company['institution_name'].split(";")
+            institution_locations = company['location'].split(";")
+            dish_names = company['dish_name'].split(";")
+            dish_coordinates = company['dish_coordinates'].split(";")
+        return render_template("edit-company.html", company=company, institution_names=institution_names, institution_locations=institution_locations, dish_names=dish_names, dish_coordinates=dish_coordinates)
+    return redirect(url_for("login"))
 
 @app.route("/delete-company/<company_name>", methods=["POST", "GET"])
 def delete_company(company_name):

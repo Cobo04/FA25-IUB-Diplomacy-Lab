@@ -1,0 +1,410 @@
+{% extends "dashboard_template.html" %}
+
+{% block title %}Add Company{% endblock %}
+
+{% block dashboard_content %}
+
+<!-- Refactored script for multiple info/help boxes -->
+<script>
+
+    function removeWarningMessage() {
+        var warningMessage = document.getElementById('warning-message');
+        var container = document.getElementById('add-company-container');
+        if (warningMessage) {
+            warningMessage.style.display = 'none';
+            container.style.display = 'block';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('add-company-container').style.display = 'none';
+        document.querySelectorAll('.add-company-info-button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = btn.getAttribute('data-target');
+                if (!targetId) return;
+                var box = document.getElementById(targetId);
+                if (!box) return;
+                if (box.style.display === 'none' || box.style.display === '') {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+
+<div class="add-company-warning" id="warning-message">
+
+    <p class="welcome-warning">A VPN is NOT required to access this website, but a VPN IS required to gather the data itself! Please exercise caution when clicking links by following these steps:</p>
+    <ol class="blame-awesome">
+        <li>Login to the Guacamole system.</li>
+        <li>Gather all data from WITHIN the machine.</li>
+        <li>Do not access any links outside the machine.</li>
+        <li>ARCHIVE, ARCHIVE, ARCHIVE! Use the group webarchive account.</li>
+        <li>Once the data has been collected, it is fine to export to the onedrive, just make sure to redact any links. Reference the webarchive instead.</li>
+        <li>Analyze data and fill in the form below to add a new company.</li>
+    </ol>
+    <p class="welcome-warning">Failure to do so can and will result in the data becoming unaccessable.</p>
+
+    <button class="submit-button" onclick="removeWarningMessage()">I Understand</button>
+
+</div>
+
+<div class="add-company-container" id="add-company-container">
+
+    <h1 class="add-company-title">Edit Company - {{ company['chinese_name'] }} ({{ company['english_translation'] }})</h1>
+    <hr class="add-company-break">
+    <h2 class="add-company-subtitle">Basic Information <a class="add-company-info-button" data-target="info-basic"><i class="bi bi-question-square"></i></a></h2>
+    <div class="add-company-info-box" id="info-basic">
+        <strong>SPACE Visualization Schema 1.1:</strong><br>
+        Enter the analyst's name and organization. This information will be used to track who added the company and for reporting purposes.
+    </div>
+    <form action="{{ url_for('edit_company', company_name=company['english_translation']) }}" class="" method="post" accept-charset="UTF-8">
+
+        <div class="add-company-row">
+
+
+            <select name="user_name" id="user-name" class="select-company-dropdown" required>
+                <option value="" disabled {% if not company['user_name'] %}selected{% endif %}>Analyst Name</option>
+                <option value="Cameron" {% if company['user_name']=='Cameron' %}selected{% endif %}>Cameron</option>
+                <option value="Cohen" {% if company['user_name']=='Cohen' %}selected{% endif %}>Cohen</option>
+                <option value="Eva" {% if company['user_name']=='Eva' %}selected{% endif %}>Eva</option>
+                <option value="Leah" {% if company['user_name']=='Leah' %}selected{% endif %}>Leah</option>
+                <option value="Reagan" {% if company['user_name']=='Reagan' %}selected{% endif %}>Reagan</option>
+            </select>
+
+            <select name="org_name" id="org-name" class="select-company-dropdown" required>
+                <option value="" disabled {% if not company['org_name'] %}selected{% endif %}>Organization Name</option>
+                <option value="Indiana University Bloomington" {% if company['org_name']=='Indiana University Bloomington' %}selected{% endif %}>Indiana University Bloomington</option>
+                <option value="US Department of State" {% if company['org_name']=='US Department of State' %}selected{% endif %}>US Department of State</option>
+            </select>
+
+        </div>
+
+        <h2 class="add-company-subtitle">3.4.2 Chinese-Language Company Name Discovery <a class="add-company-info-button" data-target="info-chinese-name"><i class="bi bi-question-square"></i></a></h2>
+        <div class="add-company-info-box" id="info-chinese-name">
+            <strong>Research Strategy 3.4.2:</strong><br>
+            We'll use Chinese-language search engines and capture official Chinese names for later queries.<br>
+            We've identified a list of “Core Terms” already that may prove fruitful during this step as search terms:<br>
+            <ul>
+                <li>卫星地面站 - Satellite ground station</li>
+                <li>测控站 - T&C station</li>
+                <li>测控网 - T&C network</li>
+                <li>地面控制站 - Ground control station</li>
+                <li>遥测遥控 TT&C - Telemetry and Telecontrol (TT&C)</li>
+                <li>远望号 测控 - Yuanwang T&C</li>
+                <li>地面接收站 - Ground receiving station</li>
+                <li>测运控 - T&C</li>
+            </ul>
+            <strong>Entity Examples (Chinese):</strong> “天眼查/企查查 + ‘中国电子科技集团 第 54研究所’ ‘地面站’”, etc.<br>
+            <strong>Entity Examples (English Translation):</strong> "Tianyancha/Qichacha + ’China Electronics Technology Group Corporation 54th Research Institute’ ’Ground Station’", etc.
+
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="chinese-name" class="add-user-label">Chinese Company Name:
+                <input type="text" id="chinese-name" name="chinese_name" class="add-user-input" required value="{{ company['chinese_name'] }}">
+            </label>
+
+            <label for="english-translation" class="add-user-label">English Translation:
+                <input type="text" id="english-translation" name="english_translation" class="add-user-input" required value="{{ company['english_translation'] }}">
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">3.4.1 Scope and Seed List <a class="add-company-info-button" data-target="info-scope"><i class="bi bi-question-square"></i></a></h2>
+        <div class="add-company-info-box" id="info-scope">
+            <strong>Research Strategy 3.4.1:</strong><br>
+            We’ll build a seed list of likely owners/operators of the Chinese space sector’s 
+            Satellite Ground Control stations using the China Aerospace Studies Institute’s (CASI), 
+            a US Department of the Air Force think tank established in 2017, “China’s Ground Segment” study to collect 
+            32 institute names and locations (as well as useful terms within our project’s scope)<br><br>
+            We’ll confirm whether each entity is a central State-Owned Enterprise (SOE), through various sources, 
+            including China’s own SASAC (State-Owned Assets Supervision and Administration Commission) database, 
+            and also CASC/CASIC’s official websites’ lines of business.
+        </div>
+
+        <h3 class="add-company-sub-subtitle">Institution Names and Locations: <a class="add-company-info-button" data-target="info-institution"><i class="bi bi-question-square"></i></a></h3>
+        <div class="add-company-info-box" id="info-institution">
+            <strong>Institution Names and Locations:</strong><br>
+            Provide the official names and locations of institutions associated with the company.
+        </div>
+
+
+        <!-- since the data is coming in via a list for both, lets just loop over them and add them -->
+
+        {% for i in range(institution_names|length) %}
+
+        <div id="institutions-container">
+            <div class="add-company-row institution-row">
+                <label class="add-user-label">Institution Name:
+                    <input type="text" name="institution_name[]" class="add-user-input" required value="{{ institution_names[i] }}">
+                </label>
+                <label class="add-user-label">Location:
+                    <input type="text" name="location[]" class="add-user-input" required value="{{ institution_locations[i] }}">
+                </label>
+            </div>
+        </div>
+
+        {% endfor %}
+        <button type="button" class="submit-button" id="add-institution-btn">Add Another Institution</button>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var container = document.getElementById('institutions-container');
+            var addBtn = document.getElementById('add-institution-btn');
+            addBtn.addEventListener('click', function() {
+                var rows = container.getElementsByClassName('institution-row');
+                var lastRow = rows[rows.length - 1];
+                var newRow = lastRow.cloneNode(true);
+                // Clear the values in the cloned inputs
+                newRow.querySelectorAll('input').forEach(function(input) {
+                    input.value = '';
+                });
+                container.appendChild(newRow);
+            });
+        });
+        </script>
+
+        <h2 class="add-company-subtitle">Corporate Identity and Hierarchy <a class="add-company-info-button" data-target="info-coporate-identity"><i class="bi bi-question-square"></i></a></h2>
+        <div class="add-company-info-box" id="info-coporate-identity">
+            <strong>Research Strategy 3.4.3:</strong><br>
+            Using a variety of sources, we’ll begin building profiles on each company by determining who 
+            owns what with regard to our seed list and company profiles. 
+        </div>
+
+        <h3 class="add-company-sub-subtitle">Unofficial Company Registries (Aggregators) <a class="add-company-info-button" data-target="info-un-aggregators"><i class="bi bi-question-square"></i></a></h3>
+        <div class="add-company-info-box" id="info-un-aggregators">
+            <strong>Title:</strong><br>
+            Description.
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="unofficial-registry-shareholders" class="add-user-label">Shareholder(s):
+                <textarea id="unofficial-registry-shareholders" name="unofficial_registry_shareholders" class="add-user-input" required>{{ company['unofficial_registry_shareholders'] }}</textarea>
+            </label>
+
+            <label for="unofficial-registry-ubo" class="add-user-label">Ultimate Beneficial Owner(s) (UBO):
+                <textarea id="unofficial-registry-ubo" name="unofficial_registry_ubo" class="add-user-input" required>{{ company['unofficial_registry_ubo'] }}</textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="affiliates" class="add-user-label">Affiliates (if any):
+                <textarea id="affiliates" name="affiliates" class="add-user-input" required>{{ company['affiliates'] }}</textarea>
+            </label>
+
+            <label for="licenses" class="add-user-label">Licenses (if any):
+                <textarea id="licenses" name="licenses" class="add-user-input" required>{{ company['licenses'] }}</textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="admin-penalties" class="add-user-label">Administrative Penalties (if any):
+                <textarea id="admin-penalties" name="admin_penalties" class="add-user-input" required>{{ company['admin_penalties'] }}</textarea>
+            </label>
+
+            <label for="icp-registration" class="add-user-label">Internet Connection Provider (ICP) Records (if any):
+                <textarea type="text" id="icp-registration" name="icp_registration" class="add-user-input" required>{{ company['icp_registration'] }}</textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+            <label for="branches" class="add-user-label">Branches (if any):
+                <textarea id="branches" name="branches" class="add-user-input" required>{{ company['branches'] }}</textarea>
+            </label>
+        </div>
+
+        <h3 class="add-company-sub-subtitle">Official Company Registration <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h3>
+
+        <div class="add-company-row">
+
+            <label for="official-scope" class="add-user-label">Authoritative Business Scope:
+                <textarea id="official-scope" name="official_scope" class="add-user-input" required>{{ company['official_scope'] }}</textarea>
+            </label>
+
+            <label for="official-legal" class="add-user-label">Legal Representative:
+                <textarea id="official-legal" name="official_legal" class="add-user-input" required>{{ company['official_legal'] }}</textarea>
+            </label>
+
+        </div>
+
+        <div class="add-company-row">
+
+            <label for="official-penalties" class="add-user-label">Administrative Penalties (if any):
+                <textarea id="official-penalties" name="official_penalties" class="add-user-input" required>{{ company['official_penalties'] }}</textarea>
+            </label>
+
+            <label for="official-licenses" class="add-user-label">Licenses (if any):
+                <textarea id="official-licenses" name="official_licenses" class="add-user-input" required>{{ company['official_licenses'] }}</textarea>
+            </label>
+
+        </div>
+
+        <label for="unified-social-credit-code" class="add-user-label">Unified Social Credit Code:
+            <input type="text" id="unified-social-credit-code" name="unified_social_credit_code" class="add-user-input" required value="{{ company['unified_social_credit_code'] }}">
+        </label>
+
+        <h2 class="add-company-subtitle">Company Website, Domains, and Provenance <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="company-website" class="add-user-label">Company Website:
+                <input type="text" id="company-website" name="company_website" class="add-user-input" required value="{{ company['company_website'] }}">
+            </label>
+
+            <label for="domain-info" class="add-user-label">Domain Information:
+                <textarea id="domain-info" name="domain_info" class="add-user-input" required>{{ company['domain_info'] }}</textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Official Exchange Disclosures (if listed/bonded) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="exchange-disclosures" class="add-user-label">Stock Exchange Disclosures:
+                <textarea id="exchange-disclosures" name="exchange_disclosures" class="add-user-input" required>{{ company['exchange_disclosures'] }}</textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Export-Controls Screening / Sanctions (Mandatory) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+            
+            <label for="export-controls" class="add-user-label">Export Controls Screening
+                <textarea id="export-controls" name="export_controls" class="add-user-input" required>{{ company['export_controls'] }}</textarea>
+            </label>
+
+            <label for="sanctions" class="add-user-label">Sanctions
+                <textarea id="sanctions" name="sanctions" class="add-user-input" required>{{ company['sanctions'] }}</textarea>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">PRC Military Connection <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <input type="radio" id="military-connection-yes" name="military_connection" value="Yes" required {% if company['military_connection']=='Yes' %}checked{% endif %}>
+            <label for="military-connection-yes" class="add-user-label radio-label">Yes</label>
+
+            <input type="radio" id="military-connection-no" name="military_connection" value="No" required {% if company['military_connection']=='No' %}checked{% endif %}>
+            <label for="military-connection-no" class="add-user-label radio-label">No</label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Patents and Standards Search (Technological Fingerprinting) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="patents-standards" class="add-user-label">Patents:
+            <textarea id="patents-standards" name="patents_standards" class="add-user-input" required>{{ company['patents_standards'] }}</textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Government Procurement and Tenders, People & Hiring (OSINT) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="government-procurement" class="add-user-label">Any Information Found:
+            <textarea id="government-procurement" name="government_procurement" class="add-user-input" required>{{ company['government_procurement'] }}</textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Geospatial Confirmation (Finding the Dishes) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        {% for i in range(dish_names|length) %}
+
+        <div id="dishes-container">
+            <div class="add-company-row dish-row">
+                <label class="add-user-label">Dish Name:
+                    <input type="text" name="dish_name[]" class="add-user-input" required value="{{ dish_names[i] }}">
+                </label>
+                <label class="add-user-label">Dish Coordinates:
+                    <input type="text" name="dish_coordinates[]" class="add-user-input" required value="{{ dish_coordinates[i] }}">
+                </label>
+            </div>
+        </div>
+
+        {% endfor %}
+        <button type="button" class="submit-button" id="add-dish-btn">Add Another Dish</button>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var dishContainer = document.getElementById('dishes-container');
+            var addDishBtn = document.getElementById('add-dish-btn');
+            if (addDishBtn) {
+                addDishBtn.addEventListener('click', function() {
+                    var rows = dishContainer.getElementsByClassName('dish-row');
+                    var lastRow = rows[rows.length - 1];
+                    var newRow = lastRow.cloneNode(true);
+                    newRow.querySelectorAll('input').forEach(function(input) {
+                        input.value = '';
+                    });
+                    dishContainer.appendChild(newRow);
+                });
+            }
+        });
+        </script>
+
+        <h2 class="add-company-subtitle">Spectrum Registration and Launch Filings <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+            <label for="ITU Spectrum Registration Information:" class="add-user-label">ITU Spectrum Registration Information:
+                <textarea id="spectrum-registration" name="spectrum_registration" class="add-user-input" required>{{ company['spectrum_registration'] }}</textarea>
+            </label>
+
+            <label for="unoosa-filings" class="add-user-label">UNOOSA Filings:
+                <textarea id="unoosa-filings" name="unoosa_filings" class="add-user-input" required>{{ company['unoosa_filings'] }}</textarea>
+            </label>
+        </div>
+
+        <h2 class="add-company-subtitle">Sector Reports and Institutes <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="etc-reports" class="add-user-label">ETC 54th Institute Brochures / Pitch Decks:
+                <textarea id="etc-reports" name="etc_reports" class="add-user-input" required>{{ company['etc_reports'] }}</textarea>
+            </label>
+
+            <label for="uscc-reports" class="add-user-label">USCC Sector Reports:
+                <textarea id="uscc-reports" name="uscc_reports" class="add-user-input" required>{{ company['uscc_reports'] }}</textarea>
+            </label>
+
+        </div>
+
+        <label for="casc-reports" class="add-user-label">CASC Sector Reports:
+            <textarea id="casc-reports" name="casc_reports" class="add-user-input" required>{{ company['casc_reports'] }}</textarea>
+        </label>
+
+        <h2 class="add-company-subtitle">Social Network Pivots (Chinese Platforms) <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <div class="add-company-row">
+
+            <label for="social-network-platform" class="add-user-label">Social Network Platform:
+                <input type="text" id="social-network-platform" name="social_network_platform" class="add-user-input" required value="{{ company['social_network_platform'] }}"></input>
+            </label>
+
+            <label for="social-network-link" class="add-user-label">Social Network Link:
+                <input type="text" id="social-network-link" name="social_network_link" class="add-user-input" required value="{{ company['social_network_link'] }}"></input>
+            </label>
+
+        </div>
+
+        <h2 class="add-company-subtitle">Analyst Notes <a class="add-company-info-button"><i class="bi bi-question-square"></i></a></h2>
+
+        <label for="analyst-notes" class="add-user-label">Analyst Notes:
+            <textarea id="analyst-notes" name="analyst_notes" class="add-user-input" required>{{ company['analyst_notes'] }}</textarea>
+        </label>
+
+        <button type="submit" class="submit-button">Confirm Company Edit</button>
+    </form>
+</div>
+
+{% endblock %}

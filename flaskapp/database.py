@@ -108,6 +108,42 @@ def get_total_space_scores():
 # ===== Company-Specific =====
 # ============================
 
+def edit_company_by_name(name, updated_company):
+    increment_server_api_calls()
+    companies = get_companies_csv()
+    fieldnames = [
+        'user_name', 'org_name', 'institution_name', 'location', 'chinese_name', 'english_translation',
+        'unofficial_registry_shareholders', 'unofficial_registry_ubo', 'affiliates', 'licenses',
+        'admin_penalties', 'icp_registration', 'branches', 'official_scope', 'official_legal',
+        'official_penalties', 'official_licenses', 'unified_social_credit_code', 'company_website',
+        'domain_info', 'exchange_disclosures', 'export_controls', 'sanctions', 'military_connection',
+        'patents_standards', 'government_procurement', 'dish_name', 'dish_coordinates',
+        'spectrum_registration', 'unoosa_filings', 'etc_reports', 'uscc_reports', 'casc_reports',
+        'social_network_platform', 'social_network_link', 'analyst_notes', 'current_date', 'date_last_edited',
+        'i1_sectoral_criticality', 'i2_systemic_dependancy', 'i3_replacement_cost_and_time', 'i4_spillover_and_escalation_potential',
+        't1_state_alignment_and_control', 't2_strategic_intent_and_mcf_posture', 't3_operational_capability_and_technical_maturity', 't4_behavioral_and_historical_indicators',
+        'v1_dependency_depth', 'v2_proximity_and_access', 'v3_opacity_and_assurance_deficit', 'v4_interoperability_hooks',
+        'e1_mission_criticality_content_type', 'e2_existing_countermeasures', 'supplemental_disputed_data',
+        'space_score', 'space_classification', 'vector_string'
+    ]
+    found = False
+    for i, company in enumerate(companies):
+        # Robust match: ignore case and strip whitespace
+        if company['english_translation'].strip().lower() == name.strip().lower():
+            for key, value in updated_company.items():
+                company[key] = value
+            for key in fieldnames:
+                if key not in company:
+                    company[key] = ''
+            companies[i] = company
+            found = True
+            break
+    if not found:
+    with open("companies.csv", "w", newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
+        writer.writeheader()
+        writer.writerows(companies)
+
 def delete_company_by_name(name):
     increment_server_api_calls()
     companies = get_companies_csv()
@@ -312,7 +348,6 @@ def generate_space_score(company):
         vector_string = generate_vector_string(ITVES_data, SPACE)
 
         # Finally, we can return the SPACE score and classification
-        print(SPACE, classification)
         return SPACE, classification, vector_string
 
 
