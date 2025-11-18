@@ -493,14 +493,8 @@ def generate_report(company_name):
     db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         company = db.get_company_by_name(company_name)
-        html_content = render_template("auto_report_template.html", company=company)
-
-        # book = plutoprint.Book(plutoprint.PAGE_SIZE_A4)
-        # book.load_url("flaskapp/templates/auto_report_template.html")
-        # book.write_to_pdf("test.pdf")
-        return html_content
-    else:
-        return redirect(url_for("login"))
+        return render_template("auto_report_template.html", company=company)
+    return redirect(url_for("login"))
 
 # ================================
 # ===== Don't worry about it =====

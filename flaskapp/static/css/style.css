@@ -1088,3 +1088,14 @@ input[type="radio"]:checked + .radio-label {
     color: var(--themeBlack);
     cursor: pointer;
 }
+
+.report-code {
+    font-family: var(--font-apercu);
+    background-color: var(--themeTan);
+    color: var(--themeBlack);
+    padding: 1rem;
+    border: 2px solid var(--themeOlive);
+    margin: 1rem;
+    white-space: pre-wrap; /* Preserve whitespace and wrap as needed */
+    width: 80%;
+}
