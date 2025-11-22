@@ -1,15 +1,106 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automated Report</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.6.5/jspdf.umd.min.js"></script>
-</head>
+{% extends "dashboard_template.html" %}
 
-<body>
-    <div class="report-container">
-        <h1 class="report-title">Automated Report for {{ company['chinese_name'] }} - {{ company['english_translation'] }}</h1>
-        <p class="report-code">The code for the LaTeX report generation will be added here.</p>
+{% block title %}Add Company{% endblock %}
+
+{% block dashboard_content %}
+
+<div class="report-container">
+    <h1 class="report-title">Automated Report for {{ company['chinese_name'] }} ({{ company['english_translation'] }})</h1>
+    <div class="button-container">
+        <button class="generate-report-link" onclick="copyToClipboard()">Copy LaTeX Code</button>
     </div>
-</body>
+    <script>
+    function copyToClipboard() {
+        const codeDiv = document.getElementById('code');
+        if (!codeDiv) return;
+        // Use innerText to preserve formatting for LaTeX
+        const text = codeDiv.innerText || codeDiv.textContent;
+        navigator.clipboard.writeText(text).then(function() {
+            // Optionally, show a message or visual feedback
+            console.log("Copied to clipboard");
+        }, function(err) {
+            console.log("Could not copy text: ", err);
+        });
+    }
+    </script>
+    <p class="report-code" id="code">
+\subsection{{'{'}}{{ company['chinese_name'] }} - {{ company['english_translation'] }} Analysis and Report{{'}'}}
+
+\textbf{{'{'}}Executive Summary: {{'}'}}This analysis was performed using the SPACE data collection and data visualization system by the Indiana University
+Bloomington Diplomacy Lab. The following report provides an overview of {{ company['chinese_name'] }} ({{ company['english_translation'] }})'s
+relevant information and SPACE score analysis. By utilizing automated data gathering and report generation techniques, this report manages
+to display not only the SPACE score, but also the necessary contextualization that outlines the construction of the score itself.
+By doing so, analysts are able to gain a better understanding of {{ company['chinese_name'] }}'s exposure to the global Space
+technology industry and its influence on the interests of the United States.
+
+\subsubsection{{'{'}}Basic Information{{'}'}}
+
+This analysis was performed on {{ company['current_date'] }} by analyst {{ company['user_name'] }} on behalf of {{ company['org_name']}}.
+This report was last updated on {{ company['date_last_edited'] }} to reflect necessary updates.
+
+\subsubsection{{'{'}}Scope and Seed List{{'}'}}
+
+Below is a seed list of likely owners \& operators of the Chinese space sector's Satellite Ground Control stations related 
+to {{ company['chinese_name'] }} ({{ company['english_translation'] }}). Further analysis regarding military or dual-use capabilities and connections
+of these institutions are found later in the report. 
+
+\begin{table}[h!]
+    \centering
+    \caption{Institution Names \& Locations}
+    \label{tab:institutions}
+    \begin{tabular}{|c|c|}
+        \hline
+        Institution Name & Institution Location \\
+        \hline
+        {% for institution, location in institutions.items() %}
+            {{ institution }} & {{ location }} \\
+        {% endfor %}
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{{'{'}}Analysis:{{'}'}}{{ company['chinese_name'] }} ({{ company['english_translation'] }}) is composed of {{ institutions|length }} institutions, which contributes
+to its \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} SPACE score classification. The above table outlines the institutions that are likely to be associated with {{ company['chinese_name'] }} ({{ company['english_translation'] }})'s
+Satellite Ground Control operations. These institutions were identified through a combination of OSINT techniques composing the 
+SPACE data collection system. 
+
+\subsubsection{{'{'}}Chinese Language Company Name Discovery{{'}'}}
+
+\begin{table}[h!]
+    \centering
+    \caption{Chinese and English Company Names}
+    \label{tab:company_name}
+    \begin{tabular}{|c|c|}
+        \hline
+        Chinese Name & English Translation \\
+        \hline
+            {{ company ['chinese_name'] }} & {{ company['english_translation'] }}
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{{'{'}}Corporate Identity and Hierarchy{{'}'}}
+
+\subsubsection{{'{'}}Company Website, Domain, and Provenance{{'}'}}
+
+\subsubsection{{'{'}}Official Exchange Disclosure{{'}'}}
+
+\subsubsection{{'{'}}Sanctions and Export-Controls Screening{{'}'}}
+
+\subsubsection{{'{'}}Patents, Standards Search, \& Technological Fingerprinting{{'}'}}
+    
+\subsubsection{{'{'}}OSINT Acquired Government Procurement and Tenders, People, \& Hiring{{'}'}}
+
+\subsubsection{{'{'}}Geospacial Confirmation{{'}'}}
+
+\subsubsection{{'{'}}Spectrum Registration and Launch Filings{{'}'}}
+
+\subsubsection{{'{'}}Sector Reports and Institutes{{'}'}}
+
+\subsubsection{{'{'}}Chinese Social Network Platform Pivots{{'}'}}
+
+\subsubsection{{'{'}}Qualitative Analyst Notes{{'}'}}
+</p>
+</div>
+
+{% endblock %}

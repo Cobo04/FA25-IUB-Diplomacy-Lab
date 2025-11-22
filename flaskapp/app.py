@@ -493,7 +493,14 @@ def generate_report(company_name):
     db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
         company = db.get_company_by_name(company_name)
-        return render_template("auto_report_template.html", company=company)
+        institution_data = {}
+        for i in range(len(company['institution_name'].split(";"))):
+            institution_data[company['institution_name'].split(";")[i]] = company['location'].split(";")[i]
+
+        dish_data = {}
+        for i in range(len(company['dish_name'].split(";"))):
+            dish_data[company['dish_name'].split(";")[i]] = company['dish_coordinates'].split(";")[i]
+        return render_template("auto_report_template.html", company=company, institutions=institution_data, dishes=dish_data)
     return redirect(url_for("login"))
 
 # ================================
