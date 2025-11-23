@@ -1,5 +1,6 @@
 import csv, json, math, os
 from datetime import datetime
+from vector import vector_stringify
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
@@ -351,12 +352,12 @@ def generate_space_score(company):
 
 
 def generate_vector_string(ITVES_data, space_score):
-    increment_server_api_calls()
-    return f"SPACE:{space_score}/I:C({ITVES_data['I_value']})/T:H({ITVES_data['T_value']})/V:H({ITVES_data['V_value']})/E:Up({ITVES_data['E_value']})/S:LoConf({ITVES_data['S_value']})"
-# FIXME: Also the "LoConf" thing for S should be a reflection of the supplemental as should E: if its 'Up' (> 1.0) or 'Down' (< 1.0)
-# FIXME: with S: it could be HighConf, ModConf, LowConf, DispData
-# FIXME: The other numbers are a reflection of the actual score, so I:C (critical), I:H (high), I:M (medium), I:L (low), not just I:C and the number
-# NOTE: does that make sense? Look up a CVSS vector string or play with a calculator (or look at the python code for mine to see how to generate a vector string)
+    increment_server_api_calls()  # NOTE: do you need this call? I left generate_vector_string() as a wrapper
+    # NOTE: if you don't need this API call, scrap this function and call the other one directly (the one from vector.py)
+
+    return vector_stringify(space_score, ITVES_data)
+    # NOTE: if you don't need the API call, just call vector_stringify(space_score, ITVES_data) above instead of this function
+
 
 def set_space_score(company_name, space_score):
     increment_server_api_calls()
