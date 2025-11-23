@@ -1,6 +1,6 @@
 import csv, json, math, os
 from datetime import datetime
-from vector import vector_stringify
+from flaskapp.vector import vector_stringify
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
