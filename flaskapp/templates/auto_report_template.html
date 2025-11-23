@@ -9,6 +9,7 @@
     <div class="button-container">
         <button class="generate-report-link" onclick="copyToClipboard()">Copy LaTeX Code</button>
     </div>
+    <div id="copy-note" class="copy-note" role="status" aria-live="polite" style="display:none; margin-top:8px; color:var(--themeTan); font-family:var(--font-apercu);">Copied to clipboard</div>
     <script>
     function copyToClipboard() {
         const codeDiv = document.getElementById('code');
@@ -18,30 +19,126 @@
         navigator.clipboard.writeText(text).then(function() {
             // Optionally, show a message or visual feedback
             console.log("Copied to clipboard");
+            // show temporary note under the button
+            try {
+                const note = document.getElementById('copy-note');
+                if (note) {
+                    note.style.display = 'block';
+                    // simple fade-out after 2 seconds
+                    setTimeout(() => {
+                        note.style.display = 'none';
+                    }, 2000);
+                }
+            } catch (e) {
+                // ignore
+            }
         }, function(err) {
             console.log("Could not copy text: ", err);
         });
     }
     </script>
     <p class="report-code" id="code">
-\subsection{{'{'}}{{ company['chinese_name'] }} - {{ company['english_translation'] }} Analysis and Report{{'}'}}
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+%\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{float}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{enumitem}
+\usepackage[natbibapa]{apacite}
+\usepackage{csquotes}
+\usepackage{pdfpages}
+\usepackage{changepage}
+\usepackage{CJKutf8}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{CJKutf8}
 
-\textbf{{'{'}}Executive Summary: {{'}'}}This analysis was performed using the SPACE data collection and data visualization system by the Indiana University
-Bloomington Diplomacy Lab. The following report provides an overview of {{ company['chinese_name'] }} ({{ company['english_translation'] }})'s
-relevant information and SPACE score analysis. By utilizing automated data gathering and report generation techniques, this report manages
-to display not only the SPACE score, but also the necessary contextualization that outlines the construction of the score itself.
-By doing so, analysts are able to gain a better understanding of {{ company['chinese_name'] }}'s exposure to the global Space
-technology industry and its influence on the interests of the United States.
+\usepackage{tabularx}
+\usepackage{hhline} % For double lines
 
-\subsubsection{{'{'}}Basic Information{{'}'}}
+% Heading style mapping (Word Heading 1-4)
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\titleformat{\paragraph}{\normalfont\normalsize\itshape}{\theparagraph}{1em}{}
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\onehalfspacing
+
+\begin{document}
+
+% ---------- Title page + Executive Summary ----------
+\begin{titlepage}
+\centering
+{\Huge \textbf{\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} - {{ company['english_translation'] }}}}\\[0.8em]
+{\Large \textbf{SPACE Analysis System Company Report}}\\[1.4em]
+{\large \today}\\[1.8em]
+
+\begin{center}
+    {\Large \textbf{}}\\[0.5em]
+    Cameron Coy\textsuperscript{1}, Cohen Schulz\textsuperscript{2}, Eva Collins\textsuperscript{3}, Leah English\textsuperscript{4}, Reagan Rosner\textsuperscript{5}\\[0.8em]
+    \textbf{John D. Ciorciari, J.D., D.Phil.}\textsuperscript{6}\\
+    \textit{Corresponding Author}\\[0.5em]
+
+    \textsuperscript{1,2,3,4,5}Undergraduate Researchers, Indiana University\\[0.4em]
+    \vspace{0.3em}
+    \textsuperscript{6}Dean, Hamilton Lugar School of Global and International Studies, Indiana University\\[1em]
+
+    \vspace{0.5em}
+    \textsuperscript{1}ckcoy@iu.edu, 
+    \textsuperscript{2}coschul@iu.edu, 
+    \textsuperscript{3}evacoll@iu.edu,
+    \textsuperscript{4}leenglis@iu.edu,
+    \textsuperscript{5}rmrosner@iu.edu\\[0.3em]
+    \textsuperscript{6}jdciorci@iu.edu
+\end{center}
+
+\vfill
+
+\begin{minipage}{0.9\textwidth}
+    \small
+    \textbf{Executive Summary:} This analysis was performed using the SPACE data collection and data visualization system by the Indiana University
+    Bloomington Diplomacy Lab. The following report provides an overview of \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s
+    relevant information and SPACE score analysis. By utilizing automated data gathering and report generation techniques, this report manages
+    to display not only the SPACE score, but also the necessary contextualization that outlines the construction of the score itself.
+    By doing so, analysts are able to gain a better understanding of \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK}'s exposure to the global Space
+    technology industry and its influence on the interests of the United States.
+
+\end{minipage}
+
+\end{titlepage}
+
+% ----- Table of Contents -----
+
+\tableofcontents
+\newpage
+
+% ----- Analysis and Report -----
+
+\section{Analysis and Report}
+
+\subsection{{'{'}}Basic Information{{'}'}}
 
 This analysis was performed on {{ company['current_date'] }} by analyst {{ company['user_name'] }} on behalf of {{ company['org_name']}}.
 This report was last updated on {{ company['date_last_edited'] }} to reflect necessary updates.
 
-\subsubsection{{'{'}}Scope and Seed List{{'}'}}
+\subsection{{'{'}}Scope and Seed List{{'}'}}
 
 Below is a seed list of likely owners \& operators of the Chinese space sector's Satellite Ground Control stations related 
-to {{ company['chinese_name'] }} ({{ company['english_translation'] }}). Further analysis regarding military or dual-use capabilities and connections
+to \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}). Further analysis regarding military or dual-use capabilities and connections
 of these institutions are found later in the report. 
 
 \begin{table}[h!]
@@ -59,12 +156,12 @@ of these institutions are found later in the report.
     \end{tabular}
 \end{table}
 
-\textbf{{'{'}}Analysis:{{'}'}}{{ company['chinese_name'] }} ({{ company['english_translation'] }}) is composed of {{ institutions|length }} institutions, which contributes
-to its \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} SPACE score classification. The above table outlines the institutions that are likely to be associated with {{ company['chinese_name'] }} ({{ company['english_translation'] }})'s
+\textbf{{'{'}}Analysis: {{'}'}}\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) is composed of {{ institutions|length }} institutions, which contributes
+to its \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} SPACE score classification. The above table outlines the institutions that are likely to be associated with \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s
 Satellite Ground Control operations. These institutions were identified through a combination of OSINT techniques composing the 
 SPACE data collection system. 
 
-\subsubsection{{'{'}}Chinese Language Company Name Discovery{{'}'}}
+\subsection{{'{'}}Chinese Language Company Name Discovery{{'}'}}
 
 \begin{table}[h!]
     \centering
@@ -74,32 +171,311 @@ SPACE data collection system.
         \hline
         Chinese Name & English Translation \\
         \hline
-            {{ company ['chinese_name'] }} & {{ company['english_translation'] }}
+            \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} & {{ company['english_translation'] }} \\
         \hline
     \end{tabular}
 \end{table}
 
-\subsubsection{{'{'}}Corporate Identity and Hierarchy{{'}'}}
+\newpage
 
-\subsubsection{{'{'}}Company Website, Domain, and Provenance{{'}'}}
+\subsection{{'{'}}Corporate Identity and Hierarchy{{'}'}}
 
-\subsubsection{{'{'}}Official Exchange Disclosure{{'}'}}
+\subsubsection{{'{'}}Unofficial Company Aggregators{{'}'}}
 
-\subsubsection{{'{'}}Sanctions and Export-Controls Screening{{'}'}}
+\textbf{{'{'}}Shareholders: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['unofficial_registry_shareholders']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Ultimate Beneficial Owners (UBO): {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['unofficial_registry_ubo']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Affiliates: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['affiliates']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Licenses: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['licenses']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Administrative Penalties: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['admin_penalties']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Internet Connection Provider (ICP) Records: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['icp_registration']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Branches: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['branches']}}.
+\end{adjustwidth}
 
-\subsubsection{{'{'}}Patents, Standards Search, \& Technological Fingerprinting{{'}'}}
+\subsubsection{{'{'}}Official Company Registration{{'}'}}
+
+\textbf{{'{'}}Authoritative Business Scope: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['official_scope']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Legal Representative: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['official_legal']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Administrative Penalties: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['official_penalties']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Licenses: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['official_licenses']}}.
+\end{adjustwidth}
+\textbf{{'{'}}Unified Social Credit Code: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{company['unified_social_credit_code']}}.
+\end{adjustwidth}
+
+\subsection{{'{'}}Company Website, Domain, and Provenance{{'}'}}
+
+\begin{table}[h!]
+    \centering
+    \caption{Website and Domain Information}
+    \label{tab:company_website_domain}
+    \begin{tabular}{|c|c|}
+        \hline
+        Website Link & Relevant Domain Information \\
+        \hline
+            {{ company['company_website'] }} & {{ company['domain_info'] }} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{{'{'}}Official Exchange Disclosure{{'}'}}
+
+{{ company['user_name'] }}'s analysis of \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s official stock exchange disclosures found the following relevant information:
+\begin{adjustwidth}{3em}{0pt}
+    {{company['exchange_disclosures']}}.
+\end{adjustwidth}
+
+\subsection{{'{'}}Sanctions and Export-Controls Screening{{'}'}}
+
+{% if company['military_connection'] == 'Yes' %}
+
+This analysis concludes that \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) \textbf{{'{'}}is connected{{'}'}} to the People's Liberation Army (PLA) based on insitute connections, government affiliations, and the following findings:
+
+{% else %}
+
+This analysis concludes that \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) \textbf{{'{'}}is not connected{{'}'}} to the People's Liberation Army (PLA) based on insitute connections, government affiliations, and the following findings:
+
+{% endif %}
+
+\textbf{{'{'}}Export Controls Screening: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['export_controls'] }}
+\end{adjustwidth}
+
+\textbf{{'{'}}Sanctions: {{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['sanctions'] }}
+\end{adjustwidth}
+
+\subsection{{'{'}}Patents, Standards Search, \& Technological Fingerprinting{{'}'}}
+
+Searching PRC-based patent databases for patents filed by or assigned to \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) returned the following relevant patents and technological capabilities:
+\begin{adjustwidth}{3em}{0pt}
+    {{company['patents_standards']}}.
+\end{adjustwidth}
+
+\subsection{{'{'}}OSINT Acquired Government Procurement and Tenders, People, \& Hiring{{'}'}}
+
+Relevant government procurement records, tenders, key personnel, and hiring information for \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) are as follows:
+\begin{adjustwidth}{3em}{0pt}
+    {{company['government_procurement']}}. 
+\end{adjustwidth} \\
+
+This information was gathered through documented open-source intelligence (OSINT) techniques and analyzed for relevant connections to military or dual-use applications. See Research Strategy documentation for more information on these techniques.
+
+\subsection{{'{'}}Geospacial Confirmation{{'}'}}
+
+Geospacial analysis through satellite imagery and PRC-based mapping services confirmed {{ dishes|length }} geospacial dishes associated with \begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}). These 
+dishes and their locations are as follows:
+
+\begin{table}[h!]
+    \centering
+    \caption{Geospacial Dishes \& Location}
+    \label{tab:dishes}
+    \begin{tabular}{|c|c|}
+        \hline
+        Geospacial Dish Name & Location \\
+        \hline
+        {% for dish, location in dishes.items() %}
+            {{ dish }} & {{ location }} \\
+        {% endfor %}
+        \hline
+    \end{tabular}
+\end{table}
+
+\textbf{{'{'}}Disclaimer: {{'}'}}{{ company['user_name'] }}'s analysis utilized open-source information, naturally limiting the scope of geospacial confirmation. The above table reflects only those geospacial dishes that were able to be confirmed through documented OSINT techniques. This 
+shortcoming is taken into account in the SPACE score analysis and confidence classification.
+
+\subsection{{'{'}}Spectrum Registration and Launch Filings{{'}'}}
+
+\textbf{{'{'}}ITU Spectrum Registration Information:{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['spectrum_registration'] }}
+\end{adjustwidth}
+
+\textbf{{'{'}}UNOOSA Filings:{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['unoosa_filings'] }}
+\end{adjustwidth}
+
+\subsection{{'{'}}Sector Reports and Institutes{{'}'}}
+
+\textbf{{'{'}}ETC 54th Institute Brochures / Pitch Decks:{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['etc_reports'] }}
+\end{adjustwidth}
+
+\textbf{{'{'}}USCC Sector Reports:{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['uscc_reports'] }}
+\end{adjustwidth}
+
+\textbf{{'{'}}CASC Sector Reports:{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    {{ company['casc_reports'] }}
+\end{adjustwidth}
+
+\subsection{{'{'}}Chinese Social Network Platform Pivots{{'}'}}
+
+\textbf{{'{'}}Disclaimer: {{'}'}} Do not click any links without adhering to the cybersecurity protocols outlined in the Research Strategy documentation.
+
+\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }}) can be found on the following Chinese social network platforms: {{ company['social_network_platform'] }}. 
+The specific accounts can be accessed via the following URL's: {{ company['social_network_link'] }}.
+
+\subsection{{'{'}}Qualitative Analyst Notes{{'}'}}
+
+{{ company['analyst_notes'] }}
+
+% ----- SPACE Score -----
+
+\newpage
+
+\section{SPACE Score}
+
+\subsection{Vector String \& Analysis Contextualization}
+
+\begin{center}
+    {{company['space_classification']}} - {{ company['vector_string']}}
+\end{center}
+
+\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s SPACE score is {{ company['space_score'] }}, classifying it as a \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} risk entity. This 
+classification contains {{ weight_stats['Critical'] }} critical bands, {{ weight_stats['High'] }} high bands, {{ weight_stats['Medium'] }} Medium bands, and {{ weight_stats['Low'] }} low bands. There 
+were {{ weight_stats['None'] }} unscored bands due to insufficient data, resulting in a Supplemental Context (S) $S_{1}$ value of \textbf{{'{'}}{{company['supplemental_disputed_data']}}{{'}'}}.
+
+\subsection{Impact (I) – Consequence Severity}
+
+    \textbf{$I_{1}$ Sectoral Criticality}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i1_sectoral_criticality']}}: {{'}'}}{{ criteria["impact_I"]["i1_descriptions"][company['i1_sectoral_criticality']] }}
+\end{adjustwidth}
+
+    \textbf{$I_{2}$ Systemic Dependency}
     
-\subsubsection{{'{'}}OSINT Acquired Government Procurement and Tenders, People, \& Hiring{{'}'}}
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i2_systemic_dependancy']}}: {{'}'}}{{ criteria["impact_I"]["i2_descriptions"][company['i2_systemic_dependancy']] }}
+\end{adjustwidth}
 
-\subsubsection{{'{'}}Geospacial Confirmation{{'}'}}
+    \textbf{$I_{3}$ Replacement Cost and Time}
+    
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i3_replacement_cost_and_time']}}: {{'}'}}{{ criteria["impact_I"]["i3_descriptions"][company['i3_replacement_cost_and_time']] }}
+\end{adjustwidth}
 
-\subsubsection{{'{'}}Spectrum Registration and Launch Filings{{'}'}}
+    \textbf{$I_{4}$ Spillover and Escalation Potential}
+    
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i4_spillover_and_escalation_potential']}}: {{'}'}}{{ criteria["impact_I"]["i4_descriptions"][company['i4_spillover_and_escalation_potential']] }}
+\end{adjustwidth}
 
-\subsubsection{{'{'}}Sector Reports and Institutes{{'}'}}
 
-\subsubsection{{'{'}}Chinese Social Network Platform Pivots{{'}'}}
+\subsection{Threat (T) – Intent + Capability}
 
-\subsubsection{{'{'}}Qualitative Analyst Notes{{'}'}}
+    \textbf{$T_{1}$ State Alignment and Control}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t1_state_alignment_and_control']}}: {{'}'}}{{ criteria["threat_T"]["t1_descriptions"][company['t1_state_alignment_and_control']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{2}$ Strategic Intent and MCF Posture}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t2_strategic_intent_and_mcf_posture']}}: {{'}'}}{{ criteria["threat_T"]["t2_descriptions"][company['t2_strategic_intent_and_mcf_posture']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{3}$ Operational Capability and Technical Maturity}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t3_operational_capability_and_technical_maturity']}}: {{'}'}}{{ criteria["threat_T"]["t3_descriptions"][company['t3_operational_capability_and_technical_maturity']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{4}$ Behavioral and Historical Indicators}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t4_behavioral_and_historical_indicators']}}: {{'}'}}{{ criteria["threat_T"]["t4_descriptions"][company['t4_behavioral_and_historical_indicators']] }}
+\end{adjustwidth}
+
+\subsection{Vulnerability (V) – Degree of U.S./Allied Exposure to Exploitation}
+
+    \textbf{$V_{1}$ Dependency Depth}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v1_dependency_depth']}}: {{'}'}}{{ criteria["vulnerability_V"]["v1_descriptions"][company['v1_dependency_depth']] }}
+\end{adjustwidth}
+    
+    \textbf{$V_{2}$ Proximity and Access}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v2_proximity_and_access']}}: {{'}'}}{{ criteria["vulnerability_V"]["v2_descriptions"][company['v2_proximity_and_access']] }}
+\end{adjustwidth}
+    
+    \textbf{$V_{3}$ Opacity / Assurance Deficit}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v3_opacity_and_assurance_deficit']}}: {{'}'}}{{ criteria["vulnerability_V"]["v3_descriptions"][company['v3_opacity_and_assurance_deficit']] }}
+\end{adjustwidth}
+
+    \textbf{$V_{4}$ Interoperability Hooks}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v4_interoperability_hooks']}}: {{'}'}}{{ criteria["vulnerability_V"]["v4_descriptions"][company['v4_interoperability_hooks']] }}
+\end{adjustwidth}
+
+\subsection{Environmental Modifiers (E) – Mission and Mitigation Context}
+
+    \textbf{$E_{1}$ Mission Criticality}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{Weight: }{{ company['e1_mission_criticality_content_type'] }}
+\end{adjustwidth}
+    
+    \textbf{$E_{2}$ Existing Countermeasures}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{Weight: }{{ company['e2_existing_countermeasures'] }}
+\end{adjustwidth}
+
+\subsection{Supplemental Context (S) – Confidence, Data Quality, and Analytic Integrity}
+
+    \textbf{$S_{1}$ Data Confidence}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['supplemental_disputed_data']}}: {{'}'}}{{ criteria["supplemental_context_S"]["s_descriptions"][company['supplemental_disputed_data']] }}
+\end{adjustwidth}
+
+
+\end{document}
 </p>
 </div>
 

@@ -349,6 +349,40 @@ def generate_space_score(company):
         # Finally, we can return the SPACE score and classification
         return SPACE, classification, vector_string
 
+def get_weight_stats(company_name):
+    # Find the total number of Critical, High, Medium, Low, and None for the the given company
+    increment_server_api_calls()
+    company = get_company_by_name(company_name)
+    if not company:
+        return None
+    weight_stats = {
+        "Critical": 0,
+        "High": 0,
+        "Medium": 0,
+        "Low": 0,
+        "None": 0
+    }
+
+    company_data = [
+        company['i1_sectoral_criticality'],
+        company['i2_systemic_dependancy'],
+        company['i3_replacement_cost_and_time'],
+        company['i4_spillover_and_escalation_potential'],
+        company['t1_state_alignment_and_control'],
+        company['t2_strategic_intent_and_mcf_posture'],
+        company['t3_operational_capability_and_technical_maturity'],
+        company['t4_behavioral_and_historical_indicators'],
+        company['v1_dependency_depth'],
+        company['v2_proximity_and_access'],
+        company['v3_opacity_and_assurance_deficit'],
+        company['v4_interoperability_hooks']
+    ]
+
+    for value in company_data:
+        if value in weight_stats:
+            weight_stats[value] += 1
+        
+    return weight_stats
 
 def generate_vector_string(ITVES_data, space_score):
     increment_server_api_calls()

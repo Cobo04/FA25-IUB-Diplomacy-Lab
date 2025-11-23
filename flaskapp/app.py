@@ -500,7 +500,12 @@ def generate_report(company_name):
         dish_data = {}
         for i in range(len(company['dish_name'].split(";"))):
             dish_data[company['dish_name'].split(";")[i]] = company['dish_coordinates'].split(";")[i]
-        return render_template("auto_report_template.html", company=company, institutions=institution_data, dishes=dish_data)
+
+        criteria = json.load(open("space-criterion.json", "r", encoding="utf-8"))
+
+        weight_stats = db.get_weight_stats(company_name)
+        
+        return render_template("auto_report_template.html", company=company, institutions=institution_data, dishes=dish_data, criteria=criteria, weight_stats=weight_stats)
     return redirect(url_for("login"))
 
 # ================================
