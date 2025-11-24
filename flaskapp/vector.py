@@ -1,3 +1,34 @@
+"""
+vector.py — Generation of standardized SPACE vector-string representations.
+
+This module implements the vector encoding layer for the SPACE Score (v1.3)
+framework. Whereas the SPACE numerical score provides a single aggregated
+severity value in the range [0, 10], the 'vector string' preserves the
+interpretability of the underlying subdimensions:
+
+    * I — Impact
+    * T — Threat
+    * V — Vulnerability
+    * E — Environmental Modifiers
+    * S — Supplemental Context (Confidence)
+
+Each dimension is converted from normalized quantitative values into
+qualitative categorical bands, following the SPACE framework's
+standardization guidelines. The resulting vector string is designed to
+mirror CVSS-style encodings while retaining SPACE-specific semantics.
+
+These vector strings:
+    * are stored alongside each company's SPACE score,
+    * support UI presentation,
+    * allow quick analyst interpretation,
+    * and can be parsed programmatically for downstream analytic workflows.
+
+Example:
+    SPACE:6.0/I:C(0.82)/T:H(0.70)/V:H(0.68)/E:Up(1.08)/S:LowConf(0.95)
+"""
+
+
+# --------------------[ NORMED SUBMETRIC → QUALITATIVE BAND MAPPER ]-------------------- #
 def band_from_numeric(x: float) -> str:
     """
     Convert a normalized quantitative score (0.0-1.0) into a qualitative band.
@@ -24,6 +55,7 @@ def band_from_numeric(x: float) -> str:
     return "N"       # None
 
 
+# --------------------[ ENVIRONMENTAL MODIFIER CLASSIFICATION (E) ]-------------------- #
 def classify_E(E: float) -> str:
     """
     Classify the environmental modifier (E) into an adjustment category.
@@ -42,6 +74,7 @@ def classify_E(E: float) -> str:
     return "Neutral"
 
 
+# --------------------[ SUPPLEMENTAL MODIFIER CLASSIFICATION (S) ]-------------------- #
 def classify_S(S: float) -> str:
     """
     Classify the supplemental context (S) confidence modifier.
@@ -62,6 +95,7 @@ def classify_S(S: float) -> str:
     return "DispData"
 
 
+# --------------------[ VECTOR STRING CONSTRUCTION (CVSS-STYLE FORMAT) ]-------------------- #
 def vector_stringify(space_score: float, ITVES_data: dict) -> str:
     """
     Generate a CVSS-style vector string representation of a SPACE score.

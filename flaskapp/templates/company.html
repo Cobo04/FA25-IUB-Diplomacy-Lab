@@ -7,6 +7,12 @@
 <div class="company-container">
     <h1 class="add-company-title"><strong>{{ company['chinese_name'] }} - {{ company['english_translation'] }}</strong></h1>
     <h2 class="add-company-subtitle"><strong>{{ company['space_classification'] }}</strong> - {{ company['vector_string'] }}</h2>
+    <!-- simple per-company certainty implementation (just numbers right now; SPACE score would be in the middle - length determines certainty) -->
+    <p class="company-info-content">
+        Certainty: <strong>{{ company['certainty_band'] }}</strong>
+        (C = {{ company['certainty_score'] }}) &mdash;
+        I-beam: [{{ company['ibeam_lower'] }}, {{ company['ibeam_upper'] }}]
+    </p>
     <hr class="add-company-break">
     <div class="button-container">
         <a class="generate-report-link" href="{{ url_for('generate_report', company_name=company['english_translation']) }}">Generate Report</a>

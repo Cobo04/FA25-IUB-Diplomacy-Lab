@@ -1,6 +1,19 @@
 import csv, json, math, os
 from datetime import datetime
 from flaskapp.vector import vector_stringify
+from flaskapp.certainty import compute_coverage_quality, compute_certainty, classify_certainty, compute_ibeam
+
+import matplotlib
+matplotlib.use("Agg")  # headless backend for server (I hope this works, sorry Cohen, might require a bit of troubleshooting 😇)
+import matplotlib.pyplot as plt
+# FIXME: `pip install matplotlib`
+
+# NOTE TO COHEN:
+## auto_report_template.html only generates a report for one company (I misunderstood this at first).
+## Once our certainty + I-beam system is finished, we can easily build a /report/all route that generates a full multi-company PDF.
+## Imagine a scatter plot where each company is a point at its SPACE score, with an I-beam extending upward/downward to show uncertainty.
+## Everything for this route is already implemented on the backend, we just need the Flask route + LaTeX template (which I can do quickly).
+
 
 # this is cohen's message written in blood
 # THIS IS NOT SECURE IN ANY WAY, SWITCH TO THE RDC DATABASE ASAP
@@ -125,8 +138,17 @@ def edit_company_by_name(name, updated_company):
         't1_state_alignment_and_control', 't2_strategic_intent_and_mcf_posture', 't3_operational_capability_and_technical_maturity', 't4_behavioral_and_historical_indicators',
         'v1_dependency_depth', 'v2_proximity_and_access', 'v3_opacity_and_assurance_deficit', 'v4_interoperability_hooks',
         'e1_mission_criticality_content_type', 'e2_existing_countermeasures', 'supplemental_disputed_data',
-        'space_score', 'space_classification', 'vector_string'
+
+        # SPACE score outputs
+        'space_score', 'space_classification', 'vector_string',
+
+        # Certainty + IBEAM outputs
+        'certainty_score', 'certainty_band',
+        'ibeam_center', 'ibeam_lower', 'ibeam_upper', 'ibeam_half_width'
     ]
+    # NOTE: I changed these fieldnames (added some), but I tried to make it easy to revert if I broke something
+    # the functions in this file populate the new fields, so we shouldn't need to update routes (the ones that did need updating, I updated)
+    
     found = False
     for i, company in enumerate(companies):
         # Robust match: ignore case and strip whitespace
@@ -162,8 +184,15 @@ def delete_company_by_name(name):
         't1_state_alignment_and_control', 't2_strategic_intent_and_mcf_posture', 't3_operational_capability_and_technical_maturity', 't4_behavioral_and_historical_indicators',
         'v1_dependency_depth', 'v2_proximity_and_access', 'v3_opacity_and_assurance_deficit', 'v4_interoperability_hooks',
         'e1_mission_criticality_content_type', 'e2_existing_countermeasures', 'supplemental_disputed_data',
-        'space_score', 'space_classification', 'vector_string'
+
+        # SPACE score outputs
+        'space_score', 'space_classification', 'vector_string',
+
+        # Certainty + IBEAM outputs
+        'certainty_score', 'certainty_band',
+        'ibeam_center', 'ibeam_lower', 'ibeam_upper', 'ibeam_half_width'
     ]
+
     with open("companies.csv", "w", newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=fieldnames, delimiter='~')
         writer.writeheader()
@@ -220,7 +249,23 @@ def add_space_score_to_company(company_name, space_score_data):
             for key, value in space_score_data.items():
                 company[key] = value
             # Generate and update space_score and classification BEFORE writing to CSV
-            company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company)
+            ## NOW INCLUDES CERTAINTY AND IBEAM
+            #company['space_score'], company['space_classification'], company['vector_string'] = generate_space_score(company)
+            SPACE, classification, vector_string, C, C_band, ibeam = generate_space_score(company)
+
+            company['space_score'] = f"{SPACE:.1f}"
+            company['space_classification'] = classification
+            company['vector_string'] = vector_string
+
+            # new fields (ADDED):
+            company['certainty_score'] = f"{C:.3f}"
+            company['certainty_band'] = C_band
+
+            company['ibeam_center'] = f"{ibeam['center']:.2f}"
+            company['ibeam_lower'] = f"{ibeam['lower']:.2f}"
+            company['ibeam_upper'] = f"{ibeam['upper']:.2f}"
+            company['ibeam_half_width'] = f"{ibeam['half_width']:.2f}"
+            
             # set the time for the last edit
             last_edited = str(datetime.now().strftime("%m/%d/%Y"))
             company['date_last_edited'] = last_edited
@@ -347,8 +392,78 @@ def generate_space_score(company):
         # Now let's make the vector string
         vector_string = generate_vector_string(ITVES_data, SPACE)
 
-        # Finally, we can return the SPACE score and classification
-        return SPACE, classification, vector_string
+        # ============================
+        # Certainty + I-beam logic
+        # ============================
+
+        # Pull weights into the shape expected by compute_coverage_quality
+        weights = {
+            "I": {
+                "i1": i1_weight,
+                "i2": i2_weight,
+                "i3": i3_weight,
+                "i4": i4_weight,
+            },
+            "T": {
+                "t1": t1_weight,
+                "t2": t2_weight,
+                "t3": t3_weight,
+                "t4": t4_weight,
+            },
+            "V": {
+                "v1": v1_weight,
+                "v2": v2_weight,
+                "v3": v3_weight,
+                "v4": v4_weight,
+            },
+        }
+
+        # Observed flags inferred from existing ratings
+        # FIXME: simple default idea: anything not "None" counts as observed = 1.0 (WE NEED TO FIGURE THIS BIT OUT, DOES THIS LOGIC WORK?)
+        def observed_flag(value: str) -> float:
+            return 0.0 if value == "None" else 1.0
+
+        observed = {
+            "I": {
+                "i1": observed_flag(company['i1_sectoral_criticality']),
+                "i2": observed_flag(company['i2_systemic_dependancy']),
+                "i3": observed_flag(company['i3_replacement_cost_and_time']),
+                "i4": observed_flag(company['i4_spillover_and_escalation_potential']),
+            },
+            "T": {
+                "t1": observed_flag(company['t1_state_alignment_and_control']),
+                "t2": observed_flag(company['t2_strategic_intent_and_mcf_posture']),
+                "t3": observed_flag(company['t3_operational_capability_and_technical_maturity']),
+                "t4": observed_flag(company['t4_behavioral_and_historical_indicators']),
+            },
+            "V": {
+                "v1": observed_flag(company['v1_dependency_depth']),
+                "v2": observed_flag(company['v2_proximity_and_access']),
+                "v3": observed_flag(company['v3_opacity_and_assurance_deficit']),
+                "v4": observed_flag(company['v4_interoperability_hooks']),
+            },
+        }
+
+        # Quality defaults (for now: assume all evidence is high quality = 1.0)
+        # FIXME: later we can replace these with per-submetric quality fields (i1_quality, etc.), based on 'ANALYST NOTE' field, maybe?
+        ## until then, this isn't the best implementation, but I assume we used all the official/government sources, so fair baseline, I think
+        quality = {
+            "I": {k: 1.0 for k in ["i1", "i2", "i3", "i4"]},
+            "T": {k: 1.0 for k in ["t1", "t2", "t3", "t4"]},
+            "V": {k: 1.0 for k in ["v1", "v2", "v3", "v4"]},
+        }
+
+        coverage, quality_val = compute_coverage_quality(observed, quality, weights)
+        C = compute_certainty(coverage, quality_val)
+        C_band = classify_certainty(C)
+
+        # I-beam around SPACE
+        ibeam = compute_ibeam(SPACE, C, u=0.3)
+
+        # Finally, we can return the SPACE score and classification (and C, C_band, and ibeam - ADDED)
+        return SPACE, classification, vector_string, C, C_band, ibeam
+        #return SPACE, classification, vector_string
+
 
 def get_weight_stats(company_name):
     # Find the total number of Critical, High, Medium, Low, and None for the the given company
@@ -401,3 +516,124 @@ def set_space_score(company_name, space_score):
         if company['company_name'] == company_name:
             company['space_score'] = space_score
             break
+
+
+# NOTE: we don't implement this yet, but it's my idea for the final all companies report (thoughts? we'll call it in a loop for each company)
+## also, I'll call this in the route, but I wanted to make sure the upper and lower bounds appeared where they should first, if things break,
+## the logic to score this is in add_space_score_to_company(), so this MUST be run at least once per company to populate the csv
+## I have the logic to generate and add .png files to the per-company report and all-company reports already written, make sure this works, 
+## and then I'll drop it in. 
+## given this code below, implementation is all front-end (new /edited routes + <img> tag in html to include png + latex implementation)
+def plot_ibeam_for_company(company: dict, output_path: str):
+    """
+    Render a vertical I-beam visualization for a single company's SPACE score.
+
+    Parameters
+    ----------
+    company : dict
+        Company row from companies.csv (must contain 'english_translation',
+        'space_score', 'ibeam_lower', 'ibeam_upper', 'ibeam_center').
+    output_path : str
+        File path to save PNG.
+    """
+    name = company['english_translation']
+    try:
+        center = float(company.get("ibeam_center", company["space_score"]))
+        lower = float(company.get("ibeam_lower", center))
+        upper = float(company.get("ibeam_upper", center))
+    except (KeyError, ValueError):
+        # bail out silently if this company isn't fully scored yet
+        return
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    plt.figure(figsize=(2, 5))
+    plt.errorbar(
+        x=[0],
+        y=[center],
+        yerr=[[center - lower], [upper - center]],
+        fmt="o",
+        capsize=8,
+    )
+
+    plt.title(name)
+    plt.ylabel("SPACE Score")
+    plt.ylim(0, 10)
+    plt.xticks([])
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+
+
+# NOTE: here's the logic for plotting all I-beams
+def plot_all_ibeams(output_path: str = "figures/space_ibeams_all.png"):
+    """
+    Create a horizontal I-beam plot of SPACE scores for all companies.
+
+    Each company is plotted as a point (SPACE) with an I-beam showing
+    [lower, upper] based on certainty.
+
+    Parameters
+    ----------
+    output_path : str
+        Where to save the PNG. Use a path consistent with our LaTeX workflow
+        (e.g., 'figures/space_ibeams_all.png').
+    """
+    companies = get_companies_csv()
+
+    xs = []
+    centers = []
+    yerr_lower = []
+    yerr_upper = []
+    labels = []
+
+    for idx, c in enumerate(companies):
+        space_str = c.get("space_score", "")
+        if not space_str:
+            continue  # skip companies without a SPACE score (incomplete data)
+
+        try:
+            center = float(c.get("ibeam_center", space_str))
+            lower = float(c.get("ibeam_lower", center))
+            upper = float(c.get("ibeam_upper", center))
+        except ValueError:
+            continue  # malformed row, skip
+
+        xs.append(idx)
+        centers.append(center)
+        yerr_lower.append(center - lower)
+        yerr_upper.append(upper - center)
+        labels.append(c["english_translation"])
+
+    if not xs:
+        return  # nothing to plot
+
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    plt.figure(figsize=(max(6, len(xs) * 0.6), 6))
+    plt.errorbar(
+        xs,
+        centers,
+        yerr=[yerr_lower, yerr_upper],
+        fmt="o",
+        capsize=6,
+    )
+
+    plt.ylabel("SPACE Score")
+    plt.xlabel("Company")
+    plt.ylim(0, 10)
+
+    plt.xticks(xs, labels, rotation=45, ha="right")
+
+    plt.tight_layout()
+    plt.savefig(output_path, dpi=300)
+    plt.close()
+
+
+# NOTE: okay, this will be a pain in the ass but, calling the script locally, ex:
+## python -c "from flaskapp import database as db; db.plot_all_ibeams('figures/space_ibeams_all.png')"
+## will generate the png file, we just need to copy/paste it somewhere for the final report (and hook it into the latex)
+## you're right, including images in latex reports is easy (call per-company for one, and the final report we'll add later)
+## I can automate this later if it's good, needs testing first (let me know) - I have 99% of the code written already
+## to implement this, but I wanted to make sure the lower, upper bounds appeared first (confirms logic for generation is correct)
