@@ -526,7 +526,11 @@ def set_space_score(company_name, space_score):
 ## given this code below, implementation is all front-end (new /edited routes + <img> tag in html to include png + latex implementation)
 def plot_ibeam_for_company(company: dict, output_path: str):
     """
-    Render a vertical I-beam visualization for a single company's SPACE score.
+    Render a horizontal I-beam visualization for a single company's SPACE score.
+
+    Horizontal axis: 0-10 (SPACE scale)
+    One point at center (SPACE score)
+    Line extends to lower/upper certainty bounds WITHOUT endpoint caps.
 
     Parameters
     ----------
@@ -537,29 +541,29 @@ def plot_ibeam_for_company(company: dict, output_path: str):
         File path to save PNG.
     """
     name = company['english_translation']
+
     try:
         center = float(company.get("ibeam_center", company["space_score"]))
         lower = float(company.get("ibeam_lower", center))
         upper = float(company.get("ibeam_upper", center))
     except (KeyError, ValueError):
-        # bail out silently if this company isn't fully scored yet
-        return
+        return  # silently skip
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    plt.figure(figsize=(2, 5))
-    plt.errorbar(
-        x=[0],
-        y=[center],
-        yerr=[[center - lower], [upper - center]],
-        fmt="o",
-        capsize=8,
-    )
+    plt.figure(figsize=(8, 1.8))
 
-    plt.title(name)
-    plt.ylabel("SPACE Score")
-    plt.ylim(0, 10)
-    plt.xticks([])
+    # Plot horizontal I-beam (no caps, no endpoints)
+    plt.hlines(
+        y=0, xmin=lower, xmax=upper, linewidth=6
+    )
+    plt.plot(center, 0, "o", markersize=10)  # center dot
+
+    plt.xlim(0, 10)
+    plt.yticks([])
+
+    plt.title(f"SPACE Score Confidence Interval — {name}", fontsize=10)
+    plt.xlabel("SPACE Score")
 
     plt.tight_layout()
     plt.savefig(output_path, dpi=300)

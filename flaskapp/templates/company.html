@@ -11,7 +11,18 @@
     <p class="company-info-content">
         Certainty: <strong>{{ company['certainty_band'] }}</strong>
         (C = {{ company['certainty_score'] }}) &mdash;
-        I-beam: [{{ company['ibeam_lower'] }}, {{ company['ibeam_upper'] }}]
+        <!-- logic to display graph on company page, hopefully -->
+         {% set img_path = "static/confidence/" + company['english_translation'] + "_confidence.png" %}
+
+        <!-- If PNG exists, display it -->
+        {% if os.path.exists(img_path) %}
+            <img src="{{ url_for('static', filename='confidence/' + company['english_translation'] + '_confidence.png') }}"
+                alt="Confidence interval graph"
+                style="max-width: 500px; margin-top: 10px;">
+        {% else %}
+            <!-- fallback to upper and lower bounds (numeric values) -->
+            I-beam: [{{ company['ibeam_lower'] }}, {{ company['ibeam_upper'] }}]
+        {% endif %}
     </p>
     <hr class="add-company-break">
     <div class="button-container">

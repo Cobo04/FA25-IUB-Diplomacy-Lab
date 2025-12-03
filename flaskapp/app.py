@@ -27,6 +27,7 @@ from flaskapp import database as db
 app = Flask(__name__)
 
 app.secret_key = db.get_secret_key()
+app.jinja_env.globals['os'] = os  # we need this to call 'os' in the Jinja template (I think - see company.html)
 
 # ===== Routes =====
 
@@ -508,14 +509,22 @@ def generate_report(company_name):
         return render_template("auto_report_template.html", company=company, institutions=institution_data, dishes=dish_data, criteria=criteria, weight_stats=weight_stats)
     return redirect(url_for("login"))
 
-@app.route("/confidence-image/<company_name>")
+@app.route("/generate_confidence_image/<company_name>")
 def generate_confidence_image(company_name):
     db.increment_server_api_calls()
     if 'logged_in' in session and session['logged_in']:
-        # hello cameron you can do whatever you want here -cohen
-        pass
-    return redirect(url_for("login"))
+        company = db.get_company_by_name(company_name)
+        if not company:
+            return "Company not found", 404
 
+        # static path (served automatically by Flask)
+        output_path = f"static/confidence/{company_name}_confidence.png"
+        db.plot_ibeam_for_company(company, output_path)
+
+    # redirect back to dashboard
+    return redirect(url_for("company", company_name=company_name))
+
+# FIXME: this is still a dummy route (let's get one working first)
 @app.route("/generate-all-confidence-images")
 def generate_all_confidence_images():
     db.increment_server_api_calls()
