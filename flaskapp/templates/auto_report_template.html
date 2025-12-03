@@ -126,6 +126,123 @@
 \tableofcontents
 \newpage
 
+% ----- SPACE Score -----
+
+\newpage
+
+\section{SPACE Score}
+
+\subsection{Vector String \& Analysis Contextualization}
+
+\begin{center}
+    {{company['space_classification']}} - {{ company['vector_string']}}
+\end{center}
+
+\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s SPACE score is {{ company['space_score'] }}, classifying it as a \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} risk entity. This 
+classification contains {{ weight_stats['Critical'] }} critical bands, {{ weight_stats['High'] }} high bands, {{ weight_stats['Medium'] }} Medium bands, and {{ weight_stats['Low'] }} low bands. There 
+were {{ weight_stats['None'] }} unscored bands due to insufficient data, resulting in a Supplemental Context (S) $S_{1}$ value of \textbf{{'{'}}{{company['supplemental_disputed_data']}}{{'}'}}.
+
+\subsection{Impact (I) – Consequence Severity}
+
+    \textbf{$I_{1}$ Sectoral Criticality}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i1_sectoral_criticality']}}: {{'}'}}{{ criteria["impact_I"]["i1_descriptions"][company['i1_sectoral_criticality']] }}
+\end{adjustwidth}
+
+    \textbf{$I_{2}$ Systemic Dependency}
+    
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i2_systemic_dependancy']}}: {{'}'}}{{ criteria["impact_I"]["i2_descriptions"][company['i2_systemic_dependancy']] }}
+\end{adjustwidth}
+
+    \textbf{$I_{3}$ Replacement Cost and Time}
+    
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i3_replacement_cost_and_time']}}: {{'}'}}{{ criteria["impact_I"]["i3_descriptions"][company['i3_replacement_cost_and_time']] }}
+\end{adjustwidth}
+
+    \textbf{$I_{4}$ Spillover and Escalation Potential}
+    
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['i4_spillover_and_escalation_potential']}}: {{'}'}}{{ criteria["impact_I"]["i4_descriptions"][company['i4_spillover_and_escalation_potential']] }}
+\end{adjustwidth}
+
+
+\subsection{Threat (T) – Intent + Capability}
+
+    \textbf{$T_{1}$ State Alignment and Control}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t1_state_alignment_and_control']}}: {{'}'}}{{ criteria["threat_T"]["t1_descriptions"][company['t1_state_alignment_and_control']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{2}$ Strategic Intent and MCF Posture}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t2_strategic_intent_and_mcf_posture']}}: {{'}'}}{{ criteria["threat_T"]["t2_descriptions"][company['t2_strategic_intent_and_mcf_posture']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{3}$ Operational Capability and Technical Maturity}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t3_operational_capability_and_technical_maturity']}}: {{'}'}}{{ criteria["threat_T"]["t3_descriptions"][company['t3_operational_capability_and_technical_maturity']] }}
+\end{adjustwidth}
+    
+    \textbf{$T_{4}$ Behavioral and Historical Indicators}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['t4_behavioral_and_historical_indicators']}}: {{'}'}}{{ criteria["threat_T"]["t4_descriptions"][company['t4_behavioral_and_historical_indicators']] }}
+\end{adjustwidth}
+
+\subsection{Vulnerability (V) – Degree of U.S./Allied Exposure to Exploitation}
+
+    \textbf{$V_{1}$ Dependency Depth}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v1_dependency_depth']}}: {{'}'}}{{ criteria["vulnerability_V"]["v1_descriptions"][company['v1_dependency_depth']] }}
+\end{adjustwidth}
+    
+    \textbf{$V_{2}$ Proximity and Access}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v2_proximity_and_access']}}: {{'}'}}{{ criteria["vulnerability_V"]["v2_descriptions"][company['v2_proximity_and_access']] }}
+\end{adjustwidth}
+    
+    \textbf{$V_{3}$ Opacity / Assurance Deficit}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v3_opacity_and_assurance_deficit']}}: {{'}'}}{{ criteria["vulnerability_V"]["v3_descriptions"][company['v3_opacity_and_assurance_deficit']] }}
+\end{adjustwidth}
+
+    \textbf{$V_{4}$ Interoperability Hooks}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['v4_interoperability_hooks']}}: {{'}'}}{{ criteria["vulnerability_V"]["v4_descriptions"][company['v4_interoperability_hooks']] }}
+\end{adjustwidth}
+
+\subsection{Environmental Modifiers (E) – Mission and Mitigation Context}
+
+    \textbf{$E_{1}$ Mission Criticality}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{Weight: }{{ company['e1_mission_criticality_content_type'] }}
+\end{adjustwidth}
+    
+    \textbf{$E_{2}$ Existing Countermeasures}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{Weight: }{{ company['e2_existing_countermeasures'] }}
+\end{adjustwidth}
+
+\subsection{Supplemental Context (S) – Confidence, Data Quality, and Analytic Integrity}
+
+    \textbf{$S_{1}$ Data Confidence}
+
+\begin{adjustwidth}{3em}{0pt}
+    \textbf{{'{'}}{{company['supplemental_disputed_data']}}: {{'}'}}{{ criteria["supplemental_context_S"]["s_descriptions"][company['supplemental_disputed_data']] }}
+\end{adjustwidth}
+
 % ----- Analysis and Report -----
 
 \section{Analysis and Report}
@@ -356,124 +473,6 @@ The specific accounts can be accessed via the following URL's: {{ company['socia
 \subsection{{'{'}}Qualitative Analyst Notes{{'}'}}
 
 {{ company['analyst_notes'] }}
-
-% ----- SPACE Score -----
-
-\newpage
-
-\section{SPACE Score}
-
-\subsection{Vector String \& Analysis Contextualization}
-
-\begin{center}
-    {{company['space_classification']}} - {{ company['vector_string']}}
-\end{center}
-
-\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s SPACE score is {{ company['space_score'] }}, classifying it as a \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} risk entity. This 
-classification contains {{ weight_stats['Critical'] }} critical bands, {{ weight_stats['High'] }} high bands, {{ weight_stats['Medium'] }} Medium bands, and {{ weight_stats['Low'] }} low bands. There 
-were {{ weight_stats['None'] }} unscored bands due to insufficient data, resulting in a Supplemental Context (S) $S_{1}$ value of \textbf{{'{'}}{{company['supplemental_disputed_data']}}{{'}'}}.
-
-\subsection{Impact (I) – Consequence Severity}
-
-    \textbf{$I_{1}$ Sectoral Criticality}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['i1_sectoral_criticality']}}: {{'}'}}{{ criteria["impact_I"]["i1_descriptions"][company['i1_sectoral_criticality']] }}
-\end{adjustwidth}
-
-    \textbf{$I_{2}$ Systemic Dependency}
-    
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['i2_systemic_dependancy']}}: {{'}'}}{{ criteria["impact_I"]["i2_descriptions"][company['i2_systemic_dependancy']] }}
-\end{adjustwidth}
-
-    \textbf{$I_{3}$ Replacement Cost and Time}
-    
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['i3_replacement_cost_and_time']}}: {{'}'}}{{ criteria["impact_I"]["i3_descriptions"][company['i3_replacement_cost_and_time']] }}
-\end{adjustwidth}
-
-    \textbf{$I_{4}$ Spillover and Escalation Potential}
-    
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['i4_spillover_and_escalation_potential']}}: {{'}'}}{{ criteria["impact_I"]["i4_descriptions"][company['i4_spillover_and_escalation_potential']] }}
-\end{adjustwidth}
-
-
-\subsection{Threat (T) – Intent + Capability}
-
-    \textbf{$T_{1}$ State Alignment and Control}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['t1_state_alignment_and_control']}}: {{'}'}}{{ criteria["threat_T"]["t1_descriptions"][company['t1_state_alignment_and_control']] }}
-\end{adjustwidth}
-    
-    \textbf{$T_{2}$ Strategic Intent and MCF Posture}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['t2_strategic_intent_and_mcf_posture']}}: {{'}'}}{{ criteria["threat_T"]["t2_descriptions"][company['t2_strategic_intent_and_mcf_posture']] }}
-\end{adjustwidth}
-    
-    \textbf{$T_{3}$ Operational Capability and Technical Maturity}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['t3_operational_capability_and_technical_maturity']}}: {{'}'}}{{ criteria["threat_T"]["t3_descriptions"][company['t3_operational_capability_and_technical_maturity']] }}
-\end{adjustwidth}
-    
-    \textbf{$T_{4}$ Behavioral and Historical Indicators}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['t4_behavioral_and_historical_indicators']}}: {{'}'}}{{ criteria["threat_T"]["t4_descriptions"][company['t4_behavioral_and_historical_indicators']] }}
-\end{adjustwidth}
-
-\subsection{Vulnerability (V) – Degree of U.S./Allied Exposure to Exploitation}
-
-    \textbf{$V_{1}$ Dependency Depth}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['v1_dependency_depth']}}: {{'}'}}{{ criteria["vulnerability_V"]["v1_descriptions"][company['v1_dependency_depth']] }}
-\end{adjustwidth}
-    
-    \textbf{$V_{2}$ Proximity and Access}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['v2_proximity_and_access']}}: {{'}'}}{{ criteria["vulnerability_V"]["v2_descriptions"][company['v2_proximity_and_access']] }}
-\end{adjustwidth}
-    
-    \textbf{$V_{3}$ Opacity / Assurance Deficit}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['v3_opacity_and_assurance_deficit']}}: {{'}'}}{{ criteria["vulnerability_V"]["v3_descriptions"][company['v3_opacity_and_assurance_deficit']] }}
-\end{adjustwidth}
-
-    \textbf{$V_{4}$ Interoperability Hooks}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['v4_interoperability_hooks']}}: {{'}'}}{{ criteria["vulnerability_V"]["v4_descriptions"][company['v4_interoperability_hooks']] }}
-\end{adjustwidth}
-
-\subsection{Environmental Modifiers (E) – Mission and Mitigation Context}
-
-    \textbf{$E_{1}$ Mission Criticality}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{Weight: }{{ company['e1_mission_criticality_content_type'] }}
-\end{adjustwidth}
-    
-    \textbf{$E_{2}$ Existing Countermeasures}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{Weight: }{{ company['e2_existing_countermeasures'] }}
-\end{adjustwidth}
-
-\subsection{Supplemental Context (S) – Confidence, Data Quality, and Analytic Integrity}
-
-    \textbf{$S_{1}$ Data Confidence}
-
-\begin{adjustwidth}{3em}{0pt}
-    \textbf{{'{'}}{{company['supplemental_disputed_data']}}: {{'}'}}{{ criteria["supplemental_context_S"]["s_descriptions"][company['supplemental_disputed_data']] }}
-\end{adjustwidth}
-
 
 \end{document}
 </p>
