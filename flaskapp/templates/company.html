@@ -16,6 +16,7 @@
     <hr class="add-company-break">
     <div class="button-container">
         <a class="generate-report-link" href="{{ url_for('generate_report', company_name=company['english_translation']) }}">Generate Report</a>
+        <a class="generate-report-link" href="{{ url_for('generate_confidence_image', company_name=company['english_translation']) }}">Generate Confidence Image</a>
                 <a class="generate-report-link" href="{{ url_for('edit_company', company_name=company['english_translation']) }}">Edit Company</a>
                 <!-- Delete Company button triggers modal -->
                 <a class="generate-report-link" id="delete-company-btn" href="#">Delete Company</a>

@@ -508,6 +508,22 @@ def generate_report(company_name):
         return render_template("auto_report_template.html", company=company, institutions=institution_data, dishes=dish_data, criteria=criteria, weight_stats=weight_stats)
     return redirect(url_for("login"))
 
+@app.route("/confidence-image/<company_name>")
+def generate_confidence_image(company_name):
+    db.increment_server_api_calls()
+    if 'logged_in' in session and session['logged_in']:
+        # hello cameron you can do whatever you want here -cohen
+        pass
+    return redirect(url_for("login"))
+
+@app.route("/generate-all-confidence-images")
+def generate_all_confidence_images():
+    db.increment_server_api_calls()
+    if 'logged_in' in session and session['logged_in']:
+        # here as well! -cohen
+        pass
+    return redirect(url_for("login"))
+
 # ================================
 # ===== Don't worry about it =====
 # ================================
