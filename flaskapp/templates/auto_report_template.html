@@ -138,9 +138,9 @@
     {{company['space_classification']}} - {{ company['vector_string']}}
 \end{center}
 
-\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s SPACE score is {{ company['space_score'] }}, classifying it as a \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} risk entity. This 
-classification contains {{ weight_stats['Critical'] }} critical bands, {{ weight_stats['High'] }} high bands, {{ weight_stats['Medium'] }} Medium bands, and {{ weight_stats['Low'] }} low bands. There 
-were {{ weight_stats['None'] }} unscored bands due to insufficient data, resulting in a Supplemental Context (S) $S_{1}$ value of \textbf{{'{'}}{{company['supplemental_disputed_data']}}{{'}'}}.
+\begin{CJK}{UTF8}{gbsn}{{ company['chinese_name'] }}\end{CJK} ({{ company['english_translation'] }})'s SPACE score is {{ company['space_score'] }}, classifying it as a \textbf{{'{'}}{{ company['space_classification'] }}{{'}'}} risk entity.
+This estimate is supported by a \textbf{{'{'}}{{ company['certainty_band'] }}{{'}'}} analytic certainty score ($C = {{ company['certainty_score'] }}$),
+yielding an I-beam confidence interval of approximately $[{{ company['ibeam_lower'] }}, {{ company['ibeam_upper'] }}]$ on the 0–10 SPACE scale.
 
 \subsection{Impact (I) – Consequence Severity}
 
