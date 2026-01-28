@@ -27,6 +27,7 @@ from flaskapp import database as db
 app = Flask(__name__)
 
 app.secret_key = db.get_secret_key()
+import os
 app.jinja_env.globals['os'] = os  # we need this to call 'os' in the Jinja template (I think - see company.html)
 
 # ===== Routes =====
